@@ -4,6 +4,8 @@ import { z } from "zod";
 
 import { formatTargetList, loadTargets } from "../config/target-registry.js";
 import { PlatformSchema, type Platform } from "../config/schemas.js";
+import { writeRunJsonReport } from "../reports/json-reporter.js";
+import { runLocalChecks } from "../runners/local-runner.js";
 
 const command = process.argv[2] ?? "help";
 const args = process.argv.slice(3);
@@ -79,8 +81,54 @@ async function runCommand(name: string, rawArgs: string[]): Promise<void> {
     return;
   }
 
+  if (name === "scenario" || name === "run") {
+    const selection = parseRunSelection(rawArgs);
+    const result = await runLocalChecks(cwd(), selection);
+    const runDir = await writeRunJsonReport(cwd(), result);
+    console.log(`[qa] run created: ${result.runId}`);
+    console.log(`[qa] status: ${result.status}`);
+    console.log(`[qa] report: ${runDir}`);
+    return;
+  }
+
   console.log(`[qa] ${name} is not implemented yet.`);
   console.log("[qa] This CLI surface is scaffolded for the OpenSpec implementation.");
+}
+
+function parseRunSelection(rawArgs: string[]): {
+  targetId?: string;
+  group?: string;
+  platform?: Platform;
+  scenarioId?: string;
+} {
+  const selection: {
+    targetId?: string;
+    group?: string;
+    platform?: Platform;
+    scenarioId?: string;
+  } = {};
+  const targetId = parseOption(rawArgs, "--target");
+  const group = parseOption(rawArgs, "--group");
+  const platform = parseOption(rawArgs, "--platform");
+  const scenarioId = parseOption(rawArgs, "--scenario");
+
+  if (targetId !== undefined) {
+    selection.targetId = targetId;
+  }
+
+  if (group !== undefined) {
+    selection.group = group;
+  }
+
+  if (platform !== undefined) {
+    selection.platform = PlatformSchema.parse(platform);
+  }
+
+  if (scenarioId !== undefined) {
+    selection.scenarioId = scenarioId;
+  }
+
+  return selection;
 }
 
 function parseOption(rawArgs: string[], name: string): string | undefined {

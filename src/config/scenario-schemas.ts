@@ -151,6 +151,10 @@ export function validateScenarioHasStepsAfterActions(scenario: ScenarioConfig): 
 
   for (let index = 0; index < scenario.steps.length; index += 1) {
     const step = scenario.steps[index];
+    if (step === undefined) {
+      continue;
+    }
+
     if (!actionTypes.has(step.type)) {
       continue;
     }

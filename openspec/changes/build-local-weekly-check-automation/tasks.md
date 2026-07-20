@@ -43,7 +43,7 @@
 ## 6. Scenario Definition
 
 - [x] Define YAML scenario schema with id, name, tags, risk level, variables, and steps.
-- [ ] Validate scenario paths referenced by targets.
+- [x] Validate scenario paths referenced by targets.
 - [x] Validate supported step commands.
 - [ ] Resolve variables from environment without exposing secret values.
 - [x] Reject malformed YAML before execution.
@@ -55,8 +55,8 @@
 - [ ] Implement `qa:devices`.
 - [ ] Implement `qa:crawl`.
 - [ ] Implement `qa:discover`.
-- [ ] Implement `qa:scenario`.
-- [ ] Implement `qa:run` for target, group, all, and scenario filters.
+- [x] Implement `qa:scenario`.
+- [x] Implement `qa:run` for target, group, all, and scenario filters.
 - [ ] Implement `qa:capture`.
 - [ ] Implement `qa:coordinate`.
 - [ ] Implement `qa:report`.
@@ -141,9 +141,9 @@
 
 ## 17. Reporting
 
-- [ ] Write `run-summary.json`.
-- [ ] Write target summary JSON.
-- [ ] Write scenario result JSON.
+- [x] Write `run-summary.json`.
+- [x] Write target summary JSON.
+- [x] Write scenario result JSON.
 - [ ] Write JUnit XML.
 - [ ] Write HTML report or Markdown report.
 - [ ] Store screenshots, traces, videos, device logs, console logs, and network errors under the run folder.
@@ -166,9 +166,9 @@
 
 ## 20. Documentation And Samples
 
-- [ ] Document architecture.
-- [ ] Document how to add targets.
-- [ ] Document how to write scenarios.
+- [x] Document architecture.
+- [x] Document how to add targets.
+- [x] Document how to write scenarios.
 - [ ] Document web crawling behavior.
 - [x] Document local macOS setup.
 - [ ] Document future n8n and GitLab integration direction.
@@ -176,7 +176,7 @@
 
 ## 21. Verification
 
-- [ ] Type check the implementation.
+- [x] Type check the implementation.
 - [ ] Validate malformed YAML behavior.
 - [ ] Validate missing binary behavior.
 - [ ] Validate IPA plus iOS Simulator blocking.
