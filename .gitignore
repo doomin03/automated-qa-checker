@@ -1,0 +1,9 @@
+node_modules/
+dist/
+outputs/*
+!outputs/runs/
+!outputs/runs/.gitkeep
+.env
+.env.*
+!.env.example
+*.log

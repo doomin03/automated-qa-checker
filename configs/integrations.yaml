@@ -1,0 +1,9 @@
+integrations:
+  gitlab:
+    enabled: false
+  n8n:
+    enabled: false
+  postgres:
+    enabled: false
+  slack:
+    enabled: false

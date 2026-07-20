@@ -1,0 +1,9 @@
+id: web-desktop
+platform: web
+viewport:
+  width: 1440
+  height: 900
+locale: ko-KR
+timezone: Asia/Seoul
+deviceScaleFactor: 1
+colorScheme: light
