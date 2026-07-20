@@ -13,13 +13,16 @@ The project is being scaffolded. External integrations are disabled by default a
 macOS is the primary runtime target:
 
 ```bash
-./scripts/setup-local.sh
+chmod +x setup.sh
+./setup.sh
 ```
 
 Windows helper for Android ADB checks:
 
 ```bat
-scripts\setup-local.bat
+setup.bat
 ```
 
 iOS Simulator setup is macOS-only.
+
+Detailed registration and execution steps are documented in [docs/SETUP_SCRIPTS.md](docs/SETUP_SCRIPTS.md).

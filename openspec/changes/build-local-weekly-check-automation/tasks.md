@@ -170,7 +170,7 @@
 - [ ] Document how to add targets.
 - [ ] Document how to write scenarios.
 - [ ] Document web crawling behavior.
-- [ ] Document local macOS setup.
+- [x] Document local macOS setup.
 - [ ] Document future n8n and GitLab integration direction.
 - [ ] Add sample targets and sample scenarios after implementation begins.
 
