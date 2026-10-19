@@ -1,8 +1,0 @@
-execution:
-  mode: local
-  parallel: false
-
-safety:
-  defaultRiskLevel: READ_ONLY
-  allowSafeWrite: false
-  allowDestructive: false
