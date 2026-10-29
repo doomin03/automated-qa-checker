@@ -1,0 +1,28 @@
+{
+  "owner": "automated-qa-engine",
+  "repository": "https://github.com/doomin03/automated-qa-engine",
+  "contractVersion": "0.1.0-draft.1",
+  "status": "local-preview",
+  "requiredSchemas": [
+    "qa.flow/v1",
+    "qa.testcase/v1",
+    "qa.suite/v1",
+    "qa.selectors/v1",
+    "qa.target/v1",
+    "qa.runRequest/v1",
+    "qa.runEvent/v1",
+    "qa.result/v1",
+    "qa.capabilities/v1",
+    "qa.evidence/v1",
+    "qa.blueprint/v1",
+    "qa.plan/v1"
+  ],
+  "engineVersion": "0.1.0-alpha.1",
+  "release": {
+    "tag": null,
+    "artifact": "qa-contract-0.1.0-alpha.1.json",
+    "sha256": "b9e125e56685243c82ab7e90a2f574a2538e0ea014f23f6d4035ff75fd0953f6"
+  },
+  "runtimeIntegrationEnabled": false,
+  "usage": "Blueprint schema validation and event replay only; CLI execution remains external."
+}

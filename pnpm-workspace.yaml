@@ -1,0 +1,7 @@
+packages:
+  - apps/server
+  - apps/web
+  - packages/contract
+  - packages/api-client
+  - packages/typescript-config
+

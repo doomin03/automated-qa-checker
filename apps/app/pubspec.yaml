@@ -1,0 +1,17 @@
+﻿name: automated_qa_desktop
+description: Automated QA Desktop with feature-first MVVM and Provider.
+publish_to: none
+version: 0.1.0+1
+environment:
+  sdk: '>=3.13.4 <4.0.0'
+  flutter: '>=3.47.5'
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: 6.1.5+1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+flutter:
+  uses-material-design: true
