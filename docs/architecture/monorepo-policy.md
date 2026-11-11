@@ -4,7 +4,7 @@
 
 - 원본 고정 원칙: `automated-qa-engine`은 독립 저장소이며 `automated-qa-checker`는 Flutter 사용자 Desktop·관리자 앱·공통 백엔드의 모노레포다. 기존 구조를 보존하고 참조에서 실제 확인한 관례를 우선한다.
 - 이전 작업의 채택: `apps/app`, `apps/web`, `apps/server` 경로와 React/Nest 목표, pnpm/Turbo는 [저장소 조사](repository-audit.md)에 기록된 선택이다. 원본 MD가 특정 폴더명·패키지 관리자·관리자/서버 프레임워크를 강제한 것은 아니다.
-- 구현 상태: 웹 관찰과 엔진 공개 계약 소비, Flutter MVVM/Provider 초안 편집 shell이 실행 가능하다. Flutter의 엔진 연결·블록 편집 및 Nest/OpenAPI/생성 SDK는 후속이다. 앱별 빌드·배포·비밀 설정은 분리한다.
+- 구현 상태: 웹 XML·공유·진행, Flutter MVVM/Provider 블록/XML 편집·CLI 실행, Nest 인증·Registry·업무·Suite·Agent·예약 및 OpenAPI/생성 SDK를 구현했다. 앱별 빌드·배포·비밀 설정은 분리하며 최신 실제 인수는 검증 기록을 따른다.
 
 원본 위치는 `C:/Users/Domin/Downloads/automated_qa_codex_instructions/automated_qa_codex_instructions`이며 `CODEX_MASTER_PROMPT.md`, `CHECKER_CODEX_PROMPT.md`, `CONTRACTS_AND_EXAMPLES.md`, `PHASES_AND_ACCEPTANCE.md`, `WORKTREE_OPENSPEC_GUIDE.md`를 기준으로 대조했다. 원본의 API 경로·예제 payload는 제안이므로 실제 소비 계약으로 자동 확정하지 않는다. 저장소 담당과 다음 인계는 [관리 인계](manager-handoff.md)에 기록한다.
 
@@ -18,18 +18,18 @@ QA/
 └─ automated-qa-checker/        제품 모노레포
    ├─ apps/
    │  ├─ web/                  React 사용자 공용 QA·XML 전달·진행 화면
-   │  ├─ app/                  Flutter MVVM/Provider 초안 편집 shell
-   │  └─ server/               공통 Nest API (설계)
+   │  ├─ app/                  Flutter MVVM/Provider 테스트 개발·실행
+   │  └─ server/               공통 Nest API·영속 업무·예약
    ├─ packages/
-   │  ├─ contract/             엔진 공개 계약 소비 (구현), 서버 OpenAPI (예정)
-   │  ├─ api-client/           생성 TypeScript HTTP SDK (예정)
-   │  ├─ api_client_dart/      생성 Dart HTTP SDK (예정)
+   │  ├─ contract/             엔진 공개 계약 소비, 서버 OpenAPI
+   │  ├─ api-client/           생성 TypeScript HTTP SDK
+   │  ├─ api_client_dart/      생성 Dart HTTP SDK
    │  └─ typescript-config/    공통 compiler 설정 (예정)
    ├─ scripts/                 저장소·계약·의존 경계 검사
    └─ openspec/                변경별 설계·요구사항·인수 작업
 ```
 
-현재 Node workspace는 root, web, contract다. Flutter는 기능별 MVVM/Provider shell과 별도 pubspec.lock을 사용하고 서버는 경계 README만 있다. shell 성공은 세 앱 통합 완료가 아니다. [Flutter 작업](../../openspec/changes/qa-flow-editor/tasks.md)과 [서버 작업](../../openspec/changes/qa-platform-services/tasks.md)에서 구현·인수를 추적한다.
+현재 Node workspace는 root, web, server, contract, api-client다. Flutter와 Dart SDK는 별도 pubspec.lock을 사용한다. [Flutter 작업](../../openspec/changes/qa-flow-editor/tasks.md)과 [서버 작업](../../openspec/changes/qa-platform-services/tasks.md)에서 구현·인수를 추적한다.
 
 ## 참조 프로젝트와의 관계
 
@@ -42,8 +42,8 @@ QA는 앱 경계와 검증 방식은 참고하되 기존 pnpm/Turbo 선택과 �
 
 | 소비자 | 허용 경계 | 금지 경계 |
 | --- | --- | --- |
-| web | contract의 공개 export, 향후 api-client로 HTTP | server/app 내부 source, Node builtin |
-| Flutter app | 향후 api_client_dart로 HTTP, 고정 engine CLI bridge | 다른 앱 source, 임의 shell 명령 |
+| web | contract의 공개 export, api-client로 HTTP | server/app 내부 source, Node builtin |
+| Flutter app | api_client_dart로 HTTP, 고정 engine CLI bridge | 다른 앱 source, 임의 shell 명령 |
 | server | 자체 DTO/controller/service, 서버용 공통 package | 자기 API의 생성 client, UI 내부 source |
 | 공통 package | 다른 공통 package의 명시된 공개 export | apps 의존, 순환 의존 |
 | engine | 독립 release와 공개 schema/event/result | Checker 내부 source에 대한 의존 |
@@ -52,30 +52,30 @@ QA는 앱 경계와 검증 방식은 참고하되 기존 pnpm/Turbo 선택과 �
 웹 FSD는 app → pages → widgets → features → entities → shared 방향을 따른다. 하위 레이어가 상위 레이어를 import하지 않는다.
 
 `check:boundaries`는 package manifest의 앱 의존·경로 의존·누락된 workspace·순환 의존, `src` 아래 JS/TS의 import/export/require/import type 및 FSD 역방향을 검사한다. 동적 계산 import와 미등록 alias는 거부한다. 현재 공개 export는 정확한 subpath key로 선언한다. wildcard export나 alias를 도입하면 검사기도 함께 확장한다.
-이 검사는 Dart analyzer, 전체 FSD slice 규칙, 실행 중 파일 접근, 앱별 인수 검사를 대신하지 않는다. Dart 경계 검증은 실제 앱·SDK 생성 시 추가한다.
+이 검사는 Dart analyzer, 실행 중 파일 접근, 앱별 인수 검사를 대신하지 않는다. 웹의 public index와 같은 layer cross-slice도 검사하며 Dart 앱·SDK는 별도 analyzer와 실제 HTTP 테스트를 수행한다.
 
 ## 패키지 관리자와 명령
 
 - JavaScript: Node 24.18.0 / pnpm 10.34.8 / Turbo 2.11.10, root `pnpm-lock.yaml` 하나. OpenSpec 1.14.2, 경계 AST 파서 TypeScript 6.0.3 고정.
 - pnpm에는 `apps/server`, `apps/web`, `packages/contract`, `packages/api-client`, `packages/typescript-config`만 등록한다. package.json이 없는 경로는 아직 실행 package가 아니다.
 - Dart: `apps/app`과 `packages/api_client_dart`는 같은 Git 저장소에 두되 pnpm에는 등록하지 않는다. 앱 생성 시 Flutter SDK 정확한 버전과 앱 pubspec.lock을 고정한다. Flutter 명령은 앱 디렉터리에서 실행하며 JS 개발에 Flutter를 요구하지 않는다.
-- `dev`: 구현된 JS package의 dev task 실행. 현재 웹만 시작한다. 개발 프로세스는 persistent이며 cache하지 않는다.
-- `build`: 구현된 JS package의 build task 실행. 선행 package build 후 소비자를 build하고 dist를 산출물로 관리한다. 현재 웹 build만 존재한다.
+- `dev`: JS package의 dev task 실행. 웹과 서버를 시작한다. 개발 프로세스는 persistent이며 cache하지 않는다.
+- `build`: JS package의 build task 실행. 선행 SDK build 후 웹·서버를 build하고 dist를 산출물로 관리한다.
 - `dev:web`, `build:web`: 웹만 실행·빌드한다.
-- `verify`: foundation → 의존 경계/회귀 검사 → package 검사 → OpenSpec strict → JS build → 실제 Chromium UI 검사. Flutter/서버 인수를 포함했다고 표시하지 않는다.
+- `verify`: foundation → 구문·의존 경계 → server/SDK 타입검사 → package 검사 → OpenSpec strict → JS build → 실제 Chromium UI·route 검사. `verify:all`은 계약 생성·호환성·양 SDK·Flutter·공유/조직/업무/Suite UI·Windows native 통합·release 인수를 추가한다.
 
 루트 명령은 `npx --yes pnpm@10.34.8 run <명령>`으로 실행한다. [Turbo task 설정](https://turborepo.dev/docs/crafting-your-repository/configuring-tasks)과 [pnpm workspace 규칙](https://pnpm.io/workspaces)을 따른다.
 
 ## 계약과 AI 정책
 
-서버 구현 시 DTO/controller → OpenAPI → TypeScript/Dart SDK 순서로 생성한다. 생성 코드는 수동 수정하지 않고 서버가 생성 SDK를 역참조하지 않는다. 아직 생성기나 서버 OpenAPI를 구현한 상태는 아니다.
+서버 DTO/controller → OpenAPI → TypeScript/Dart SDK 순서로 생성한다. 생성 코드는 수동 수정하지 않고 서버가 생성 SDK를 역참조하지 않는다. 고정 generator/JAR checksum과 read-only drift, 수용된 local baseline 호환성 gate를 사용한다.
 엔진 실행 schema는 엔진이 소유한다. Checker는 version/hash가 고정된 공개 artifact만 가져온다. HTTP 계약과 엔진 실행 계약을 혼합하지 않는다.
 AI CLI는 선언형 QA를 생성하는 입력 공급자다. GUI는 검사·변경 확인·실행 요청·진행 표시를 담당한다. 가져오기만으로 실행하지 않고, 기록이 없는 노드를 성공으로 표시하지 않는다. 구체적인 현재 동작과 후속 작업은 [AI·GUI 정책](../ai-blueprint-policy.md)을 따른다.
 
 ## 설정과 검증 책임
 
 앱별 환경 설정을 사용한다. 웹/Flutter에 넣는 API 주소 등은 공개 설정이며 서버 비밀값을 클라이언트에 전달하지 않는다. secret은 환경이나 secretRef로 주입하고 저장소·artifact·로그에 원문을 남기지 않는다.
-새 앱을 활성화할 때 실제 실행 진입점, 고정 toolchain/lockfile, 실패를 전달하는 명령, 앱별 테스트·빌드 CI를 함께 추가한다. 구현되지 않은 명령에 성공 placeholder를 넣지 않는다. 현재 GitHub Actions는 JS 검증만 설정되어 있으며 원격 실행 여부는 별도로 기록한다.
+새 앱을 활성화할 때 실제 실행 진입점, 고정 toolchain/lockfile, 실패를 전달하는 명령, 앱별 테스트·빌드 CI를 함께 추가한다. 구현되지 않은 명령에 성공 placeholder를 넣지 않는다. GitHub Actions에는 portable JS와 도구가 준비된 Windows self-hosted 전체 검증 workflow가 있으며 원격 실행 여부는 별도로 기록한다.
 worktree는 병렬 작업 방식이지 제품 구조가 아니다. 사용자에게 명시적 병렬 작업 요청이 있을 때만 별도 worktree를 검토한다.
 
 ## 기존 정책 위치
@@ -90,3 +90,5 @@ worktree는 병렬 작업 방식이지 제품 구조가 아니다. 사용자에�
 | [검증 기록](../validation.md) | 실제 실행 증거와 미구현 범위 |
 
 이 문서들은 프로젝트 내부 설계·개발 정책이다. 서버나 Flutter까지 배포 가능한 제품으로 검증되었다는 인증을 의미하지 않는다.
+
+2026-10-31 추가 인수: 공개 slice index와 같은 layer cross-slice 거부, 두 History route 및 production404, StrictMode·문서 교체·관찰 cleanup 실제 브라우저 검사. Router 패키지는 관리 수용 D5에 따라 사용하지 않는다. `lint`는 JS/TS 구문과 import 경계, `check-types`는 서버·생성 TS SDK compiler, `test`는 workspace 회귀를 실행한다. 웹 JS의 정적 의미 타입검사 전체를 수행한다고 주장하지 않는다.

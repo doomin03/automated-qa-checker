@@ -9,6 +9,8 @@ class ScenarioEditorViewModel extends ChangeNotifier {
   final ScenarioRepository _repository;
   ScenarioDraft _draft = const ScenarioDraft();
   String _savedContent = '';
+  int _revision = 0;
+  int get revision => _revision;
   String? _error;
   String? _notice;
   bool _busy = false;
@@ -19,9 +21,27 @@ class ScenarioEditorViewModel extends ChangeNotifier {
   String? get error => _error;
   String? get notice => _notice;
 
+  /// A workspace identity change invalidates pending commands even for equal text.
+  void loadWorkspaceDocument(String source) {
+    if (_disposed || _busy) return;
+    _draft = ScenarioDraft(content: source);
+    _savedContent = source;
+    _revision++;
+    _error = null;
+    _notice = null;
+    notifyListeners();
+  }
+
+  void markWorkspaceSaved(String source) {
+    if (_disposed) return;
+    _savedContent = source;
+    notifyListeners();
+  }
+
   void edit(String content) {
     if (_disposed || _busy || content == _draft.content) return;
     _draft = _draft.withContent(content);
+    _revision++;
     _error = null;
     _notice = null;
     notifyListeners();
@@ -29,7 +49,7 @@ class ScenarioEditorViewModel extends ChangeNotifier {
 
   Future<bool> open(String path) => _perform(
     () => _repository.open(path),
-    '파일을 열었습니다. 엔진 검증과 실행은 아직 연결되지 않았습니다.',
+    '파일을 열었습니다. 검증·계획을 확인한 후 명시적으로 실행하세요.',
   );
   Future<bool> save(String path) => _perform(
     () => _repository.save(path, _draft),
@@ -49,6 +69,7 @@ class ScenarioEditorViewModel extends ChangeNotifier {
       final result = await operation();
       if (_disposed) return false;
       _draft = result;
+      _revision++;
       _savedContent = result.content;
       _notice = success;
       return true;

@@ -2,7 +2,7 @@
 
 ## Why
 
-현재 Checker는 초안 파일 편집과 웹 이벤트 관찰만 제공하여 디자인 기준과 배포 웹의 차이, 반복되는 기본 UX 동작을 사용자가 검수할 수 없다. 로컬 PNG·명시 수치를 기준으로 기본 Blueprint를 바인딩하고 실제 엔진 증거를 확인하는 기능 중심 데모가 필요하다.
+기존 로컬 XML/Flow 실행과 웹 이벤트 관찰에 이어 디자인 기준과 배포 웹의 차이, 반복되는 기본 UX 동작을 사용자가 검수할 수 없다. 로컬 PNG·명시 수치를 기준으로 기본 Blueprint를 바인딩하고 실제 엔진 증거를 확인하는 기능 중심 데모가 필요하다.
 
 ## What Changes
 
@@ -26,9 +26,11 @@
 
 - integrationId: qa-design-ux-demo
 - counterpartRepoChange: automated-qa-engine/openspec/changes/qa-design-ux-demo
-- contractVersion: 신규 디자인/UX 계약은 draft이며 차기 공개 version/hash는 pending. 현재 Checker pin은 engine 0.1.0-alpha.1 / contract 0.1.0-draft.1이다. Engine alpha.2 배포 증거와 이 신규 기능의 구현·호환성을 동일시하지 않는다.
+- contractVersion: 관리 승인된 Engine0.1.0-alpha.4 / contract0.2.0-draft.1 공개 bundle과 독립 package를 소비한다. 정확 hash는 packages/contract의 pin을 따른다.
 - dependsOn: Engine counterpart의 계약·구현·고정 release, qa-user-web-desktop-handoff의 XML/CLI, qa-flow-editor의 capability/Run 표시, refactor-server-web-app-monorepo의 Flutter shell.
 - affectedAreas: apps/app의 MVVM feature와 공개 계약 소비 경계. Engine 소스 복사·비교 알고리즘 중복 구현·새 서버는 포함하지 않는다.
 - acceptanceCriteria: 실제 웹 PASS/의도적 FAIL, 잘못된 매핑·비교 불가·미지원·취소·불완전 결과를 검증하고 Flutter 입력→실행→결과 경로 및 Windows build를 별도 입증한다. CLI 성공만으로 Flutter 인수를 완료하지 않는다.
 
-이번 할당은 명세 작성·strict 검증까지다. 제품 구현은 관리 검토 후 apply로 진행하며 모든 새 구현 tasks는 미완료로 남긴다.
+사용자 구현 승인과 관리 검토를 마쳐 apply를 진행한다. 검증된 실제 인수만 tasks에 기록한다.
+
+2026-10-31 구체 소비/폼/파일 한도/검사 표시/모바일 정적진단/secretRef 환경 규칙은 docs/architecture/design-ux.md에 기록한다. alpha.4 늦은 screenshot artifact race는 알려진 결함이며 최종 통합은 수정된 차기 고정 배포판에서 다시 검증한다.

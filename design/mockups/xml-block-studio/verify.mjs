@@ -1,0 +1,23 @@
+import {chromium} from 'playwright';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import assert from 'node:assert/strict';
+const dir=fileURLToPath(new URL('./screenshots/editor-regression/',import.meta.url));await mkdir(dir,{recursive:true});
+const browser=await chromium.launch({headless:true});const page=await browser.newPage({viewport:{width:1440,height:900}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const checks=[];const check=(name,ok)=>{assert(ok,name);checks.push(name);};
+async function openDocument(){await page.locator('[data-home="project"][data-id="web"]').click();await page.locator('[data-home="qa"][data-id="login"]').click();await page.locator('.home-detail [data-home="open"]').click();}
+try{
+ await page.goto(new URL('./index.html',import.meta.url).href);await openDocument();await page.locator('.node').first().waitFor();
+ check('three file blocks',await page.locator('.node').count()===3);check('two curves',await page.locator('#wires path').count()===2);
+ await page.screenshot({path:`${dir}/01-studio-1440.png`});
+ const title=page.locator('[data-node="2"] .node-title'),before=await title.boundingBox();await title.hover();await page.mouse.down();await page.mouse.move(before.x+before.width/2+60,before.y+before.height/2+40,{steps:5});await page.mouse.up();const after=await title.boundingBox();check('node drag',after.x>before.x+40);
+ await page.getByRole('button',{name:'실행 취소',exact:true}).click();const restored=await title.boundingBox();check('layout undo',Math.abs(restored.x-before.x)<1);
+ await page.getByRole('button',{name:'연결 점검',exact:true}).click();check('connection check is not Engine validation',(await page.locator('#log').textContent()).includes('Engine 검증·실행은 수행하지'));
+ await page.getByRole('button',{name:'블록 내용 확인',exact:true}).click();check('read only XML',await page.locator('dialog').innerText().then(x=>x.includes('읽기 전용')&&x.includes('<blueprint')));await page.screenshot({path:`${dir}/02-source.png`});await page.locator('dialog [data-action="close"]').click();
+ await page.locator('.tabs [data-action="preview"]').click();check('generated XML mode read only',await page.locator('textarea').getAttribute('readonly')!==null);await page.locator('.tabs [data-action="blocks"]').click();
+ await page.locator('.tabs [data-action="direct"]').click();await page.getByRole('button',{name:'직접 문서 편집',exact:true}).click();check('direct mode editable',await page.locator('textarea').getAttribute('readonly')===null);await page.locator('.tabs [data-action="blocks"]').click();
+ await page.setViewportSize({width:1024,height:768});await page.screenshot({path:`${dir}/03-studio-1024.png`});await page.locator('.canvas-tools [data-action="library"]').click();check('compact library all assets',await page.locator('dialog [data-add]').count()===3);await page.locator('dialog [data-add]').last().click();check('compact add file instance',await page.locator('.node').count()===4);await page.getByRole('button',{name:'연결 점검',exact:true}).click();check('unconnected block reported',(await page.locator('#log').textContent()).includes('연결되지 않은'));
+ await page.locator('[data-action="planning"]').click();await page.screenshot({path:`${dir}/04-planning-1024.png`});check('planning roles and boundaries',await page.locator('dialog').innerText().then(x=>x.includes('references')&&x.includes('제품이 아닙니다')));
+ await page.locator('dialog [data-action="close"]').click();await page.locator('.tabs [data-action="direct"]').click();await page.getByRole('button',{name:'직접 문서 편집',exact:true}).click();await page.locator('textarea').fill('<blueprint id="edited"/>');await page.locator('.tabs [data-action="blocks"]').click();await page.locator('.tabs [data-action="direct"]').click();await page.getByRole('button',{name:'직접 문서 편집',exact:true}).click();check('direct edit survives tab switch',await page.locator('textarea').inputValue()==='<blueprint id="edited"/>');await page.locator('[data-action="save"]').click();await page.reload();await openDocument();check('saved blocks reopen',await page.locator('.node').count()===4);await page.locator('.tabs [data-action="direct"]').click();await page.getByRole('button',{name:'직접 문서 편집',exact:true}).click();check('saved direct XML reopens',await page.locator('textarea').inputValue()==='<blueprint id="edited"/>');
+ check('no JavaScript errors',errors.length===0);await writeFile(new URL('./verification-editor.json',import.meta.url),JSON.stringify({status:'passed',checks,viewports:['1440x900','1024x768'],scope:'Design review only; no Engine execution'},null,2));console.log(`PASS ${checks.length} checks`);
+}finally{await browser.close();}

@@ -1,5 +1,8 @@
 # 문서 안내
 
+- [전체 제품 관계도·기획·화면설계·목업](../design/mockups/product-planning/index.html)
+- [통합 기획 목업 사용·검증](../design/mockups/product-planning/README.md)
+
 - [제품 기획과 로드맵](planning/roadmap.md)
 - [실제 저장소 조사](architecture/repository-audit.md)
 - [시스템 설계와 저장소 경계](architecture/system-design.md)

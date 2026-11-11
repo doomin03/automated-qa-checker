@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import { readFile,mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
+import { spawnSync } from 'node:child_process';
 test('Blueprint browser import, real failure replay, validation and live-file updates',async t=>{
  const port=4319,origin='http://127.0.0.1:'+port;
  const server=spawn(process.execPath,[resolve('apps/web/node_modules/vite/bin/vite.js'),'preview','--host','127.0.0.1','--port',String(port),'--strictPort'],{cwd:resolve('apps/web'),windowsHide:true,stdio:'pipe'});
@@ -17,6 +18,17 @@ test('Blueprint browser import, real failure replay, validation and live-file up
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(origin);
  await page.getByRole('heading',{name:'Automated QA · Blueprint'}).waitFor();
+ const api=spawn(process.execPath,[resolve('apps/server/dist/src/main.js')],{env:{...process.env,PORT:'0',HOST:'127.0.0.1',CORS_ORIGINS:origin},windowsHide:true,stdio:'pipe'});
+ t.after(()=>api.kill());let apiOutput='';api.stdout.on('data',bytes=>apiOutput+=bytes);api.stderr.resume();
+ let apiOrigin;
+ for(let i=0;i<100;i++){const line=apiOutput.split('\n').find(line=>line.startsWith('{"event":"listening"'));if(line){apiOrigin=JSON.parse(line).url;break;}await new Promise(r=>setTimeout(r,100));}
+ assert(apiOrigin,'Nest API did not start');
+ await page.getByRole('textbox',{name:'API origin',exact:true}).fill(apiOrigin);
+ await page.getByRole('button',{name:'서버 연결 확인'}).click();
+ await page.waitForFunction(()=>document.querySelector('[data-testid="server-status"]')?.textContent.includes('automated-qa-checker · ok · web'));
+ const stopped=new Promise(r=>api.once('exit',r));api.kill();await stopped;
+ await page.getByRole('button',{name:'서버 연결 확인'}).click();
+ await page.waitForFunction(()=>document.querySelector('[data-testid="server-status"]')?.textContent.includes('연결 오류'));
  assert.equal(await page.getByTestId('run-outcome').innerText(),'not_started');
  await page.getByRole('button',{name:'실제 실패 기록 예제'}).click();
  await page.waitForFunction(()=>document.querySelector('[data-testid="run-outcome"]')?.textContent==='failed');
@@ -29,11 +41,26 @@ test('Blueprint browser import, real failure replay, validation and live-file up
  const blueprint=await readFile('apps/web/public/demo/blueprint.json','utf8');
  const eventText=await readFile('apps/web/public/demo/events.jsonl','utf8');
  await page.getByTestId('blueprint-file').setInputFiles({name:'example.json',mimeType:'application/json',buffer:Buffer.from(blueprint)});
+ await page.waitForFunction(()=>document.querySelector('[data-testid="run-outcome"]')?.textContent==='not_started');
  assert.equal(await page.getByTestId('run-outcome').innerText(),'not_started');
  const invalid=JSON.parse(blueprint);invalid.flow.nodes[1].action='shell';
  await page.getByRole('textbox',{name:'Blueprint JSON 편집'}).fill(JSON.stringify(invalid));
  await page.getByRole('button',{name:'검사 후 화면에 적용'}).click();
  assert.match(await page.getByRole('alert').innerText(),/규격 오류/);
+ await page.getByRole('textbox',{name:'Blueprint JSON 편집'}).fill(blueprint);
+ await page.getByRole('button',{name:'검사 후 화면에 적용'}).click();
+ const edited=JSON.parse(blueprint);edited.name='사용자 수정 & <XML> ]]> ';
+ await page.getByRole('textbox',{name:'Blueprint JSON 편집'}).fill(JSON.stringify(edited));
+ const downloaded=page.waitForEvent('download');
+ await page.getByRole('button',{name:'Flutter용 XML 내보내기'}).click();
+ const download=await downloaded;
+ await mkdir('artifacts',{recursive:true});
+ const path=resolve('artifacts/browser-export.xml');await download.saveAs(path);
+ const imported=spawnSync(process.execPath,[resolve('.local/engine/node_modules/automated-qa-engine/packages/cli/aqa.mjs'),'import',path],{encoding:'utf8',windowsHide:true});
+ // Preserve the published file extension when handing the download to the CLI.
+ assert.equal(imported.status,0,imported.stdout+imported.stderr);
+ assert.deepEqual(JSON.parse(imported.stdout),edited);
+ assert.equal(await page.getByTestId('run-outcome').innerText(),'not_started');
  await page.getByRole('textbox',{name:'Blueprint JSON 편집'}).fill(blueprint);
  await page.getByRole('button',{name:'검사 후 화면에 적용'}).click();
  // Exercise file-follow UI with a deterministic browser FileSystemHandle substitute.

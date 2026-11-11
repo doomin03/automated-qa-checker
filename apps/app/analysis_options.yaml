@@ -13,6 +13,8 @@ analyzer:
   exclude:
     - build/**
     - windows/**
+    # Upstream examples/tests keep their own dependency environment; preserved verbatim.
+    - vendor/**
 
 linter:
   # The lint rules applied to this project can be customized in the

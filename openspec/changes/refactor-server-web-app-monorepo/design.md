@@ -66,6 +66,8 @@ Flutter task는 초기 cache하지 않는다. persistent dev는 cache:false다. 
 
 ### D5. 사용자 웹 FSD와 관찰 lifecycle
 
+2026-10-31 관리 수용: React 19.3.1의 두 기능 진입점(`/qa/blueprints`, `/qa/shared`)은 브라우저 History API로 구성한다. 별도 Router 패키지는 사용하지 않으며 버전 고정 항목에서 의도적으로 제외한다. popstate와 StrictMode effect cleanup, 문서 교체 중 오래된 응답 무효화를 실제 브라우저로 검증한다. production 정적 서버는 위 경로와 `/`만 index로 돌려주고, `/api` 및 없는 asset/미등록 경로는 404를 유지한다. 원본 명세의 route 계약을 유지하는 QA 구현 선택이며 원본 자료를 수정하지 않는다.
+
 apps/web은 사용자 공용 시나리오·XML 전달·진행 앱이다. 관리자 게시·승인·권한 기능은 이후 권한별 화면으로 제공하고 별도 관리자 backend를 만들지 않는다. React SPA의 app→pages→widgets→features→entities→shared와 공개 slice API, cross-slice 검사 목표를 유지한다. 현재 단일 화면에서 router/deep-link가 검증된 것처럼 쓰지 않는다.
 
 shared/api가 생성 SDK를 구성하고 entities가 화면 모델로 변환한다. XML serializer는 공개 엔진 문서 규격의 소비자이며 엔진 parser/실행 core를 복사하지 않는다. 파일 다운로드/열기가 첫 전달이고 direct/live server sync는 별도다. 입력 XML→정규 Blueprint→schema/graph 검증→실행계획→adapter 제어는 엔진 소유다. 현재 Playwright 실제, Appium/TV 후속이다.
@@ -100,6 +102,8 @@ Flutter3.47.5/Dart3.13.4를 기준으로 provider6.1.5+1을 정확 고정한다.
 API_BASE_URL은 --dart-define origin이며 SDK가 /api/v1을 붙인다. Windows 개발 예시는 http://127.0.0.1:3000, release는 HTTPS다. missing/malformed origin은 HTTP 기능 설정 오류로 표시한다. 로컬 XML/Flow 편집과 엔진 실행에는 서버 연결을 요구하지 않는다. health loading/success/API error/timeout·unreachable/retry를 구분한다.
 
 원본 Android emulator/debug 인수는 사용자 요구에 맞춰 Windows Desktop 실제 앱/build로 대체한다. Android/iOS·실기기 Appium은 후속이며 원본의 테스트를 수행한 것으로 표기하지 않는다. Desktop는 블록/Flow 및 XML 테스트 개발·저장·검증·명시 실행을 소유한다. 전체 builder는 qa-flow-editor, XML 첫 단위는 qa-user-web-desktop-handoff에서 구현하며 하나의 기능을 두 번 구현하지 않는다.
+
+Windows health 인수는 Flutter SDK `integration_test`를 사용해 실제 Windows 앱의 AppProviders/QaApp/ServerPanel과 생성 Dio SDK를 구동한다. 테스트가 동적 포트로 시작한 Nest subprocess만 종료·동일 포트 재시작하여 연결 오류와 사용자 retry를 확인한다. native Windows 테스트이며 Android/iOS 실행 또는 조직 실계정 인수로 확대하지 않는다.
 
 ### D7. 테스트와 호환성
 

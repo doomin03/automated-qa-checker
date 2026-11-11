@@ -9,9 +9,24 @@ dependencies:
   flutter:
     sdk: flutter
   provider: 6.1.5+1
+  crypto: 3.0.8
+  file_selector: 1.1.0
+  xterm2: 5.4.0
+  flutter_pty2:
+    path: vendor/flutter_pty2
+  api_client_dart:
+    path: ../../packages/api_client_dart
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   flutter_lints: 6.0.0
 flutter:
   uses-material-design: true
+  assets:
+    - assets/engine-runtime.json
+    - assets/engine-contract.json
+    - assets/desktop-installation.json
+    - assets/desktop-engine-runtime.json
+    - assets/desktop-engine-contract.json

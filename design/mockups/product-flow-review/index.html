@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; img-src 'self' file: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>QA Studio — 제품 흐름과 화면 기획</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="reviewbar">
+    <a class="brand" href="#" data-action="home"><span class="brand-symbol">Q</span><strong>QA <span>Studio</span></strong></a>
+    <nav aria-label="목업 화면"><button data-view="web">사용자 웹</button><button data-view="desktop">Desktop</button><button data-view="plan">기획 보기</button></nav>
+    <div class="review-label"><span class="status-dot"></span>목업 · 모든 데이터와 동작은 예시</div>
+    <button class="reset-button" data-action="reset" title="모든 예시 상태 초기화">초기화</button>
+  </header>
+  <main id="app"></main>
+  <dialog id="modal"></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script src="fixture.js"></script><script src="model.js"></script><script src="app.js"></script>
+</body>
+</html>

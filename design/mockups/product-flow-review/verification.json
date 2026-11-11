@@ -1,0 +1,109 @@
+{
+  "status": "passed",
+  "scope": "Local prototype acceptance only; no product/AI/API/Engine execution",
+  "date": "2026-11-10T08:41:14.776Z",
+  "browser": "156.0.8078.4",
+  "viewports": [
+    "1440x900",
+    "1024x768"
+  ],
+  "checks": [
+    "Catalog search/filter and detail",
+    "Web request reception is not execution",
+    "Version handoff opens unrun Desktop",
+    "Validation preserves selected-node changes and does not execute",
+    "AI modify preview/apply/undo without execution",
+    "AI before preview/apply/undo without execution",
+    "AI after preview/apply/undo without execution",
+    "AI whole preview/apply/undo without execution",
+    "Cancellation and stale selection do not change XML",
+    "Malformed XML is preserved with no new execution result",
+    "Failure preserves subsequent unrun steps and snapshot",
+    "Cancellation request and terminal cancelled are separate",
+    "Environment error keeps all steps unrun with no success evidence",
+    "PASS finishes snapshot and web review shows workflow separately",
+    "1024 dock panels remain usable and nonoverlapping",
+    "1024 web page has no horizontal overflow",
+    "Version rehandoff keeps draft or explicitly replaces with invalidation",
+    "Existing mockups are byte-preserved",
+    "Node IDs follow public allowed ID syntax",
+    "Public installed Engine alpha.6 CLI: five XML fixtures validate/plan, zero run calls",
+    "No browser page errors or external HTTP requests"
+  ],
+  "screenshots": [
+    "01-web-library.png",
+    "02-web-scenario.png",
+    "03-web-request.png",
+    "04-desktop-projects.png",
+    "05-desktop-qa-list.png",
+    "06-desktop-workspace.png",
+    "07-cli-settings.png",
+    "08-ai-review.png",
+    "09-validation-error.png",
+    "10-xml-editor.png",
+    "11-running.png",
+    "12-failed.png",
+    "13-evidence.png",
+    "14-environment-error.png",
+    "15-web-result.png",
+    "16-planning.png",
+    "17-compact-workspace.png",
+    "18-compact-explorer.png",
+    "19-compact-web.png",
+    "20-receive-again.png"
+  ],
+  "cli": [
+    {
+      "fixture": "initial",
+      "command": "validate",
+      "exitCode": 0
+    },
+    {
+      "fixture": "initial",
+      "command": "plan",
+      "exitCode": 0
+    },
+    {
+      "fixture": "modify",
+      "command": "validate",
+      "exitCode": 0
+    },
+    {
+      "fixture": "modify",
+      "command": "plan",
+      "exitCode": 0
+    },
+    {
+      "fixture": "before",
+      "command": "validate",
+      "exitCode": 0
+    },
+    {
+      "fixture": "before",
+      "command": "plan",
+      "exitCode": 0
+    },
+    {
+      "fixture": "after",
+      "command": "validate",
+      "exitCode": 0
+    },
+    {
+      "fixture": "after",
+      "command": "plan",
+      "exitCode": 0
+    },
+    {
+      "fixture": "whole",
+      "command": "validate",
+      "exitCode": 0
+    },
+    {
+      "fixture": "whole",
+      "command": "plan",
+      "exitCode": 0
+    }
+  ],
+  "externalRequests": 0,
+  "pageErrors": []
+}

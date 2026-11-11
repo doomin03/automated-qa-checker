@@ -1,5 +1,7 @@
 # Design
 
+2026-10-31 인수 보완: capability/device picker는 공개 `devices --target web|android|ios`를 호출한다. web의 Chromium 설치 진단과 native의 정적 configured/connectionVerified=false를 구분한다. native targets가 비어 있어도 지원 불가로 단정하지 않으며 로컬 Appium 설정과 명시 run에서 실제 연결을 판정한다. 현재 공개 web 대상은 chromium-headless 하나이며 GUI가 새로운 device routing CLI/schema를 만들지 않는다.
+
 ## Context
 
 [저장소 조사](../../../docs/architecture/repository-audit.md)에 따라 빈 저장소의 기본 경계를 구성한다. 상세 목표는 [시스템 설계](../../../docs/architecture/system-design.md)와 [로드맵](../../../docs/planning/roadmap.md)을 따른다.
@@ -9,6 +11,8 @@
 apps/app에 TC/Flow CRUD, nodes/edges editor, undo/redo, engine CLI bridge와 run view를 구현한다. P0는 경로·소비 manifest·명세만 준비하며 로그인/registry/예약은 후속 change다.
 
 ## Decisions
+
+2026-10-31 구현 단위는 공개 bundle의 node type/action 목록을 사용하는 시각 graph editor다. 노드/edge 생성·삭제·JSON settings, selector/target/testCase 설정, drag 위치(metadata.presentation), undo/redo를 제공한다. XML은 고정 CLI plan으로 정규화하여 graph로 가져오고 graph JSON은 같은 CLI export로 XML을 생성한다. 좌표 편집은 실행 의미와 분리하며 잘못된 연결/branch/action은 Engine validate/plan에서 거부한다. 전체 노드 의미를 별도 Flutter interpreter로 만들지 않는다.
 
 참조의 apps/app 및 data/domain/presentation 구조를 따른다. pnpm은 Dart package를 소유하지 않는다. 앱에서 driver를 호출하지 않고 고정 engine CLI를 argument array로 실행한다.
 
@@ -33,4 +37,10 @@ Flutter 구현은 사용자 추가 요청에 따라 feature-first MVVM + provide
 ## Open Questions
 
 후속 단계에서 SDK/framework/driver의 정확한 버전을 실행 검증으로 결정한다. 현재 기능 명령과 제안 명령은 README에서 구분한다.
+
+# 2026-10-31 alpha.5 작성 문서 소비
+
+고정 runtime 0.1.0-alpha.5 / contract 0.3.0-draft.1을 소비한다. 반복 폼은 선택한 action/assertion 블록 목록과 횟수(1..100)를 `qa.authoring/v1`으로 구성한다. 직접 authoring XML/JSON도 같은 공개 `aqa expand`를 호출한다. 원본·source map·확장 XML을 보관하고 확장 결과를 미리 보여준 뒤 기존 검증 및 명시 실행을 적용한다. 원본 bytes와 Engine 재전개 hash, 실행 plan hash가 일치할 때만 반복 회차 라벨을 표시하며 편집한 문서에는 이전 map을 적용하지 않는다. UI는 실행 스키마나 반복 interpreter를 소유하지 않는다.
+
+공개 capture 변수/액션은 public 선언과 지원 capability를 표시한다. optional screenshot의 step outcome skipped를 표시하되 run outcome 성공으로 합성하지 않는다. 공용 Registry의 최초 게시 단위는 확장된 self-contained Blueprint XML이며 Suite/원본 authoring 게시 인수는 별도다.
 

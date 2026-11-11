@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { PlatformClient, ApiFailure, decodeEngineEvents, decodeEngineResult } from '../dist/index.js';
+const { xml, plan } = JSON.parse(await readFile(process.env.QA_TEST_FIXTURE));
+const clients = Object.fromEntries(['author', 'reviewer', 'viewer'].map(id => [id, new PlatformClient(process.env.QA_TEST_ORIGIN, `${id}-sdk-local-test-token-32-characters`)]));
+const { author, reviewer, viewer } = clients; const project = 'sdk-project';
+try {
+  assert.equal((await author.me()).localMode, true);
+  assert.equal((await viewer.projects()).items[0].id, project);
+  const draft = await author.createDraft(project, { packageId: 'ts-sdk', title: 'TypeScript SDK', xml, dependencies: [] });
+  assert.equal(draft.reviewerId, null);
+  await assert.rejects(author.reviewDraft(project, draft.id), e => e instanceof ApiFailure && e.status === 403);
+  await reviewer.reviewDraft(project, draft.id);
+  const version = await author.publishDraft(project, draft.id, '1.0.0', 'ts-publish');
+  assert.equal((await author.publishDraft(project, draft.id, '1.0.0', 'ts-publish')).id, version.id);
+  assert.equal((await viewer.version(project, version.id)).sha256, version.sha256);
+  await author.pin(project, version.id, version.sha256);
+  assert.ok((await author.pins(project)).items.some(pin => pin.versionId === version.id));
+  const start = { schemaVersion: 'qa.runEvent/v1', runId: 'ts-sdk-run', attempt: 1, sequence: 1, type: 'run.started', timestamp: '2026-10-31T00:00:00.000Z', blueprintSnapshotHash: plan.blueprintSnapshotHash };
+  const input = { blueprintJson: JSON.stringify(plan.blueprint), engineRunId: start.runId, attempt: 1, snapshotHash: plan.blueprintSnapshotHash, engineVersion: plan.engineVersion, startedEventJson: JSON.stringify(start), versionId: version.id };
+  const run = await author.createRun(project, input, 'ts-create');
+  assert.deepEqual(JSON.parse(run.blueprintJson), plan.blueprint); assert.equal(run.resultJson, null);
+  assert.equal((await author.createRun(project, input, 'ts-create')).id, run.id);
+  const finish = { schemaVersion: 'qa.runEvent/v1', runId: start.runId, attempt: 1, sequence: 2, type: 'run.finished', timestamp: start.timestamp, outcome: 'infra_error', resultPath: 'result.json' };
+  await author.appendEvents(project, run.id, [JSON.stringify(finish)]);
+  const events = await viewer.events(project, run.id, { afterSequence: 0, limit: 1 });
+  assert.equal(events.hasMore, true); assert.equal(decodeEngineEvents(events)[0].type, 'run.started');
+  const result = { schemaVersion: 'qa.result/v1', runId: start.runId, attempt: 1, status: 'finished', outcome: 'infra_error', startedAt: start.timestamp, finishedAt: start.timestamp, artifacts: [], executed: { engineVersion: plan.engineVersion, platform: 'web', flowSnapshotHash: plan.flowSnapshotHash, blueprintSnapshotHash: plan.blueprintSnapshotHash }, visitedNodes: [], unvisitedNodes: plan.nodeOrder, cleanupErrors: [] };
+  const stored = await author.result(project, run.id, JSON.stringify(result));
+  assert.equal(decodeEngineResult(stored).outcome, 'infra_error'); assert.equal(stored.workStatus, 'todo');
+  await assert.rejects(viewer.appendEvents(project, run.id, [JSON.stringify(finish)]), e => e instanceof ApiFailure && e.status === 403);
+  console.log('TS SDK: real Registry review/publish/pin, run snapshot/replay/result, nullable/enum/error serialization passed');
+} finally { Object.values(clients).forEach(client => client.close()); }

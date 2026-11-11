@@ -73,7 +73,7 @@ export function replay(blueprint,events,count=events.length) {
   if(e.failure)failure=e.failure;
   if(e.type==='run.finished') {outcome=e.outcome;for(const id of Object.keys(states))if(states[id]==='pending')states[id]='unrun';}
  }
- return {states,outcome,failure,completed:Object.values(states).filter(s=>['passed','failed','infra_error','blocked','cancelled'].includes(s)).length};
+ return {states,outcome,failure,completed:Object.values(states).filter(s=>['passed','failed','infra_error','blocked','cancelled','skipped'].includes(s)).length};
 }
 export function layout(blueprint) {
  const ids=blueprint.flow.nodes.map(n=>n.id),depth=Object.fromEntries(ids.map(id=>[id,0])),indegree=Object.fromEntries(ids.map(id=>[id,0]));

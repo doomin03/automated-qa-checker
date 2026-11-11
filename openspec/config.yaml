@@ -9,8 +9,8 @@ context: |
   apps/server, apps/web and apps/app follow the reference design, not existing apps.
   Engine owns execution schemas; packages/contract owns Checker HTTP contracts.
   Current scope includes apps/web Blueprint inspection and event replay using a hash-pinned public engine contract.
-  Flutter Desktop uses feature-first MVVM with package:provider; draft editing/file IO shell is implemented. Engine CLI integration, block builder and backend services remain pending.
-  Source monorepo change is adapted in changes/refactor-server-web-app-monorepo; read integration.md for exact source SHAs and ownership. Specs first; product implementation awaits manager review and assignment.
+  Flutter Desktop uses feature-first MVVM with package:provider; XML/Flow/repeat editing and pinned Engine alpha.6 CLI validation/execution, design checks and Registry sharing are implemented. Nest has persistent Registry/RBAC/progress/evidence, local-provider OIDC, workflow, Suite, Agent and scheduler acceptance with generated TS/Dart SDKs. Real Slack/device acceptance remains unverified. Check tasks and validation evidence for current completion, including the original full verification exit 1 and final smoke-only recovery.
+  Source monorepo change is adapted in changes/refactor-server-web-app-monorepo; read integration.md for exact source SHAs and ownership. Specs first; user and manager approved implementation. Record actual acceptance evidence.
   Never copy engine source or directly implement Appium/Playwright in Checker.
 
 # Per-artifact rules (optional)

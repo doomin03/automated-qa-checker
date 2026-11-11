@@ -8,10 +8,11 @@ const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const dep=read(resolve(root,'packages/contract/engine-dependency.json'));
 assert.equal(dep.owner,'automated-qa-engine');
 assert.equal(dep.repository,'https://github.com/doomin03/automated-qa-engine');
-assert.equal(dep.contractVersion,'0.1.0-draft.1');
+assert.equal(dep.contractVersion,'0.3.0-draft.1');
 assert.equal(dep.status,'local-preview');
-assert.equal(dep.engineVersion,'0.1.0-alpha.1');
-assert.equal(dep.runtimeIntegrationEnabled,false,'Web viewer must not claim CLI execution integration');
+const runtime=read(resolve(root,'packages/contract/engine-runtime.json'));
+assert.equal(dep.engineVersion,runtime.engineVersion);
+assert.equal(typeof dep.runtimeIntegrationEnabled,'boolean');
 const bytes=readFileSync(resolve(root,'packages/contract/generated/engine-contract.json'));
 assert.equal(createHash('sha256').update(bytes).digest('hex'),dep.release.sha256,'Engine artifact hash mismatch');
 const bundle=JSON.parse(bytes);
@@ -32,5 +33,5 @@ if(process.argv[2]) {
  assert.equal(manifest.engineVersion,dep.engineVersion);
  assert.deepEqual([...manifest.schemas].sort(),[...dep.requiredSchemas].sort());
 }
-console.log('Verified engine '+dep.engineVersion+' contract SHA-256; viewer only, no embedded runner.');
+console.log('Verified engine '+dep.engineVersion+' contract SHA-256; independent CLI runtime pin.');
 

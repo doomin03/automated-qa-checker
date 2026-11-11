@@ -44,10 +44,15 @@ export function checkSource(file, source, owner, packages) {
       const target = resolve(dirname(file), specifier);
       if (!inside(owner.directory, target)) errors.push(`cross-package source import: ${specifier}`);
       if (owner.path === 'apps/web') {
-        const layerOf = p => relative(resolve(owner.directory, 'src'), p).split(/[/\\]/)[0];
-        const from = layers.indexOf(layerOf(file));
-        const to = layers.indexOf(layerOf(target));
+        const pathOf = p => relative(resolve(owner.directory, 'src'), p).split(/[/\\]/);
+        const fromPath=pathOf(file),toPath=pathOf(target);
+        const from = layers.indexOf(fromPath[0]);
+        const to = layers.indexOf(toPath[0]);
         if (from >= 0 && to >= 0 && from > to) errors.push(`FSD upward import: ${specifier}`);
+        const sliced=to>0&&to<layers.length-1;
+        const sameSlice=from===to&&fromPath[1]===toPath[1];
+        if(sliced&&from===to&&!sameSlice)errors.push(`FSD same-layer cross-slice import: ${specifier}`);
+        if(sliced&&!sameSlice&&(toPath.length!==3||!/^index\.[cm]?[jt]sx?$/.test(toPath[2])))errors.push(`FSD public slice index required: ${specifier}`);
       }
       return;
     }

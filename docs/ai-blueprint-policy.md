@@ -10,14 +10,14 @@
 - 문서의 nodes/edges를 Blueprint로 표시하고 JSON 편집/내보내기를 제공한다. import는 실행을 시작하지 않는다.
 - engine 실행 폴더의 events.jsonl을 읽어 run/attempt/sequence와 blueprint hash를 확인한다.
 - 이벤트 재생과 파일 따라가기로 대기/실행/성공/실패/미실행 상태를 표시한다. 실제 실패 예제 포함.
-- XML/YAML은 engine CLI에서 import로 JSON을 만든 뒤 GUI에 넣는다.
+- 웹은 공개 형식으로 XML을 내보내고 Flutter는 XML/JSON/Flow를 같은 공개 Engine compile 경로로 검증한다.
+- Flutter 프로젝트/QA와 지속 지침을 로컬 저장하고 설치된 Codex CLI에 일회성 변경 요청·전체 문서를 전달한다. 후보는 전체 Engine 검증과 diff를 거쳐 사용자가 적용한다. 생성/가져오기/검증은 QA를 실행하지 않는다.
 
 ## 후속 구현
 
-웹 임의 Blueprint의 XML 내보내기 수정은 미검증 상태로 보존되어 있다. 현재 사용자 지시에 따라 원본 모노레포 OpenSpec 이관·검토를 먼저 한다. 파일 전달 첫 단위와 서버 전달/진행 자동 수신 전체 목표는 각각 handoff/platform changes에서 추적한다.
+현재 Codex0.162.1만 실제 생성 인수를 마쳤다. Claude adapter/실제 연결, AI 이미지 해석과 전체 대화 이력은 후속이다. API 키를 앱에 저장하지 않고 CLI 기존 인증을 사용한다. 모델별 고정 호출 옵션은 LocalAiCliService에 있으며 graph semantics로 들어가지 않는다. 지원되지 않는 CLI 옵션은 권한 확대 fallback 없이 실패한다. CLI read-only 옵션을 OS 전체 격리 보장으로 과장하지 않는다.
 
-Flutter Desktop에 같은 정책과 고정 engine CLI bridge를 구현한다. 사용자가 허용한 실행 파일과 인자 배열로 호출하고, schema 검증 → 변경 비교 → 실행 요청 순서로 연결한다.
-향후 Claude/Codex 등 provider adapter를 만들 경우 명령·입출력 계약을 별도 모듈로 두고 모델별 옵션을 graph semantics에 넣지 않는다. 선택한 CLI의 인증/사용량은 별도로 표시한다. 이번 버전은 해당 CLI를 직접 호출하지 않는다.
+새 앱은 별도 alpha.8 runtime이며 서버·Agent는 alpha.6을 유지한다. 정확한 실행·저장·전송 안내는 [Desktop 시작 안내](desktop-ai-quickstart.md), 실제 인수는 [검증 기록](validation-desktop-ai.md)을 따른다.
 
 ## 진행 신뢰성
 

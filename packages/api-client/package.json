@@ -1,0 +1,9 @@
+{
+  "name": "@automated-qa-checker/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "scripts": { "build": "tsc -p tsconfig.json", "check": "pnpm run build && node --test test/*.test.mjs", "test": "node --test test/*.test.mjs", "check-types": "tsc -p tsconfig.json --noEmit" },
+  "devDependencies": { "typescript": "6.0.3" }
+}

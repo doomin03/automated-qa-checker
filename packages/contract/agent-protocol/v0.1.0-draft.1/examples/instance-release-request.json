@@ -1,0 +1,13 @@
+{
+  "agentId": "agent-demo",
+  "receipts": [
+    {
+      "leaseId": "22222222-2222-4222-8222-222222222222",
+      "completionReceipt": "55555555-5555-4555-8555-555555555555",
+      "acceptedThrough": 1
+    }
+  ],
+  "reportingInstanceId": "11111111-1111-4111-8111-111111111111",
+  "ownerInstanceId": "11111111-1111-4111-8111-111111111111",
+  "ownerStopped": true
+}

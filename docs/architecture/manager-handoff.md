@@ -1,3 +1,7 @@
+# 2026-10-31 현재 인계
+
+현재 pin은 최종 Engine alpha.6 / contract0.3.0-draft.1이다. Desktop 블록/반복/XML→CLI 검증·실행·취소·실제 증거 이미지, 디자인/UX, 로컬 Appium bridge, 영속 Registry 수신/게시와 사용자 웹 진행 동기화를 인수했다. 조직 인증은 실제 local RS256 provider 및 웹/Flutter 사용자 경로를 통과했으며 실제 Slack 계정은 미검증이다. 업무/로컬 알림·실제 결과 비교와 Suite/Agent/예약은 실제 서버 통합 검증을 통과했다. 정확한 검증·hash·실행 artifact는 [검증 기록](../validation.md), 재현은 [로컬 데모](../local-demo.md), 서버 근거는 [서버 검증](../../apps/server/VALIDATION.md)을 따른다. 최신 전체 설치·Windows release 인수는 검증 기록의 최종 절을 확인한다. 아래는 이전 인계 이력이며 현재 구현 상태로 해석하지 않는다.
+
 # Checker 담당 인계
 
 2026-10-29. 사용자의 원본 MD 프로세스와 관리 에이전트/저장소별 담당 배정에 따른 기록이다. 관리 에이전트는 원본 기준, 우선순위, 교차 저장소 계약과 인수를 조정한다. Checker 담당은 이 저장소의 구현·검증·OpenSpec 상태를 보고하며 Engine이나 참조 저장소를 수정하지 않는다.

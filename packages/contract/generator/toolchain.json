@@ -1,0 +1,11 @@
+{
+  "generatorVersion": "7.26.0",
+  "jarUrl": "https://repo.maven.apache.org/maven2/org/openapitools/openapi-generator-cli/7.26.0/openapi-generator-cli-7.26.0.jar",
+  "jarSha256": "1760050094997b9cc790cc1350be095f15da8c08a996b184d3eadc4ccda5e35e",
+  "javaVersion": "21.0.13",
+  "javaArchiveUrl": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jre_x64_windows_hotspot_21.0.13_9.zip",
+  "javaArchiveSha256": "2332c0b4cff6bed722da3567c91d5e47568bcba863fa4945d0a8d6fc76158628",
+  "dartVersion": "3.13.4",
+  "typescript": { "hideGenerationTimestamp": true, "importFileExtension": ".js", "supportsES6": true, "disallowAdditionalPropertiesIfNotPresent": false, "dateLibrary": "string" },
+  "dart": { "pubName": "api_client_dart", "pubVersion": "0.1.0", "pubPublishTo": "none", "hideGenerationTimestamp": true, "serializationLibrary": "json_serializable", "skipCopyWith": true, "disallowAdditionalPropertiesIfNotPresent": false }
+}

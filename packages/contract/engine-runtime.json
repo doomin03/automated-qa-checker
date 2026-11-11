@@ -1,0 +1,11 @@
+{
+  "packageName": "automated-qa-engine",
+  "engineVersion": "0.1.0-alpha.6",
+  "artifact": "automated-qa-engine-0.1.0-alpha.6.tgz",
+  "sha256": "33dbcacea025fb98a52fb0411af05cb113bc85e47e84a98463912b6aace1acef",
+  "entrypoint": "packages/cli/aqa.mjs",
+  "controlStdin": true,
+  "designChecks": true,
+  "appium": true,
+  "authoring": true
+}

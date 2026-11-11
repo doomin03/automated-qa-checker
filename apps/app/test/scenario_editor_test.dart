@@ -148,7 +148,7 @@ void main() {
           child: Builder(
             builder: (context) {
               vm = context.read<ScenarioEditorViewModel>();
-              return const QaApp();
+              return const QaApp(legacyEditor: true);
             },
           ),
         ),
@@ -165,7 +165,9 @@ void main() {
       await tester.pump();
       expect(find.text('파일 작업 중'), findsOneWidget);
       expect(
-        tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+        tester
+            .widget<FilledButton>(find.widgetWithText(FilledButton, '파일 저장'))
+            .onPressed,
         isNull,
       );
       repo.completion.complete(
@@ -185,7 +187,7 @@ void main() {
   testWidgets('Provider removal during file load is safe', (tester) async {
     final repo = PendingRepository();
     await tester.pumpWidget(
-      AppProviders(repository: repo, child: const QaApp()),
+      AppProviders(repository: repo, child: const QaApp(legacyEditor: true)),
     );
     await tester.enterText(find.byKey(const Key('file-path')), 'draft.xml');
     await tester.tap(find.text('파일 열기'));

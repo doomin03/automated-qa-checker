@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "qa.checkReport/v1",
+  "kind": "ux",
+  "verdict": "passed",
+  "reason": "MATCH",
+  "profileHash": "sha256:68dbe9be9eb66c2182dfab1237297b7dcebc6c1dd79565b6194c9fce0daa5bd3",
+  "fontsInjected": false,
+  "expected": true,
+  "actual": true,
+  "nodeId": "check2",
+  "artifactRefs": []
+}

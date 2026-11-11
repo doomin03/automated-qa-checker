@@ -1,6 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {BlueprintPage} from '../pages/blueprint/BlueprintPage.jsx';
+import {App} from './App.jsx';
 import './style.css';
-createRoot(document.getElementById('root')).render(<BlueprintPage/>);
+createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);
 

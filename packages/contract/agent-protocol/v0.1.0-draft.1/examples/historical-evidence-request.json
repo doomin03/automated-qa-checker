@@ -1,0 +1,16 @@
+{
+  "agentId": "agent-demo",
+  "reportingInstanceId": "11111111-1111-4111-8111-111111111111",
+  "ownerInstanceId": "11111111-1111-4111-8111-111111111111",
+  "fence": 1,
+  "evidenceRequestId": "66666666-6666-4666-8666-666666666666",
+  "events": [
+    {
+      "deliverySequence": 1,
+      "caseId": "case-1",
+      "engineEventJson": "{\"schemaVersion\":\"qa.runEvent/v1\",\"runId\":\"example-engine-run\",\"attempt\":1,\"sequence\":1,\"type\":\"run.started\",\"timestamp\":\"2026-10-31T00:00:00.000Z\",\"blueprintSnapshotHash\":\"sha256:1e24d3c9a5217aa706a02a4ef7620192673f508bb19fbd2e661a13e9756589a1\"}"
+    }
+  ],
+  "caseResults": [],
+  "cleanupState": "unknown"
+}
