@@ -1,0 +1,20 @@
+﻿{
+    "source":  "artifacts/flutter-authoring/qa-f7f24ece/run_baa763f4-38d6-4810-a032-c42b53578482",
+    "engineVersion":  "0.1.0-alpha.6",
+    "capturedAt":  "2026-10-31T08:00:07.642Z",
+    "purpose":  "Actual Chromium result reuse for administrative mutation preservation; no browser execution in this regression",
+    "files":  [
+                  {
+                      "path":  "blueprint.json",
+                      "sha256":  "ebee6a21692f32103781daa643bcdf0f65d686d8ff2a8e427d73cb31423e4e4b"
+                  },
+                  {
+                      "path":  "events.jsonl",
+                      "sha256":  "6bb0d61691f39cd3df85f53a09c9c7e1f9c53a8fd75118c033e52f8ef2de59c0"
+                  },
+                  {
+                      "path":  "result.json",
+                      "sha256":  "eaaa67574ec8141f1fa122205fbf311519fa85ccf625140068f04533c559cd77"
+                  }
+              ]
+}

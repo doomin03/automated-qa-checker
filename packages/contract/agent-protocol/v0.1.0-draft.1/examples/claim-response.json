@@ -1,0 +1,48 @@
+{
+  "claimRequestId": "44444444-4444-4444-8444-444444444444",
+  "lease": {
+    "agentId": "agent-demo",
+    "instanceId": "11111111-1111-4111-8111-111111111111",
+    "leaseId": "22222222-2222-4222-8222-222222222222",
+    "executionId": "33333333-3333-4333-8333-333333333333",
+    "projectId": "demo",
+    "jobAttempt": 1,
+    "fence": 1,
+    "resourceKey": "browser-slot-demo",
+    "cases": [
+      {
+        "caseId": "case-1",
+        "blueprintJson": "{\"schemaVersion\":\"qa.blueprint/v1\",\"id\":\"demo-login\",\"name\":\"로컬 로그인 QA\",\"flow\":{\"schemaVersion\":\"qa.flow/v1\",\"id\":\"login-flow\",\"entryNode\":\"start\",\"nodes\":[{\"id\":\"start\",\"type\":\"start\"},{\"id\":\"open\",\"type\":\"action\",\"action\":\"launch\",\"params\":{\"target\":\"login\"}},{\"id\":\"name\",\"type\":\"action\",\"action\":\"input\",\"params\":{\"selector\":\"username\",\"valueRef\":\"username\"}},{\"id\":\"submit\",\"type\":\"action\",\"action\":\"tap\",\"params\":{\"selector\":\"submit\"}},{\"id\":\"home\",\"type\":\"assertion\",\"action\":\"assertText\",\"timeoutMs\":3000,\"params\":{\"selector\":\"greeting\",\"expected\":\"Welcome qa-user\"}},{\"id\":\"capture\",\"type\":\"action\",\"action\":\"screenshot\",\"params\":{}},{\"id\":\"end\",\"type\":\"end\"}],\"edges\":[{\"from\":\"start\",\"to\":\"open\"},{\"from\":\"open\",\"to\":\"name\"},{\"from\":\"name\",\"to\":\"submit\"},{\"from\":\"submit\",\"to\":\"home\"},{\"from\":\"home\",\"to\":\"capture\"},{\"from\":\"capture\",\"to\":\"end\"}],\"variables\":{\"username\":{\"from\":\"literal\",\"value\":\"qa-user\"}}},\"selectors\":{\"schemaVersion\":\"qa.selectors/v1\",\"id\":\"demo-selectors\",\"selectors\":{\"username\":{\"web\":{\"strategy\":\"testId\",\"value\":\"username\"}},\"submit\":{\"web\":{\"strategy\":\"testId\",\"value\":\"submit\"}},\"greeting\":{\"web\":{\"strategy\":\"testId\",\"value\":\"greeting\"}}}},\"target\":{\"schemaVersion\":\"qa.target/v1\",\"id\":\"local-web\",\"platform\":\"web\",\"launchTargets\":{\"login\":\"http://127.0.0.1:4317\"},\"allowedOrigins\":[\"http://127.0.0.1:4317\"],\"environment\":\"local\"}}",
+        "blueprintSnapshotHash": "sha256:1e24d3c9a5217aa706a02a4ef7620192673f508bb19fbd2e661a13e9756589a1",
+        "resources": [],
+        "publishedVersion": null
+      }
+    ],
+    "engineVersion": "0.1.0-alpha.5",
+    "engineContractVersion": "0.3.0-draft.1",
+    "engineContractSha256": "b183b90e0a8d93ab531b10ca409a4e657003fd85812a131f97479695283a5370",
+    "protocolVersion": "0.1.0-draft.1",
+    "state": "active",
+    "validForMs": 30000,
+    "heartbeatIntervalMs": 5000,
+    "requestTimeoutMs": 5000,
+    "safetyMarginMs": 5000,
+    "cancelRequested": false,
+    "acceptedThrough": 0,
+    "executionPolicy": {
+      "resourceKey": "browser-slot-demo",
+      "platform": "web",
+      "allowedOrigins": [
+        "http://127.0.0.1:4317"
+      ],
+      "nativeApps": [],
+      "secretRefs": [],
+      "allowProduction": false
+    },
+    "suitePolicy": {
+      "stopOnFailure": true,
+      "publishedVersionId": null,
+      "publishedSha256": null
+    }
+  }
+}

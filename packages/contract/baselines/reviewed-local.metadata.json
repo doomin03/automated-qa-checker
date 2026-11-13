@@ -1,0 +1,19 @@
+{
+  "status": "accepted",
+  "sha256": "f705acfa8a30d4c89ec8f588a2d85bd49a837ee1084d93fa273a725f3a09ef90",
+  "source": "Validated offline Nest exporter: recovery metadata additive response fields; same execution schema",
+  "date": "2026-10-31",
+  "verification": "Read-only codegen drift PASS; TS 9/Dart 7 tests and Dart analyze PASS; expanded real HTTP encoding/nullable/unknown-field fixture PASS",
+  "baselineKind": "superseding-local-reviewed-snapshot",
+  "previousHealthSha256": "3880a44b997188d5bc41e27a1719c3e4f6a8c6eb6817cecc059e870cecda651c",
+  "previousHealthBytesAvailable": false,
+  "remoteBaseVerified": false,
+  "acceptedBy": "Management agent: exact bytes/SHA and diff independently checked, 2026-10-31",
+  "supersedes": "reviewed-local-21d69689.json",
+  "responseOnlyAdditions": [
+    "ExecutionResponse.resourceKey",
+    "ExecutionResponse.fence",
+    "ExecutionResponse.cleanupState",
+    "ExecutionResponse.operatorRecovery"
+  ]
+}

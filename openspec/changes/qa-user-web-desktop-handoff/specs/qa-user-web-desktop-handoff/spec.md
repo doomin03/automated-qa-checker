@@ -46,6 +46,10 @@ Desktop SHALL 명시적 실행 요청에만 엔진을 인자 배열과 shell 비
 - **WHEN** CLI 경로가 없거나 버전이 호환되지 않는다
 - **THEN** 오류를 표시하며 실행 성공을 만들지 않는다
 
+#### Scenario: Cancel or incomplete execution
+- **WHEN** 사용자가 취소하거나 엔진이 최종 결과 없이 종료한다
+- **THEN** 취소 요청과 검증된 cancelled 결과를 구분하고 terminal/result 누락은 환경 오류로 표시한다. 강제 종료를 성공 또는 정상 취소로 합성하지 않는다
+
 ### Requirement: Evidence based progress
 
 웹 SHALL Desktop이 생성한 실행 파일의 이벤트를 가져오거나 따라가며 진행을 표시한다. 첫 전달 방식은 파일 교환으로 표시하고 서버 동기화처럼 표현하지 않는다.

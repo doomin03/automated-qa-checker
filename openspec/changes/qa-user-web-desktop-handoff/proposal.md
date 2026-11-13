@@ -24,9 +24,9 @@
 ## Impact
 
 - integrationId: qa-user-web-desktop-handoff
-- contractVersion: 0.1.0-draft.1 (qa.blueprint/v1). 현재 소비 engine은 0.1.0-alpha.1, 목표 0.1.0-alpha.2는 아직 미발행이며 Engine 담당 검증 후 고정한다.
+- contractVersion: 0.1.0-draft.1 (qa.blueprint/v1). 2026-10-31 관리 승인으로 검증된 engine 0.1.0-alpha.3 local-preview package와 bundle을 소비한다. 원격 npm 게시와 신규 디자인/UX·Appium 계약 인수는 별도다.
 - dependsOn: refactor-server-web-app-monorepo의 기반·역할 명세, qa-ai-blueprint, qa-flow-editor P0, engine qa-user-web-desktop-handoff
 - counterpartRepoChange: automated-qa-engine/openspec/changes/qa-user-web-desktop-handoff
 - acceptanceCriteria: 웹 생성 XML→engine import round trip·잘못된 입력 거부, Flutter analyze/test, engine CLI 실제 PASS/FAIL 연동, Windows build 성공과 실제 앱 실행 증거를 확인한다. 환경 제약/실패는 기록하고 해당 task를 미완료 유지한다. 가져오기만으로 실행하지 않는다.
 
-현재는 사용자 지시에 따른 모노레포 OpenSpec 이관·정합을 먼저 수행하며 제품 구현 재개는 관리 검토 후 할당한다. 파일 전달은 첫 slice이며 공용 XML의 서버 전달과 진행 자동 수신 전체 목표를 대체하지 않는다. 후속 서버 기능은 qa-platform-services에서 추적한다.
+2026-10-31 사용자 구현 승인 및 관리 할당으로 apply를 진행한다. 파일 전달은 첫 slice이며 공용 XML의 서버 전달과 진행 자동 수신 전체 목표를 대체하지 않는다. 후속 서버 기능은 qa-platform-services에서 추적한다.

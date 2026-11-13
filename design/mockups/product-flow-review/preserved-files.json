@@ -1,0 +1,202 @@
+﻿[
+    {
+        "path":  "design/mockups/desktop/app.js",
+        "sha256":  "b374bd7f417726bf160beff672170782fbfccbaa8857638bc38c482355d03cea"
+    },
+    {
+        "path":  "design/mockups/desktop/fixture.js",
+        "sha256":  "e011205595ed54d8495e92534717959a29076d17695eee908e413f0ab1e0822c"
+    },
+    {
+        "path":  "design/mockups/desktop/index.html",
+        "sha256":  "f4008cefb39af188c7dec5c22b1adb274db4ae7f2e1923202eb86c571bae4533"
+    },
+    {
+        "path":  "design/mockups/desktop/README.md",
+        "sha256":  "85b47906d938865d6ce054ccf00a4acee2829a6e09c0e92369792797af291fef"
+    },
+    {
+        "path":  "design/mockups/desktop/styles.css",
+        "sha256":  "f2700690456ce1d55b3406e9e189c11718b78976ae70b5f7fde9a39974e33a93"
+    },
+    {
+        "path":  "design/mockups/desktop/UX.md",
+        "sha256":  "8260b9fc3ff080c84aa6a65d4c6ce25fd64d839355c3bf5a55c6c63cf572dc25"
+    },
+    {
+        "path":  "design/mockups/desktop/verification.json",
+        "sha256":  "ac29f40beb0140c2d9b46ce9547670ea62a047e399bd0c3dfaf4870819e4c4d6"
+    },
+    {
+        "path":  "design/mockups/desktop/verify.mjs",
+        "sha256":  "54c2d914a0eee1aebd9b22c69119d62d4c5bdf2aa55846ee61311364a8a1c3e6"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/app.js",
+        "sha256":  "a4d0555bc74ab48d470984389705ece4be1e250b7616b76d0022b5bfb756ed6b"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/fixture.js",
+        "sha256":  "e011205595ed54d8495e92534717959a29076d17695eee908e413f0ab1e0822c"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/index.html",
+        "sha256":  "dc116c257ecd7401695ca04e548b27e0cb2b4b4c216f21f82843eb52be0a4c29"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/model.js",
+        "sha256":  "095bf18a7753dfed6411e3b6738afee0f2c706cc39572d7cd3fa2b604b638e78"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/previous-mockup-manifest.json",
+        "sha256":  "28795144222e4927bdd17eb5ae977b2c3e577fc76d16f64724b9a0175ea40019"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/README.md",
+        "sha256":  "449eae6a63922fa71ff022f0bddfa9783dfd509c3f6b5848e081dcd29257ce58"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/styles.css",
+        "sha256":  "d32a625f2572c33be905cc1b43f81c902afbf57400b0199264e5f6348b6a5754"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/UX.md",
+        "sha256":  "4f6f6bf589edeb8ad24aa84dff94ff5a0dd3f5e4eaa24cab56db1bc31cd238ff"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/verification.json",
+        "sha256":  "e971327cda50fa9ee0f6dc4a45a935d6b8ef4f3825c792b3c9ee25c59884825f"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/verify.mjs",
+        "sha256":  "7e352530c6a4707b646b6df9106fabb7621374bf9dcd6df5b8af0f2932ed9361"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/evidence/after.xml",
+        "sha256":  "a5950f20141a4bbc5e313ea91d4643cf2c4706730b7294de18a31b1d9183ee21"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/evidence/before.xml",
+        "sha256":  "e28a63f287d0ffa88b3c9a7fb1499610b5b23a90d6ba115e2c6cb2dce46677b5"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/evidence/initial.xml",
+        "sha256":  "bc2210abfcdb7de02ae77e51598535da63e2dcd4c501670e5e160aa3fa3bd729"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/evidence/modify.xml",
+        "sha256":  "55eaee0d2934a3b5a3e0b4b7dded612c39ea20998068f648e3726206677352da"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/evidence/whole.xml",
+        "sha256":  "dd857ee2f01de79374e2b8871bcd9dd0914d85f43716ffe4c31c57ecd2f5f90f"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/01-projects.png",
+        "sha256":  "0ca4e432ebf292774f46f5bb55160e9ab1e8c8b338bded1d51fedab3c4597ef1"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/02-qa-list.png",
+        "sha256":  "e63ea71198e34af807f82db12183c2a3c53231eb83b71ce4e3ab13345d5b1ccc"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/03-workspace.png",
+        "sha256":  "2fa6f755b11bbcc2fc8516bd9e434bfd81611606018e12d173cdf0276245a38b"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/04-provider-settings.png",
+        "sha256":  "6d656999fed191b20d6f0587e0223cb93232f3508409f12b66814c0a5bb0d34b"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/05-xml-selection.png",
+        "sha256":  "f8b24059e366ce17e464ba955a1ee5af03db7f3e661df80aa014a1114d7b6eae"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/06-ai-after.png",
+        "sha256":  "dda0874c286201ecb02e4f1736380d4fe8851d2ef4a0da4ad58cb0f8bddaa630"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/06-ai-before.png",
+        "sha256":  "e62a175266ea78a83eefb61cb6352d93f8337a17b2946814ec57ce486e84c9f4"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/06-ai-modify.png",
+        "sha256":  "b8e520fa0154efb1149b9f4f73a61257198d9e4068311b8e5cc38509dc167db5"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/06-ai-whole.png",
+        "sha256":  "87452ddd2c81f04f326f5cfb893fdc412aedfc920435c3cae0690e19fc45bfdf"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/07-unsupported.png",
+        "sha256":  "0ba38553b3540879f6913253584175d75d664394cc707fde368c55bbeedc0d4e"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/08-running.png",
+        "sha256":  "98cb8f87ce64767e5feeeae02601d4aa55704f061f02e08ffd9a0c4ddd16f235"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/09-failed.png",
+        "sha256":  "7abc956505c96c32a0a154245de1f9abbccea0068acb50380dfed2a843ddf388"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/10-compact-expanded.png",
+        "sha256":  "e74182ace2e8581d4da6fbc867270b9222539cddc30a1cf260c78a725a4b6f7c"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/10-compact.png",
+        "sha256":  "d0783f4dcdeda96d2447ff5ff768d518b1e9726509fb3119cf71e994605fcd2e"
+    },
+    {
+        "path":  "design/mockups/desktop/blueprint-workspace/screenshots/first-workspace.png",
+        "sha256":  "3bb5852a32396a2f66da62b5a1345a1a1f38642e66ad51e0fff6baf9cba2eea5"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/01-scenarios.png",
+        "sha256":  "83f54c9d611dd06711c386423982bb5c4d12b244a0a24036e48e7f3b46fbaeb2"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/02-flow-unrun.png",
+        "sha256":  "af7f01c2c328f416c8350771a4ebab20a034c94253b25cd682b139c26c9e0033"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/03-xml.png",
+        "sha256":  "7a62ffd17e96db23e01c96ee7a1cd3f1cf8613c15747857804200126edf47f93"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/04-validation-error.png",
+        "sha256":  "8a61c1f3f0d5748fb4e49469848dc5720d0800c76fada010a7d5bd450272e2b7"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/05-running.png",
+        "sha256":  "076626cd3d5104694993db5939a70feb0b13b42f5f68b7dab3251dc90f89cc0e"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/06-failed.png",
+        "sha256":  "26d38ce34630a6b9767a333dcaac4c4302d3e3eb3c5f98f272791ccb6a465d87"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/07-passed.png",
+        "sha256":  "1e4cc86613dfa5c00d01231dafe68a0cb5d68666df4a7452b6a8499b0f2fe8c5"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/08-environment-error.png",
+        "sha256":  "2fed4b31965457aaec686126c32ded19d30d008394d243def150307fe217d509"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/09-unrun.png",
+        "sha256":  "e1eb77775fb918efea9edb6cf5f3d90f622668abe12503de079be59502933281"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/10-share-draft.png",
+        "sha256":  "e9a2064a24e818ff3b63467fa487dc1588273862a6055bb777e62653d624bcfe"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/11-sharing.png",
+        "sha256":  "920a9b37c52489ba8c0ea8009d3a89d056bd7ca066874ed5a9fd7a53fb9c4da9"
+    },
+    {
+        "path":  "design/mockups/desktop/screenshots/12-compact.png",
+        "sha256":  "70463f69971539db163851e5aba1547e1e508ca133940993a7580e1b5aa0ea98"
+    }
+]

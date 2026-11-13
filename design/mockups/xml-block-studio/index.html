@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA · XML Block Studio</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="terminal-dock.css"></head>
+<body>
+<header class="review"><span>목업 검토</span><a href="../product-planning/index.html" target="_top" style="color:inherit">전체 기획·화면설계</a><span>Windows 문서 작업실 · 로컬 상호작용 예시</span><button data-action="planning">화면 기획 / 구현 범위</button></header>
+<section id="project-home"></section>
+<div id="studio" hidden>
+<nav class="menu"><b>QA</b><button data-action="home">홈</button><button data-action="library">파일</button><button data-action="undo">실행 취소</button><button data-action="fit">전체 보기</button><i></i><span id="document-breadcrumb">사용자 테스트 / 로그인 검증</span><span class="right">XML 파일 블록</span></nav>
+<div class="commands"><button data-action="save">저장</button><button data-action="import">XML 가져오기</button><button data-action="direct">XML 직접 열기</button><i></i><button data-action="check">연결 점검</button><button disabled title="이 목업은 실행하지 않습니다. 실제 Engine 실행은 Windows 앱에서 지원합니다.">실행</button><span class="right muted">예시 데이터 · Engine 연결 없음</span></div>
+<div class="tabs"><button data-action="blocks" class="active">로그인 검증.qa / XML 블록 <span id="dirty"></span></button><button data-action="preview">생성 XML 안내</button><button data-action="direct">직접 XML</button></div>
+<main>
+<div class="rail"><button data-action="blocks" title="블록 선택">↖</button><button data-action="import" title="XML 가져오기">＋</button><button data-action="remove" title="선택 블록 삭제">−</button><button data-action="fit" title="전체 보기">⊞</button></div>
+<aside class="library"><h2>XML 라이브러리 <button data-action="import">＋</button></h2><div id="assets"></div><p class="hint">파일을 클릭하거나<br>캔버스로 끌어 배치</p></aside>
+<section class="editor"><div class="canvas-tools"><button data-action="library">라이브러리</button><button data-action="fit">전체 보기</button><button data-action="out">−</button><span id="zoom">100%</span><button data-action="in">＋</button><span class="right" id="count"></span></div><div id="canvas" tabindex="0" aria-label="XML 블록 캔버스"><div id="scene"><svg id="wires"></svg><div id="nodes"></div></div><div class="canvas-note">출력 ▷ 에서 입력 ▷ 으로 연결 · 빈 공간 드래그로 이동 · Ctrl+휠 확대</div></div><section id="source" hidden><h3 id="source-title"></h3><p id="source-note"></p><textarea spellcheck="false" aria-label="직접 XML 원문"></textarea></section></section>
+<aside class="inspector"><div class="panel-tabs"><button data-action="properties" class="active">속성</button><button data-action="structure">구조</button><button data-action="history">이력</button></div><div id="inspector"></div></aside>
+</main>
+<section class="output"><div><b>출력</b><button data-action="clear">지우기</button><span>Engine 실행 로그는 Windows 앱에서 확인합니다.</span></div><pre id="log">문서 준비됨. 파일 3개를 하나의 실행 순서로 연결했습니다.</pre></section>
+<footer><span id="status">저장되지 않은 예시</span><span class="right">로그인 검증.qa</span><span>실행 전</span></footer>
+</div>
+<dialog id="dialog"><div id="dialog-content"></div><div class="dialog-actions"><button data-action="close">닫기</button></div></dialog>
+<input id="file" type="file" accept=".xml,text/xml" hidden>
+<script src="../product-flow-review/fixture.js"></script><script src="app.js"></script><script src="home.js"></script><script src="terminal-dock.js"></script><script src="review-route.js"></script></body></html>

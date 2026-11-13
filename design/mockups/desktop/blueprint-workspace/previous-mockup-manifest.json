@@ -1,0 +1,81 @@
+{
+  "scope": "Previous root mockup preserved; README may receive new entry link",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "f4008cefb39af188c7dec5c22b1adb274db4ae7f2e1923202eb86c571bae4533"
+    },
+    {
+      "path": "styles.css",
+      "sha256": "f2700690456ce1d55b3406e9e189c11718b78976ae70b5f7fde9a39974e33a93"
+    },
+    {
+      "path": "app.js",
+      "sha256": "b374bd7f417726bf160beff672170782fbfccbaa8857638bc38c482355d03cea"
+    },
+    {
+      "path": "fixture.js",
+      "sha256": "e011205595ed54d8495e92534717959a29076d17695eee908e413f0ab1e0822c"
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "54c2d914a0eee1aebd9b22c69119d62d4c5bdf2aa55846ee61311364a8a1c3e6"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "ac29f40beb0140c2d9b46ce9547670ea62a047e399bd0c3dfaf4870819e4c4d6"
+    },
+    {
+      "path": "UX.md",
+      "sha256": "8260b9fc3ff080c84aa6a65d4c6ce25fd64d839355c3bf5a55c6c63cf572dc25"
+    },
+    {
+      "path": "screenshots/01-scenarios.png",
+      "sha256": "83f54c9d611dd06711c386423982bb5c4d12b244a0a24036e48e7f3b46fbaeb2"
+    },
+    {
+      "path": "screenshots/02-flow-unrun.png",
+      "sha256": "af7f01c2c328f416c8350771a4ebab20a034c94253b25cd682b139c26c9e0033"
+    },
+    {
+      "path": "screenshots/03-xml.png",
+      "sha256": "7a62ffd17e96db23e01c96ee7a1cd3f1cf8613c15747857804200126edf47f93"
+    },
+    {
+      "path": "screenshots/04-validation-error.png",
+      "sha256": "8a61c1f3f0d5748fb4e49469848dc5720d0800c76fada010a7d5bd450272e2b7"
+    },
+    {
+      "path": "screenshots/05-running.png",
+      "sha256": "076626cd3d5104694993db5939a70feb0b13b42f5f68b7dab3251dc90f89cc0e"
+    },
+    {
+      "path": "screenshots/06-failed.png",
+      "sha256": "26d38ce34630a6b9767a333dcaac4c4302d3e3eb3c5f98f272791ccb6a465d87"
+    },
+    {
+      "path": "screenshots/07-passed.png",
+      "sha256": "1e4cc86613dfa5c00d01231dafe68a0cb5d68666df4a7452b6a8499b0f2fe8c5"
+    },
+    {
+      "path": "screenshots/08-environment-error.png",
+      "sha256": "2fed4b31965457aaec686126c32ded19d30d008394d243def150307fe217d509"
+    },
+    {
+      "path": "screenshots/09-unrun.png",
+      "sha256": "e1eb77775fb918efea9edb6cf5f3d90f622668abe12503de079be59502933281"
+    },
+    {
+      "path": "screenshots/10-share-draft.png",
+      "sha256": "e9a2064a24e818ff3b63467fa487dc1588273862a6055bb777e62653d624bcfe"
+    },
+    {
+      "path": "screenshots/11-sharing.png",
+      "sha256": "920a9b37c52489ba8c0ea8009d3a89d056bd7ca066874ed5a9fd7a53fb9c4da9"
+    },
+    {
+      "path": "screenshots/12-compact.png",
+      "sha256": "70463f69971539db163851e5aba1547e1e508ca133940993a7580e1b5aa0ea98"
+    }
+  ]
+}

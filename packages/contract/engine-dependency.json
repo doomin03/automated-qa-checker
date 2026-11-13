@@ -1,7 +1,7 @@
 {
   "owner": "automated-qa-engine",
   "repository": "https://github.com/doomin03/automated-qa-engine",
-  "contractVersion": "0.1.0-draft.1",
+  "contractVersion": "0.3.0-draft.1",
   "status": "local-preview",
   "requiredSchemas": [
     "qa.flow/v1",
@@ -15,14 +15,19 @@
     "qa.capabilities/v1",
     "qa.evidence/v1",
     "qa.blueprint/v1",
-    "qa.plan/v1"
+    "qa.plan/v1",
+    "qa.designReference/v1",
+    "qa.checkPreset/v1",
+    "qa.checkReport/v1",
+    "qa.authoring/v1",
+    "qa.authoringSourceMap/v1"
   ],
-  "engineVersion": "0.1.0-alpha.1",
+  "engineVersion": "0.1.0-alpha.6",
   "release": {
     "tag": null,
-    "artifact": "qa-contract-0.1.0-alpha.1.json",
-    "sha256": "b9e125e56685243c82ab7e90a2f574a2538e0ea014f23f6d4035ff75fd0953f6"
+    "artifact": "qa-contract-0.1.0-alpha.6.json",
+    "sha256": "1f880001f8c653e51527ee9f92c5728aa7517b61adfb6c158d218a4a0542ed8d"
   },
-  "runtimeIntegrationEnabled": false,
-  "usage": "Blueprint schema validation and event replay only; CLI execution remains external."
+  "runtimeIntegrationEnabled": true,
+  "usage": "Flutter Desktop consumes the pinned public CLI for explicit validation, execution and cancellation; web edits/exports XML and observes authenticated server events without running the Engine."
 }

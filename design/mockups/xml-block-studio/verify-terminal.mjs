@@ -1,0 +1,77 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+const root=new URL('./',import.meta.url),out=new URL('./screenshots/multi-terminal/',root);
+await mkdir(out,{recursive:true});
+const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport:{width:1440,height:900}}),checks=[],errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+const check=(name,ok)=>{assert(ok,name);checks.push(name);};
+const act=async(name)=>page.locator(`[data-td="${name}"]`).last().click();
+const menu=async()=>act('session-menu');
+const select=async id=>page.locator(`[data-td="select"][data-id="${id}"]`).click();
+const candidate=async kind=>{await menu();await act('candidate-menu');await page.locator(`[data-td="prepare"][data-kind="${kind}"]`).click();};
+const complete=async()=>{await menu();await act('candidate-menu');await act('complete');};
+const assign=async()=>{await menu();await act('writer');if(await page.locator('[data-td="transfer"]').count())await act('transfer');};
+const settle=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+const source=()=>page.evaluate(()=>directXml);
+const open=async()=>{await page.goto(new URL('index.html?planning=1&screen=D08',root).href);await page.locator('.td-pane').first().waitFor();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));};
+try{
+ await open();
+ check('D08 is a real lower dock, no overlay',await page.locator('.planning-panel').count()===0&&await page.locator('.td-pane').count()===2);
+ check('header and footer within viewport',await page.evaluate(()=>document.querySelector('.review').getBoundingClientRect().top===0&&document.querySelector('footer').getBoundingClientRect().bottom<=innerHeight));
+ const graph=await page.evaluate(()=>({nodes:JSON.stringify(nodes),selected,scale,tx,ty}));
+ await act('collapse');check('collapse preserves running sessions',await page.evaluate(()=>TerminalDock.inspect().collapsed&&TerminalDock.sessions.every(s=>s.process==='running')));await act('collapse');
+ check('dock controls preserve graph selection and transform',await page.evaluate(g=>JSON.stringify(nodes)===g.nodes&&selected===g.selected&&scale===g.scale&&tx===g.tx&&ty===g.ty,graph));
+ await page.locator('[data-action="direct"]').first().click();await page.locator('[data-action="confirm-direct"]').click();
+ const xml=page.locator('#source textarea');await xml.fill((await xml.inputValue())+'\n<!-- 직접 편집 -->');
+ await xml.evaluate(e=>{e.focus();e.setSelectionRange(12,24);e.scrollTop=60;window.savedEditor=e;});
+ const editor=await xml.evaluate(e=>({value:e.value,start:e.selectionStart,end:e.selectionEnd,top:e.scrollTop}));
+ await act('expand');await act('expand');
+ check('XML DOM input selection and scroll preserved',await xml.evaluate((e,v)=>e===window.savedEditor&&e.value===v.value&&e.selectionStart===v.start&&e.selectionEnd===v.end&&e.scrollTop===v.top,editor));
+ await page.locator('[data-action="blocks"]').first().click();
+ await act('new');check('Claude setup honest',await page.locator('[data-provider="claude"]').innerText().then(t=>t.includes('설정 필요')));await page.locator('[data-provider="claude"]').click();await act('ready');
+ check('Claude creates only simulated session',await page.locator('.td-output').last().innerText().then(t=>t.includes('실제 프로세스는 실행하지')));
+ await menu();await act('rename');await page.locator('#td-rename').fill('한글 검토 역할');await page.locator('#td-rename').press('Enter');check('rename Enter commits',await page.locator('[data-td=select][aria-selected=true]').innerText().then(t=>t.includes('한글 검토')));
+ await menu();await act('rename');await page.locator('#td-rename').fill('저장 안 함');await page.locator('#td-rename').dispatchEvent('keydown',{key:'Enter',isComposing:true});check('IME Enter does not commit',await page.locator('#td-rename').isVisible());await page.keyboard.press('Escape');check('Escape restores menu trigger focus and does not terminate',await page.evaluate(()=>document.activeElement.dataset.td==='session-menu'&&TerminalDock.sessions.every(s=>s.process==='running')));
+ await act('new');await page.keyboard.press('Escape');check('new menu Escape restores trigger',await page.evaluate(()=>document.activeElement.dataset.td==='new'));
+ await select('terminal-2');await page.locator('[data-td=select][data-id=terminal-1]').focus();await page.keyboard.press('Enter');check('session keyboard focus retained',await page.evaluate(()=>document.activeElement.dataset.id==='terminal-1'));
+ const input=page.locator('.td-pane[data-session=terminal-1] input');await input.fill('미제출 한글 입력');
+ await page.evaluate(()=>{TerminalDock.sessions[0].output=Array.from({length:80},(_,i)=>'출력 '+i).join('\n');TerminalDock.select('terminal-1');});
+ await page.locator('.td-pane[data-session=terminal-1] .td-output').evaluate(e=>e.scrollTop=70);await page.waitForTimeout(50);
+ await select('terminal-3');await select('terminal-1');
+ check('session input survives switching',await input.inputValue()==='미제출 한글 입력');
+ check('long output scroll survives detached pane switching',await page.locator('.td-pane[data-session=terminal-1] .td-output').evaluate(e=>e.scrollTop)===70);
+ await act('collapse');await page.locator('[data-td=tab][data-tab=terminal]').click();check('reopening terminal tab preserves output scroll',await page.locator('.td-pane[data-session=terminal-1] .td-output').evaluate(e=>e.scrollTop)===70);
+ const separator=page.getByRole('separator');await separator.focus();const before=await page.locator('#terminal-dock').boundingBox();await page.keyboard.press('ArrowUp');check('keyboard resize 20px',Math.round((await page.locator('#terminal-dock').boundingBox()).height-before.height)===20);
+ const r=await separator.boundingBox();await page.mouse.move(r.x+r.width/2,r.y+3);await page.mouse.down();await page.mouse.move(r.x+r.width/2,r.y-27);await page.mouse.up();check('pointer resize 30px',Math.round((await page.locator('#terminal-dock').boundingBox()).height-before.height)===50);
+ await page.setViewportSize({width:1024,height:768});await settle();check('narrow split fallback and preference',await page.locator('.td-pane').count()===1&&await page.evaluate(()=>!!TerminalDock.inspect().split));
+ await page.setViewportSize({width:1440,height:900});await settle();check('wide split restored',await page.locator('.td-pane').count()===2);
+ for(const width of [1440,1024]){await page.setViewportSize({width,height:width===1440?900:768});await settle();await act('expand');check(`expanded ${width} dock bounds and ARIA`,await page.evaluate(()=>{const d=document.querySelector('#terminal-dock').getBoundingClientRect(),s=document.querySelector('.td-resize');return d.bottom<=innerHeight&&document.querySelector('main').getBoundingClientRect().height>=75&&+s.getAttribute('aria-valuenow')<=+s.getAttribute('aria-valuemax');}));await act('expand');}
+ await page.emulateMedia({reducedMotion:'reduce'});check('reduced motion has no delayed height animation',await page.locator('#terminal-dock').evaluate(e=>getComputedStyle(e).transitionDuration==='0s'));await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.setViewportSize({width:1440,height:900});await settle();
+ // Candidate guards exercise the same menu actions as the user.
+ await select('terminal-1');let baseline=await source();await candidate('invalid');await complete();check('invalid candidate preserves XML',await source()===baseline);
+ await candidate('valid');await page.evaluate(()=>{directXml+='\n<!-- 同時編集 -->';});await complete();check('GUI revision conflict preserves new XML',await source()===baseline+'\n<!-- 同時編集 -->');
+ await select('terminal-3');baseline=await source();await candidate('valid');await complete();check('non-writer candidate cannot replace XML',await source()===baseline);
+ await select('terminal-1');await candidate('valid');await select('terminal-3');await assign();await select('terminal-1');await assign();await complete();check('writer A B A rejects old candidate',await source()===baseline);
+ await candidate('valid');await assign();await assign();await complete();check('writer revoke regrant rejects old candidate',await source()===baseline);
+ await candidate('valid');await menu();await act('candidate-menu');await act('pin-change');await complete();check('changed Engine pin rejects old candidate',await source()===baseline);
+ await candidate('valid');await menu();await act('candidate-menu');await act('run-guard');await complete();check('active QA run blocks draft replacement',await source()===baseline);await menu();await act('candidate-menu');await act('run-guard');
+ await candidate('valid');await complete();check('fresh writer candidate updates draft without save or run',await page.evaluate(()=>directXml.includes('터미널의 검증된 예시 후보')&&dirty&&!TerminalDock.documents.get('web/login').run));
+ await menu();await act('terminate');await act('terminate-confirm');check('termination is pending not exited',await page.evaluate(()=>TerminalDock.sessions[0].process==='stopping'));
+ await menu();await act('cleanup-unknown');await select('terminal-3');await assign();check('unknown cleanup retains blocked owner',await page.evaluate(()=>TerminalDock.sessions[0].writer&&!TerminalDock.sessions[2].writer));
+ await select('terminal-1');await menu();await act('cleanup-ok');check('explicit cleanup exits selected only',await page.evaluate(()=>TerminalDock.sessions[0].process==='exited'&&TerminalDock.sessions[1].process==='running'));
+ await select('terminal-3');await assign();check('writer may change after confirmed cleanup',await page.evaluate(()=>TerminalDock.sessions[2].writer));
+ const ownership=await page.evaluate(()=>TerminalDock.sessions.map(s=>[s.id,s.document,s.cwd]));await page.locator('[data-action=home]').click();await page.locator('[data-home=save-leave]').click();
+ check('home announces remaining sessions',await page.locator('.td-home-sessions').isVisible());
+ await page.locator('[data-home=project][data-id=desktop]').click();await page.locator('[data-home=qa]').first().click();await page.locator('[data-home=open]').click();
+ check('different QA does not retarget existing sessions',await page.evaluate(o=>JSON.stringify(TerminalDock.sessions.map(s=>[s.id,s.document,s.cwd]))===JSON.stringify(o),ownership));
+ check('different QA has separate empty terminal',await page.locator('.td-empty').innerText().then(t=>t.includes('터미널이 없습니다')));
+ await page.locator('[data-action=home]').click();await page.locator('[data-td=return]').click();check('home return restores original QA session',await page.evaluate(()=>TerminalDock.inspect().identity==='web/login'&&TerminalDock.sessions.length===3));
+ await page.locator('[data-td=tab][data-tab=output]').click();check('output tab keeps existing log in DOM',await page.locator('#log').isVisible());await page.locator('[data-td=tab][data-tab=results]').click();check('terminal activity does not fabricate QA result',await page.locator('.td-simple').innerText().then(t=>t.includes('아직 실행 결과가 없습니다')));
+ // Fresh representative screens, without test-only traces or transient menus.
+ await open();
+ for(const width of [1440,1024]){await page.setViewportSize({width,height:width===1440?900:768});await settle();await page.locator('[data-action=fit]').first().click();await page.screenshot({path:new URL(`dock-${width}.png`,out).pathname.replace(/^\//,'')});check(`viewport ${width} no page overflow`,await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight));await page.locator('[data-action=direct]').first().click();await page.locator('[data-action=confirm-direct]').click();await page.screenshot({path:new URL(`xml-${width}.png`,out).pathname.replace(/^\//,'')});await page.locator('[data-action=blocks]').first().click();}
+ check('no runtime page errors',errors.length===0);
+ await writeFile(new URL('verification-terminal.json',root),JSON.stringify({status:'passed',timestamp:new Date().toISOString(),scope:'Local prototype only; no PTY/provider/Engine execution',checks,errors},null,2));console.log(`PASS ${checks.length} terminal checks`);
+}catch(error){await writeFile(new URL('verification-terminal-failure.json',root),JSON.stringify({status:'failed',checks,errors,error:String(error)},null,2));throw error;}finally{await browser.close();}

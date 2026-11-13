@@ -2,7 +2,7 @@
 
 ## Context
 
-현재 apps/web은 React Blueprint JSON 편집과 event replay를 제공하고 apps/app은 README만 있다. 관리자 전용이라는 기존 문서 표현을 최신 사용자 요구로 정정한다. Engine가 XML 투영과 qa.blueprint/v1 원본을 소유하며 alpha.2 CLI export와 엄격한 XML 검사를 준비 중이다.
+현재 apps/web은 React Blueprint JSON 편집과 event replay, apps/app은 MVVM/Provider 파일 편집 shell을 제공한다. Engine가 XML 투영과 qa.blueprint/v1 원본을 소유하며 검증된 alpha.3 local-preview package를 소비하여 실제 실행을 연결한다.
 
 ## Goals / Non-Goals
 
@@ -14,6 +14,9 @@ XML 원문 편집기를 통해 사용자 지정 테스트를 만들고 CLI valid
 - XML은 외부 표현이다. Engine가 파싱→schema/graph 검증→정규 실행계획→adapter 호출을 담당한다. 현재 실제 adapter는 Playwright이며 Appium 지원을 이 변경에서 완료했다고 표기하지 않는다. 향후 블록 편집기 역시 같은 선언형 구조를 만든다.
 - Desktop는 Dart Process.start의 runInShell=false와 인자 배열을 사용한다. 설정은 사용자가 선택한 Node/CLI 경로이며 정확한 엔진 버전을 조회한다. 문서는 임시 snapshot으로 저장해 편집 중 실행 대상 변화를 막는다.
 - Desktop는 engine CLI import/validate/plan을 이용하므로 XML parser를 별도로 구현하지 않는다. GUI는 명령 문자열/임의 shell/script를 제공하지 않는다.
+- Engine tgz SHA-256을 확인하여 ignored `.local/engine`에 설치한다. 설치 파일별 SHA-256 manifest와 exact engineVersion을 고정하고 Flutter 실행 전에 확인한다. 사용자 Node/CLI 경로는 로컬 입력이며 외부 저장소 source 경로를 커밋하지 않는다. 문서/결과의 hash는 Dart crypto로 확인하고 공개 schema는 Engine validate 경로를 따른다.
+- alpha.2 Windows pipe 취소는 kill 후 terminal/result가 없을 수 있다. UI는 취소 요청·실제 cancelled·강제 종료 후 결과 누락을 구분한다. 후속 Engine의 명시 control transport를 공개 계약 검증 후 소비하며 강제 종료를 성공 취소로 합성하지 않는다.
+- 2026-10-31 관리 승인된 alpha.3는 같은 draft.1/schema v1을 유지하고 `--control-stdin` 및 `--diagnostics stderr`를 소비한다. 취소는 stdin JSONL `{ "type": "cancel" }` 한 줄로 요청하며 EOF는 취소가 아니다. 실제 cancelled terminal/result와 exit5를 확인한다. stdout에는 실행 이벤트, stderr에는 진단을 분리하고 강제종료 fallback에는 위 결과누락 규칙을 유지한다.
 - 결과는 해당 실행 report 하위의 파일만 읽고 runId/sequence를 추적한다. 비정상 종료·불완전 이벤트는 성공으로 표시하지 않는다. 전체 stderr 원문을 그대로 제품 로그에 누적하지 않는다.
 - Flutter는 QA .tools 로컬 SDK로 정확 버전 고정하고 pnpm workspace에는 넣지 않는다. 공식 stable 태그와 doctor로 Windows 도구를 확인한다. 글로벌 PATH/설정 변경과 Visual Studio 관리자 설치를 하지 않는다.
 - 사용자 추가 결정에 따라 Flutter는 기능별 MVVM + provider를 사용한다. View→ChangeNotifier ViewModel→Repository→파일/API/engine Service 경계로 조립하고 Model은 immutable이다. shell·Provider 인수는 상위 모노레포 6.1/qa-flow-editor2.1에서 공유하며 본 change의 엔진/XML 인수와 혼동하지 않는다.

@@ -1,0 +1,54 @@
+import 'reflect-metadata';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {resolve,join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {NestFactory} from '@nestjs/core';
+import {Module} from '@nestjs/common';
+import {AppModule} from '../dist/src/app.module.js';
+import {PlatformService} from '../dist/src/modules/platform/platform.service.js';
+import {PlatformRepository} from '../dist/src/modules/platform/platform.repository.js';
+import {EngineContractService} from '../dist/src/modules/platform/engine-contract.service.js';
+import {SuiteModule} from '../dist/src/modules/suite/suite.module.js';
+import {SuiteService} from '../dist/src/modules/suite/suite.service.js';
+import {configureApp} from '../dist/src/config/configure-app.js';
+test('published Suite references preserve order/review/hash with durable HTTP permissions',{timeout:90000},async t=>{
+ const root=resolve('../..'),dataDir=await mkdtemp(join(tmpdir(),'qa-suite-')),cli=resolve(root,'.local/engine/node_modules/automated-qa-engine/packages/cli/aqa.mjs');
+ const users=['author','reviewer','tester','viewer','other'],tokens=Object.fromEntries(users.map(id=>[id,id+'-suite-local-fixture-token-32characters']));
+ const identities={users:users.map(id=>({id,token:tokens[id],active:true})),projects:[{id:'project',name:'Demo'},{id:'other',name:'Other'}],memberships:users.map(id=>({userId:id,projectId:id==='other'?'other':'project',role:['author','reviewer'].includes(id)?'qa_manager':id==='viewer'?'viewer':'qa_tester'}))};
+ let app,platform,suite,repo,engine,origin;
+ async function start(){class Root{}Module({imports:[AppModule,SuiteModule]})(Root);app=await NestFactory.create(Root,{logger:false});configureApp(app,()=>{});platform=app.get(PlatformService);await platform.start({mode:'test',dataDir,identities,engineCli:cli,engineManifest:resolve(root,'apps/app/assets/engine-runtime.json')});suite=app.get(SuiteService);suite.start();repo=app.get(PlatformRepository);engine=app.get(EngineContractService);await app.listen(0,'127.0.0.1');origin=await app.getUrl();}await start();t.after(()=>app.close());
+ const request=async(path,{user='author',body,method=body?'POST':'GET',key}={})=>{const response=await fetch(`${origin}/api/v1/projects/project/suites${path}`,{method,headers:{authorization:`Bearer ${tokens[user]}`,...(body?{'content-type':'application/json'}:{}),...(key?{'idempotency-key':key}:{})},...(body?{body:JSON.stringify(body)}:{})});return{status:response.status,body:await response.json()};};
+ const xml=execFileSync(process.execPath,[cli,'template','--format','xml'],{encoding:'utf8',windowsHide:true});const d=await platform.createDraft('author','project',{packageId:'scenario',title:'Fixture',xml,dependencies:[]});platform.review('reviewer','project',d.id);const v=await platform.publish('author','project',d.id,'1.0.0','registry-1');
+ const input={packageId:'suite-demo',title:'Ordered Suite',stopOnFailure:true,cases:[{caseId:'constructor',versionId:v.id,sha256:v.sha256},{caseId:'toString',versionId:v.id,sha256:v.sha256}]};let draft,published;
+ await t.test('scope, required fields, duplicate case and content/pin checks',async()=>{
+  assert.equal((await request('/drafts',{user:'viewer',body:input})).status,403);assert.equal((await request('/drafts',{user:'other',body:input})).status,403);
+  assert.equal((await request('/drafts',{body:{...input,stopOnFailure:undefined}})).status,400);
+  assert.equal((await request('/drafts',{body:{...input,cases:[input.cases[0],input.cases[0]]}})).status,400);
+  assert.equal((await request('/drafts',{body:{...input,cases:Array.from({length:33},(_,i)=>({...input.cases[0],caseId:'case'+i}))}})).status,400);
+  assert.equal((await request('/drafts',{body:{...input,cases:[{...input.cases[0],sha256:'0'.repeat(64)}]}})).status,409);
+  assert.equal((await request('/drafts',{body:{...input,cases:[{...input.cases[0],versionId:'missing'}]}})).status,400);
+  const actual=engine.version;engine.version='incompatible';assert.equal((await request('/drafts',{body:input})).status,409);engine.version=actual;
+  const created=await request('/drafts',{body:input});assert.equal(created.status,201);draft=created.body;assert.equal(repo.get('SELECT COUNT(*) AS count FROM runs').count,0);
+ });
+ await t.test('independent active review and idempotent concurrent immutable publish',async()=>{
+  assert.equal((await request(`/drafts/${draft.id}/review`,{method:'POST'})).status,403);
+  assert.equal((await request(`/drafts/${draft.id}/publish`,{body:{version:'1.0.0'},key:'first'})).status,409);
+  assert.equal((await request(`/drafts/${draft.id}/review`,{user:'reviewer',method:'POST'})).status,200);
+  repo.exec('UPDATE users SET active=0 WHERE id=?','reviewer');assert.equal((await request(`/drafts/${draft.id}/publish`,{body:{version:'1.0.0'},key:'first'})).status,409);repo.exec('UPDATE users SET active=1 WHERE id=?','reviewer');
+  const pair=await Promise.all([1,2].map(()=>request(`/drafts/${draft.id}/publish`,{body:{version:'1.0.0'},key:'first'})));assert.equal(pair[0].status,201,JSON.stringify(pair[0]));assert.deepEqual(pair[0].body,pair[1].body);published=pair[0].body;
+  assert.equal((await request(`/drafts/${draft.id}/publish`,{body:{version:'2.0.0'},key:'first'})).status,409);
+  assert.throws(()=>repo.exec('UPDATE suite_versions SET title=? WHERE id=?','changed',published.id),/Immutable/);assert.throws(()=>repo.exec('DELETE FROM suite_versions WHERE id=?',published.id),/Immutable/);
+ });
+ await t.test('pin, exact resolution, pagination and restart do not execute anything',async()=>{
+  assert.equal((await request('/pins',{user:'tester',method:'PUT',body:{versionId:published.id,sha256:'0'.repeat(64)}})).status,409);
+  assert.equal((await request('/pins',{user:'tester',method:'PUT',body:{versionId:published.id,sha256:published.sha256}})).status,200);
+  const resolved=suite.resolvePublished('tester','project',published.id,published.sha256);assert.deepEqual(resolved.cases.map(c=>c.caseId),['constructor','toString']);assert.equal(resolved.cases[0].xml,xml);assert.equal(resolved.suitePolicy.stopOnFailure,true);
+  assert.equal((await request('/versions?limit=1')).body.items[0].id,published.id);assert.equal((await request('/versions?limit=1&limit=2')).status,400);
+  const second=await request('/drafts',{body:{...input,title:'Second'}});await request(`/drafts/${second.body.id}/review`,{user:'reviewer',method:'POST'});await request(`/drafts/${second.body.id}/publish`,{body:{version:'1.1.0'},key:'second'});
+  const page=(await request('/versions?limit=1')).body;assert.ok(page.nextCursor);assert.equal((await request('/versions?limit=1&cursor='+page.nextCursor)).body.items[0].version,'1.1.0');
+  await app.close();await start();assert.equal((await request(`/versions/${published.id}`)).body.sha256,published.sha256);assert.equal(repo.get('SELECT COUNT(*) AS count FROM suite_pins').count,1);assert.equal(repo.get('SELECT COUNT(*) AS count FROM runs').count,0);assert.ok(repo.get("SELECT id FROM audit WHERE action='suite.published'"));
+ });
+});

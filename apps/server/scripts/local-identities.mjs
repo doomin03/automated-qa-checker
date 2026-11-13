@@ -1,0 +1,13 @@
+import { randomBytes } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
+const root = fileURLToPath(new URL('../../../', import.meta.url));
+const directory = join(root, '.local');
+await mkdir(directory, { recursive: true });
+const users = ['author', 'reviewer', 'tester', 'viewer'].map(id => ({ id, token: randomBytes(32).toString('hex'), active: true }));
+const roles = { author: 'qa_manager', reviewer: 'qa_manager', tester: 'qa_tester', viewer: 'viewer' };
+const config = { users, projects: [{ id: 'demo', name: 'Local QA demo' }], memberships: users.map(user => ({ userId: user.id, projectId: 'demo', role: roles[user.id] })) };
+const file = join(directory, 'platform-identities.json');
+await writeFile(file, JSON.stringify(config, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+console.log(`Local identity configuration created at ${file}. Tokens were not printed. Existing files are never overwritten.`);

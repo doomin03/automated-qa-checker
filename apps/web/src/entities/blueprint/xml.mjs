@@ -10,7 +10,7 @@ export function exportBlueprintXml(source) {
  const flow=blueprint.flow;
  const nodes=flow.nodes.map(node=>element('node',Object.fromEntries(['id','type','action','timeoutMs'].map(key=>[key,node[key]])),data(node,['params','condition','retry']))).join('\n');
  const edges=flow.edges.map(edge=>element('edge',Object.fromEntries(['from','to','label'].map(key=>[key,edge[key]])))).join('\n');
- const xml='<?xml version="1.0" encoding="UTF-8"?>\n'+element('blueprint',{schemaVersion:blueprint.schemaVersion,id:blueprint.id,name:blueprint.name},'\n'+element('flow',{id:flow.id,entryNode:flow.entryNode,name:flow.name},data(flow,['variables','metadata'])+element('nodes',{},nodes)+element('edges',{},edges))+data(blueprint,['selectors','target','testCase']))+'\n';
+ const xml='<?xml version="1.0" encoding="UTF-8"?>\n'+element('blueprint',{schemaVersion:blueprint.schemaVersion,id:blueprint.id,name:blueprint.name},'\n'+element('flow',{id:flow.id,entryNode:flow.entryNode,name:flow.name},data(flow,['variables','metadata'])+element('nodes',{},nodes)+element('edges',{},edges))+data(blueprint,['selectors','target','testCase','references']))+'\n';
  if(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u.test(xml))throw new Error('XML에서 지원하지 않는 제어 문자가 있습니다.');
  if(new TextEncoder().encode(xml).length>1024*1024)throw new Error('XML 파일은 1 MiB 이하여야 합니다.');
  return xml;

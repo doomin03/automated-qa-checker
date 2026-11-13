@@ -1,0 +1,12 @@
+{
+  "status": "accepted",
+  "sha256": "21d69689d4302f84b72028b8e9b62095bbb7de0bd7a96b5fa30f07cb190b7b33",
+  "source": "Validated offline Nest exporter: Registry, Auth/Workflow, Suite, Agent, Scheduler",
+  "date": "2026-10-31",
+  "verification": "Read-only codegen drift PASS; TS 8/Dart 6 tests and Dart analyze PASS",
+  "baselineKind": "superseding-local-reviewed-snapshot",
+  "previousHealthSha256": "3880a44b997188d5bc41e27a1719c3e4f6a8c6eb6817cecc059e870cecda651c",
+  "previousHealthBytesAvailable": false,
+  "remoteBaseVerified": false,
+  "acceptedBy": "Management agent: exact bytes and SHA-256 independently checked, 2026-10-31"
+}

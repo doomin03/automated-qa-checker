@@ -1,0 +1,24 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {exportBlueprintXml} from '../apps/web/src/entities/blueprint/xml.mjs';
+const cli=resolve('.local/engine/node_modules/automated-qa-engine/packages/cli/aqa.mjs');
+test('edited web XML roundtrips through installed public engine and matches official export',async()=>{
+ const b=JSON.parse(await readFile('apps/web/public/demo/blueprint.json','utf8'));
+ b.name='사용자 <이름> " & ]]>\n';
+ b.flow.name='roundtrip';b.flow.metadata={presentation:{notes:'hello ]]> 世界'}};
+ b.target.profile={viewport:{width:320,height:200},dpr:1,browserVersion:'explicit-reference-version',os:'win32',locale:'en-US',colorScheme:'light',fonts:[],readiness:{selector:'greeting',timeoutMs:5000}};
+ b.references=[{schemaVersion:'qa.designReference/v1',id:'design-v1',profile:structuredClone(b.target.profile),images:[{id:'baseline',path:'baseline.png',sha256:'a'.repeat(64),region:'viewport',threshold:{channelTolerance:0,maxDiffRatio:0}}],measurementRules:[]}];
+ const dir=resolve('artifacts/xml-roundtrip');await mkdir(dir,{recursive:true});
+ const xml=exportBlueprintXml(b);await writeFile(resolve(dir,'web.xml'),xml);
+ await writeFile(resolve(dir,'source.json'),JSON.stringify(b));
+ const invoke=args=>{const r=spawnSync(process.execPath,[cli,...args],{encoding:'utf8',windowsHide:true});assert.equal(r.status,0,r.stdout+r.stderr);return r.stdout;};
+ assert.deepEqual(JSON.parse(invoke(['import',resolve(dir,'web.xml')])),b);
+ const official=invoke(['export',resolve(dir,'source.json'),'--format','xml']);await writeFile(resolve(dir,'official.xml'),official);
+ assert.deepEqual(JSON.parse(invoke(['import',resolve(dir,'official.xml')])),b);
+ assert.equal(JSON.parse(invoke(['plan',resolve(dir,'web.xml')])).blueprintSnapshotHash,JSON.parse(invoke(['plan',resolve(dir,'source.json')])).blueprintSnapshotHash);
+ const invalid=structuredClone(b);invalid.extraFutureMeaning={value:1};
+ assert.throws(()=>exportBlueprintXml(invalid),/규격 오류/,'unknown execution meaning must not be silently dropped');
+});

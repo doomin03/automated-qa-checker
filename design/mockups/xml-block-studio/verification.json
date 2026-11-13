@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "checks": [
+    "three file blocks",
+    "two curves",
+    "node drag",
+    "layout undo",
+    "connection check is not Engine validation",
+    "read only XML",
+    "generated XML mode read only",
+    "direct mode editable",
+    "compact library all assets",
+    "compact add file instance",
+    "unconnected block reported",
+    "planning roles and boundaries",
+    "direct edit survives tab switch",
+    "saved blocks reopen",
+    "saved direct XML reopens",
+    "no JavaScript errors"
+  ],
+  "viewports": [
+    "1440x900",
+    "1024x768"
+  ],
+  "scope": "Design review only; no Engine execution"
+}

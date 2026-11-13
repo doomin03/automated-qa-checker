@@ -15,7 +15,7 @@ const packages = [contract, web, server, client];
 const scan = (source, file = 'src/pages/example.jsx', owner = web) => checkSource(resolve(owner.directory, file), source, owner, packages);
 
 test('public package imports and downward web imports are allowed', () => {
-  assert.deepEqual(scan("import React from 'react'; import {x} from '@qa/contract'; import '../entities/value.mjs';"), []);
+  assert.deepEqual(scan("import React from 'react'; import {x} from '@qa/contract'; import '../entities/value/index.js';"), []);
   assert.deepEqual(scan("// import '../../server/src/secret.mjs';\nconst s = `import('@qa/contract/src/private')`;"), []);
 });
 
@@ -36,6 +36,13 @@ test('browser source cannot use Node builtins or reverse FSD layers', () => {
   assert.match(scan("import 'node:fs';").join('\n'), /Node builtin/);
   assert.match(scan("import '../../pages/example.jsx';", 'src/entities/qa/model.mjs').join('\n'), /FSD upward/);
   assert.deepEqual(scan("import 'node:fs';", 'src/main.ts', server), []);
+});
+
+test('web slices use public entrypoints and never another slice in the same layer',()=>{
+ assert.match(scan("import '../../features/a/private.jsx';",'src/pages/page/View.jsx').join('\n'),/public slice/);
+ assert.match(scan("import '../b/index.js';",'src/features/a/View.jsx').join('\n'),/same-layer cross-slice/);
+ assert.deepEqual(scan("import './View.jsx';",'src/features/a/index.js'),[]);
+ assert.deepEqual(scan("import '../../entities/value/index.js';",'src/features/a/View.jsx'),[]);
 });
 
 test('app dependencies, local links and server SDK imports fail at manifest level', () => {

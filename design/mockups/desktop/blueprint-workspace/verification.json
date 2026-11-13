@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "scope": "Local mockup interactions; CLI validate/plan only; no Engine run or AI requests",
+  "browser": "156.0.8078.4",
+  "viewports": [
+    "1440x900",
+    "1024x768"
+  ],
+  "checks": [
+    "Project search and project-to-QA hierarchy",
+    "Initial workspace is unrun and provider is unconfigured",
+    "Public XML fixture content unchanged",
+    "Provider password show/hide and demo connection gates AI",
+    "Pan and zoom alter viewport only",
+    "Wire endpoints meet facing input/output ports",
+    "XML node range and graph use same selected node",
+    "AI modify preview/apply/undo and no execution",
+    "AI before preview/apply/undo and no execution",
+    "AI after preview/apply/undo and no execution",
+    "AI whole preview/apply/undo and no execution",
+    "Proposal cancellation changes neither XML nor run count",
+    "Selection change rejects stale proposal",
+    "XML edit and undo reject old proposal",
+    "Pending XML survives QA change and blocks AI/run",
+    "QA change rejects old proposal even after returning",
+    "Unsupported XML retains original and hides stale graph",
+    "Unknown attrs/params, duplicate IDs, bad refs and branch are rejected",
+    "JSON zones reject nested XML elements",
+    "Start-before/end-after/branch insertion explicitly reject",
+    "Validation does not execute; run locks editing and QA navigation",
+    "New draft removes old run overlay but preserves snapshot log",
+    "Environment error and user cancellation preserve unrun nodes",
+    "PASS completes every snapshot node",
+    "Desktop 1440 viewport has no page scroll or panel overlap",
+    "1024 expanded/folded panels retain independent grid columns",
+    "No storage writes, cookies or external requests",
+    "Disconnect and refresh clear provider memory",
+    "Public installed CLI validate/plan: five XMLs, ten non-execution invocations",
+    "Previous mockup source and screenshots byte-preserved"
+  ],
+  "screenshots": [
+    "01-projects.png",
+    "02-qa-list.png",
+    "03-workspace.png",
+    "04-provider-settings.png",
+    "05-xml-selection.png",
+    "06-ai-modify.png",
+    "06-ai-before.png",
+    "06-ai-after.png",
+    "06-ai-whole.png",
+    "07-unsupported.png",
+    "08-running.png",
+    "09-failed.png",
+    "10-compact-expanded.png",
+    "10-compact.png"
+  ],
+  "cli": [
+    {
+      "fixture": "initial",
+      "command": "validate",
+      "exitCode": 0,
+      "outputSha256": "7453cd1ded42631fd050868a22de060452b94507de62493b3092478c4e11d0cd"
+    },
+    {
+      "fixture": "initial",
+      "command": "plan",
+      "exitCode": 0,
+      "outputSha256": "8586da611beb9cf6cc38d1e815087bb541627883b693e52d739435d32b993e49"
+    },
+    {
+      "fixture": "modify",
+      "command": "validate",
+      "exitCode": 0,
+      "outputSha256": "7453cd1ded42631fd050868a22de060452b94507de62493b3092478c4e11d0cd"
+    },
+    {
+      "fixture": "modify",
+      "command": "plan",
+      "exitCode": 0,
+      "outputSha256": "31ae265721492049a2b6f1a1e6f93de54f716b56d4f6760a4f038127e6169827"
+    },
+    {
+      "fixture": "before",
+      "command": "validate",
+      "exitCode": 0,
+      "outputSha256": "368f3b2e7bf63c391df0f8d0935913f2d22b5095b2c5d34bb4830ebb2370a253"
+    },
+    {
+      "fixture": "before",
+      "command": "plan",
+      "exitCode": 0,
+      "outputSha256": "1094d1007e77e7e30d6783c3204d8a253083581ac249f65b031c5fd4db4ef702"
+    },
+    {
+      "fixture": "after",
+      "command": "validate",
+      "exitCode": 0,
+      "outputSha256": "368f3b2e7bf63c391df0f8d0935913f2d22b5095b2c5d34bb4830ebb2370a253"
+    },
+    {
+      "fixture": "after",
+      "command": "plan",
+      "exitCode": 0,
+      "outputSha256": "4b89fb3134fb3881a5343be55d525d04c67ff75a189c2d24232f8802dc54dd39"
+    },
+    {
+      "fixture": "whole",
+      "command": "validate",
+      "exitCode": 0,
+      "outputSha256": "368f3b2e7bf63c391df0f8d0935913f2d22b5095b2c5d34bb4830ebb2370a253"
+    },
+    {
+      "fixture": "whole",
+      "command": "plan",
+      "exitCode": 0,
+      "outputSha256": "e4f3ccf4443bc3dbac9d67c0bf9f7408b478a39d79ee4540b7a10b224784ed8a"
+    }
+  ],
+  "externalRequests": 0,
+  "storageWrites": 0,
+  "pageErrors": [],
+  "previousFilesVerified": 19
+}

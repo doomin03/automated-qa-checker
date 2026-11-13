@@ -12,4 +12,8 @@ build/
 .flutter-plugins-dependencies
 *.log
 .DS_Store
+.local/
 
+# Machine-local Desktop install receipt (contains paths, never credentials).
+apps/app/assets/desktop-installation.json
+apps/app/assets/desktop-portable-runtime.json

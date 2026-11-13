@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "scope": "Local HTML interaction mockup, not Engine/product execution",
+  "browser": "156.0.8078.4",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 1024,
+      "height": 900
+    }
+  ],
+  "checks": [
+    "Local HTML opens without network or page errors",
+    "Scenario search and empty state",
+    "Unvalidated draft cannot execute",
+    "Flow selection updates inspector",
+    "Public alpha6 fixture bytes preserved",
+    "Malformed XML blocked without running",
+    "Validation enables but does not start execution",
+    "Editing invalidates prior validation",
+    "FAIL distinguishes failed assertion and unrun tail",
+    "PASS includes every demo step",
+    "Infrastructure failure does not imply QA failure",
+    "Preflight cancellation shows unrun",
+    "User can stop demo and no later result overwrites it",
+    "Share dialog Escape closes and returns focus",
+    "Draft submission is explicitly simulated",
+    "Sharing does not change QA outcome",
+    "Desktop has no horizontal overflow at 1440px",
+    "Compact desktop has no horizontal overflow"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "fixtureSha256": "bc2210abfcdb7de02ae77e51598535da63e2dcd4c501670e5e160aa3fa3bd729",
+  "screenshots": 12
+}

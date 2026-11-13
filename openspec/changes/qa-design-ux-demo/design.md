@@ -2,7 +2,7 @@
 
 ## Context
 
-[proposal](proposal.md)의 목표를 따른다. 현재 웹은 JSON 편집·graph·JSONL 재생/파일 추적, Desktop은 XML/JSON 파일 편집 MVVM/Provider shell까지 검증되었다. Desktop CLI·시각 비교·기본 UX 팩·서버는 미구현이다. 웹 XML export 중간 변경도 아직 미검증이다. 이번 명세 작성은 기존 코드나 pin을 변경하지 않는다.
+[proposal](proposal.md)의 목표를 따른다. 현재 웹은 JSON 편집·graph·JSONL 재생/파일 추적, Desktop은 XML/Flow 편집과 alpha.3 CLI 실행/취소까지 검증되었다. 웹 XML export 및 Nest health/SDK도 검증되었으며 시각 비교·기본 UX 팩은 alpha.4 공개 계약 인수 후 연결한다.
 
 기존 [플랫폼 설계](../../../docs/architecture/platform-design.md)의 ReportBaseline은 비교 가능한 이전 PASS→현재 FAIL 집계이며 디자인 정답 이미지가 아니다. P4 전체를 앞당기지 않고 동일 Run/Artifact 개념과 버전 원칙만 재사용한다.
 
@@ -18,7 +18,7 @@
 
 Counterpart는 `automated-qa-engine/openspec/changes/qa-design-ux-demo`다. Engine 담당 초안의 `qa.designReference/v1`, `qa.checkPreset/v1`, `qa.checkReport/v1`은 현재 제안 이름이며 여기서 필드/schema를 재정의하지 않는다. optional references/target.profile, assertImage/assertLayout/assertInViewport/assertHitTarget/assertFocused/assertUrl/browserBack도 초안이다. 기존 Blueprint/XML 노드 구조를 유지하고 공개 Engine validate/plan 경로를 사용한다. Checker 안에 parser·측정·diff 실행기를 복제하는 대안은 소유권 충돌 때문에 제외한다.
 
-현재 Checker는 engine alpha.1/contract draft.1을 소비한다. Engine alpha.2 독립 패키지 증거는 새 디자인/UX 기능 인수가 아니며 새 runtime/contract version/hash는 pending이다. 계약 필드·preset ID·오류/경로·capability의 정본은 Engine의 reviewed draft→구현/contract test→공개 release 순서로 받는다. 소비 가능 release 없이는 신규 실행을 활성화하지 않는다.
+현재 Checker는 검증된 Engine alpha.4/contract0.2.0-draft.1 공개 artifact를 소비한다. 계약 필드·preset ID·오류/경로·capability의 정본은 Engine의 reviewed draft→구현/contract test→공개 release 순서로 받는다. 소비 가능 release 없이는 신규 실행을 활성화하지 않는다.
 
 ### D2. 명시적 기준·매핑과 작은 프리셋
 
@@ -26,7 +26,7 @@ PNG·JSON 경로와 resource root, 기준 version/hash, 화면/상태/selector, 
 
 Engine 기본 팩에서 back/focus/input/overlay 경로를 선택하고 필요한 입력을 채운다. back의 기대 목적지·상태, focus의 대상/복귀, input의 값과 기대 결과, overlay의 열기/닫기/가림 기대를 명시한다. 키보드 가림은 실제 OS 검사를 후속으로 두고, 브라우저 합성 overlay fixture를 사용하면 그 한계를 이름·결과에 표시한다. 완전 자동 추측 대신 필수 입력 오류를 제공한다.
 
-`aqa preset list`, `aqa preset expand ID --bindings FILE --out FILE`, `--reference-root`는 Engine 제안이며 고정 CLI 계약으로 오인하지 않는다. 확정 후 팩 전개 결과를 기존 XML 편집 경로에 연결한다. 임의 스크립트·shell 입력은 제공하지 않는다.
+Engine alpha.4 후보는 `aqa preset list`, `aqa preset expand ID --preset-version 1.0.0 --bindings FILE --out XMLFILE`, `run --reference-root DIR`다. validate/plan은 옵션 없는 문서 compile도 허용하고 옵션을 주면 asset 검증을 추가한다. 관리 승인된 alpha.4 공개 artifact에서 이 옵션을 소비한다. 확정 후 팩 전개 결과를 기존 XML 편집 경로에 연결한다. 임의 스크립트·shell 입력은 제공하지 않는다.
 
 ### D3. 기존 MVVM 기능 경계를 확장한다
 
@@ -47,7 +47,7 @@ Engine가 제공한 baseline/actual/diff 참조를 run/attempt/snapshot과 대�
 | 작업 | 기존 소유 | 이 change의 추가 인수 |
 | --- | --- | --- |
 | Flutter shell/Provider | monorepo6.1, flow-editor2.1, handoff3.1 완료 증거 | 새 shell을 만들거나 기존 완료를 확대하지 않음 |
-| Engine pin/schema | flow-editor2.2, handoff1.2 | 신규 디자인/UX 공개 계약의 별도 version/hash·capability 검증. alpha.2 XML 인수 대체 불가 |
+| Engine pin/schema | flow-editor2.2, handoff1.2 | 신규 디자인/UX 공개 계약의 별도 version/hash·capability 검증. alpha.3 XML 인수 대체 불가 |
 | XML validate/plan | handoff3.2 | 기준·팩 매핑이 포함된 XML의 비실행 검증 |
 | CLI/capability/cancel | flow-editor2.4, handoff3.3 | 동일 bridge로 디자인/UX 실제 실행·취소 인수 |
 | JSONL/Run evidence | flow-editor2.5, handoff3.3 | 동일 Run view에 검사별 참조/측정값/비교 불가 표시 |
@@ -70,3 +70,5 @@ Engine가 제공한 baseline/actual/diff 참조를 run/attempt/snapshot과 대�
 ## Open Questions
 
 정본의 정확한 schema/runtime version/hash, preset ID와 CLI 옵션명, reference/report 경로 표기는 Engine 초안 검토 뒤 고정한다. 필드명은 변경 가능하지만 명시 입력·비실행 검증·결과 진실성·별도 Desktop 인수 원칙은 유지한다. 이 항목들은 구현 task1.1/1.2의 선행조건이다.
+
+2026-10-31 구체 소비/폼/파일 한도/검사 표시/모바일 정적진단/secretRef 환경 규칙은 docs/architecture/design-ux.md에 기록한다. alpha.4 늦은 screenshot artifact race는 알려진 결함이며 최종 통합은 수정된 차기 고정 배포판에서 다시 검증한다.

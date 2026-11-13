@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "qa.blueprint/v1",
+  "id": "demo-login",
+  "name": "로컬 로그인 QA",
+  "flow": {
+    "schemaVersion": "qa.flow/v1",
+    "id": "login-flow",
+    "entryNode": "start",
+    "nodes": [
+      {
+        "id": "start",
+        "type": "start"
+      },
+      {
+        "id": "open",
+        "type": "action",
+        "action": "launch",
+        "params": {
+          "target": "page"
+        }
+      },
+      {
+        "id": "repeat_7d1f3fbe7dc0c47ba19add52e06772cd5d735394dac41a351655ee360103cd73",
+        "type": "assertion",
+        "action": "assertText",
+        "params": {
+          "selector": "greeting",
+          "expected": "Ready"
+        }
+      },
+      {
+        "id": "repeat_f0fc452c7c8b6b39d75cc0055856669f77c7258a45c403ff2c57191c8123196d",
+        "type": "assertion",
+        "action": "assertText",
+        "params": {
+          "selector": "greeting",
+          "expected": "Ready"
+        }
+      },
+      {
+        "id": "repeat_9fe6b46a27c87ed96565e00c29d5eb094b4515e8a42111f6e70b07db79902b90",
+        "type": "assertion",
+        "action": "assertText",
+        "params": {
+          "selector": "greeting",
+          "expected": "Ready"
+        }
+      },
+      {
+        "id": "capture",
+        "type": "action",
+        "action": "captureText",
+        "params": {
+          "selector": "greeting",
+          "variable": "observed"
+        }
+      },
+      {
+        "id": "input",
+        "type": "action",
+        "action": "input",
+        "params": {
+          "selector": "destination",
+          "valueRef": "observed"
+        }
+      },
+      {
+        "id": "checkValue",
+        "type": "assertion",
+        "action": "assertValue",
+        "params": {
+          "selector": "destination",
+          "expectedRef": "observed"
+        }
+      },
+      {
+        "id": "end",
+        "type": "end"
+      }
+    ],
+    "edges": [
+      {
+        "from": "start",
+        "to": "open"
+      },
+      {
+        "from": "open",
+        "to": "repeat_7d1f3fbe7dc0c47ba19add52e06772cd5d735394dac41a351655ee360103cd73"
+      },
+      {
+        "from": "repeat_9fe6b46a27c87ed96565e00c29d5eb094b4515e8a42111f6e70b07db79902b90",
+        "to": "capture"
+      },
+      {
+        "from": "capture",
+        "to": "input"
+      },
+      {
+        "from": "input",
+        "to": "checkValue"
+      },
+      {
+        "from": "checkValue",
+        "to": "end"
+      },
+      {
+        "from": "repeat_7d1f3fbe7dc0c47ba19add52e06772cd5d735394dac41a351655ee360103cd73",
+        "to": "repeat_f0fc452c7c8b6b39d75cc0055856669f77c7258a45c403ff2c57191c8123196d"
+      },
+      {
+        "from": "repeat_f0fc452c7c8b6b39d75cc0055856669f77c7258a45c403ff2c57191c8123196d",
+        "to": "repeat_9fe6b46a27c87ed96565e00c29d5eb094b4515e8a42111f6e70b07db79902b90"
+      }
+    ],
+    "variables": {
+      "observed": {
+        "from": "capture",
+        "public": true
+      }
+    }
+  },
+  "selectors": {
+    "schemaVersion": "qa.selectors/v1",
+    "id": "demo-selectors",
+    "selectors": {
+      "greeting": {
+        "web": {
+          "strategy": "testId",
+          "value": "greeting"
+        }
+      },
+      "destination": {
+        "web": {
+          "strategy": "testId",
+          "value": "destination"
+        }
+      }
+    }
+  },
+  "target": {
+    "schemaVersion": "qa.target/v1",
+    "id": "local-web",
+    "platform": "web",
+    "launchTargets": {
+      "page": "http://127.0.0.1:50018"
+    },
+    "allowedOrigins": [
+      "http://127.0.0.1:50018"
+    ],
+    "environment": "local"
+  }
+}

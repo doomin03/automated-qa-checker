@@ -1,0 +1,15 @@
+{
+  "packageName": "automated-qa-engine",
+  "engineVersion": "0.1.0-alpha.10",
+  "contractVersion": "0.3.0-draft.2",
+  "sha256": "0476445261b2596954167f335968d8bbb0a513867c930553604ba9b2b1c780e3",
+  "bundleSha256": "b99337961c1477549d9dd52b65f6ec888d47679f4735d3025435ee06881f93c1",
+  "authoringContractVersion": "0.1.0-draft.1",
+  "authoringBundleSha256": "65c2510ad9ff79fe69888209f7180a7006afe9698f1721388744aee7870bb139",
+  "documentAuthoring": true,
+  "entrypoint": "packages/cli/aqa.mjs",
+  "controlStdin": true,
+  "designChecks": true,
+  "appium": true,
+  "authoring": true
+}

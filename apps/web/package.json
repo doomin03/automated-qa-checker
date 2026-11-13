@@ -7,16 +7,17 @@
     "dev": "vite --host 127.0.0.1 --port 4318",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4318",
-    "check": "node --test ../../tests/blueprint.test.mjs"
+    "check": "node --test ../../tests/blueprint.test.mjs",
+    "start": "node scripts/serve.mjs"
   },
   "dependencies": {
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "@automated-qa-checker/contract": "workspace:*"
+    "@automated-qa-checker/contract": "workspace:*",
+    "@automated-qa-checker/api-client": "workspace:*"
   },
   "devDependencies": {
     "vite": "8.3.5",
     "@vitejs/plugin-react": "6.1.2"
   }
 }
-

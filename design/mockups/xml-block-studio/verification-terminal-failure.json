@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "checks": [
+    "D08 is a real lower dock, no overlay",
+    "header and footer within viewport",
+    "collapse preserves running sessions",
+    "dock controls preserve graph selection and transform",
+    "XML DOM input selection and scroll preserved",
+    "Claude setup honest",
+    "Claude creates only simulated session",
+    "rename Enter commits",
+    "IME Enter does not commit",
+    "Escape restores menu trigger focus and does not terminate",
+    "new menu Escape restores trigger",
+    "session keyboard focus retained",
+    "session input survives switching",
+    "long output scroll survives detached pane switching"
+  ],
+  "errors": [],
+  "error": "AssertionError [ERR_ASSERTION]: reopening terminal tab preserves output scroll"
+}

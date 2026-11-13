@@ -1,0 +1,21 @@
+{
+  "scope": "Existing assertions, new artifact destinations only",
+  "status": "passed",
+  "checks": [
+    {
+      "kind": "home",
+      "exitCode": 0,
+      "output": "PASS 14 checks\n"
+    },
+    {
+      "kind": "editor",
+      "exitCode": 0,
+      "output": "PASS 16 checks\n"
+    },
+    {
+      "kind": "portal",
+      "exitCode": 0,
+      "output": "{\"status\":\"passed\",\"checks\":94,\"errors\":[]}\n"
+    }
+  ]
+}

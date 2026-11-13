@@ -24,6 +24,29 @@
 - **WHEN** 승인되지 않은 workspace 또는 타 프로젝트 사용자가 요청한다
 - **THEN** 로그인 또는 resource 접근을 거부하고 감사 기록을 남긴다.
 
+#### Scenario: Concurrent publication and restart
+- **WHEN** 같은 버전이 동시에 발행되거나 같은 idempotency key를 재전송한 뒤 서버를 재시작한다
+- **THEN** transaction과 unique constraint로 불변 버전 하나만 유지하고 같은 payload 재시도는 같은 응답, 다른 payload는409를 반환하며 데이터가 재시작 뒤에도 보존된다.
+
+#### Scenario: Explicit pinned upgrade
+- **WHEN** 사용자가 새 published version을 확인하고 업데이트를 요청한다
+- **THEN** dependency manifest/version/hash와 이전 pin의 diff를 보여주고 명시 동의한 snapshot만 바꾼다. 기존 고정 snapshot은 오프라인에서도 유지하고 목록 pagination 및 변경 audit를 제공한다.
+
+#### Scenario: Explicit local identity
+- **WHEN** 로컬 기능 데모에서 등록한 개발 identity를 사용한다
+- **THEN** 서버의 활성 사용자·프로젝트 역할을 확인하고 삭제 사용자와 타 프로젝트 접근을 거부한다. production에서는 local/test identity 구성이 있으면 startup을 거부한다.
+
+### Requirement: Authenticated durable progress intake
+서버 SHALL 인증된 HTTP polling과 영속 이벤트 수집을 제공하고 서버 run ID와 Engine run ID/attempt/snapshot을 고정한다. 수신된 외부 outcome과 증거 검증완료를 구분한다.
+
+#### Scenario: Conflicting or late events
+- **WHEN** 같은 sequence에 다른 payload, sequence gap 또는 terminal 이후 추가 이벤트가 전송된다
+- **THEN**409를 반환하며 기존 이벤트를 변경하지 않는다. 같은 sequence의 같은 payload 재전송은 멱등이다.
+
+#### Scenario: Evidence upload
+- **WHEN** 권한 있는 Desktop이 결과 artifact bytes를 업로드한다
+- **THEN** 서버는 크기/hash를 검증하고 서버 소유 경로에 원자 저장하며 result 참조와 모두 일치한 뒤에만 증거 검증완료로 표시한다. 클라이언트 경로를 서버 파일 경로로 사용하지 않는다.
+
 ### Requirement: Idempotent scheduled execution
 scheduler는 timezone/DST 정책과 occurrence uniqueness 및 device lease를 SHALL 적용한다.
 

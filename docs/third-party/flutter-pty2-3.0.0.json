@@ -1,0 +1,697 @@
+{
+  "version": "3.0.0",
+  "archiveSha256": "9802f793109fe7241cc172780571d501e50db6b247624a6b7c4df889bb9cbfe6",
+  "archiveUrl": "https://pub.dev/api/archives/flutter_pty2-3.0.0.tar.gz",
+  "changed": [
+    "src/windows/pty_windows_spawn.c"
+  ],
+  "files": {
+    "CHANGELOG.md": {
+      "original": "e9af790bc3ef364d976ea5d4f63339c51a05c6f381084a0cbccf23782b17992e",
+      "installed": "e9af790bc3ef364d976ea5d4f63339c51a05c6f381084a0cbccf23782b17992e"
+    },
+    "LICENSE": {
+      "original": "6d21e3f32d71cd7e4a7bd126fb293ab1eeae94b0021830abb55f8daa73525951",
+      "installed": "6d21e3f32d71cd7e4a7bd126fb293ab1eeae94b0021830abb55f8daa73525951"
+    },
+    "README.md": {
+      "original": "5da9c630af3b565970974f342bb01fc5313ea91e2e16a33335fc8ca88d76469f",
+      "installed": "5da9c630af3b565970974f342bb01fc5313ea91e2e16a33335fc8ca88d76469f"
+    },
+    "analysis_options.yaml": {
+      "original": "69d5fc7c4dc082613882215d52d18b02b1688b833d674ce9b281f45821626b7d",
+      "installed": "69d5fc7c4dc082613882215d52d18b02b1688b833d674ce9b281f45821626b7d"
+    },
+    "benchmark/README.md": {
+      "original": "d201fb3ad9c289c08736833a315921fca0da1ad28876361d2572a4f7f33ce1ed",
+      "installed": "d201fb3ad9c289c08736833a315921fca0da1ad28876361d2572a4f7f33ce1ed"
+    },
+    "benchmark/close.dart": {
+      "original": "5101f3a1a67c0d00a8493026338e8916f56d8aa68345ad2c54ae7c24560aaad5",
+      "installed": "5101f3a1a67c0d00a8493026338e8916f56d8aa68345ad2c54ae7c24560aaad5"
+    },
+    "benchmark/concurrency.dart": {
+      "original": "3124120f082eab7c89e408ab0a204ffd027ce9588f7c9258d01f37477e2aefec",
+      "installed": "3124120f082eab7c89e408ab0a204ffd027ce9588f7c9258d01f37477e2aefec"
+    },
+    "benchmark/input.dart": {
+      "original": "ff7fe75f2226396c8175e1f1c64dd6bffb4c35d538784ec8838b9dc9f090e03d",
+      "installed": "ff7fe75f2226396c8175e1f1c64dd6bffb4c35d538784ec8838b9dc9f090e03d"
+    },
+    "benchmark/latency.dart": {
+      "original": "2515be52d3ac051f7af708bde6e56fc61889f7a4d0a8342bb6cd3722e9a7335a",
+      "installed": "2515be52d3ac051f7af708bde6e56fc61889f7a4d0a8342bb6cd3722e9a7335a"
+    },
+    "benchmark/output.dart": {
+      "original": "3227ae79556260c22bb712a34f0952f967767d7fe433f549e4a0a3bc92f927cb",
+      "installed": "3227ae79556260c22bb712a34f0952f967767d7fe433f549e4a0a3bc92f927cb"
+    },
+    "benchmark/spawn.dart": {
+      "original": "213c7f1884683466948c5f8a4a05d98427513cb340ff5d85f795aa72a3fa7b82",
+      "installed": "213c7f1884683466948c5f8a4a05d98427513cb340ff5d85f795aa72a3fa7b82"
+    },
+    "doc/architecture.md": {
+      "original": "b16af4c9262b85e544ac0622585b88641e5c9a91975c2fe968eba2e73bf16c0e",
+      "installed": "b16af4c9262b85e544ac0622585b88641e5c9a91975c2fe968eba2e73bf16c0e"
+    },
+    "example/README.md": {
+      "original": "c9c80dd96e625a8ffd1f0164b2a10c00f0cbac265722346f5bb295382e027473",
+      "installed": "c9c80dd96e625a8ffd1f0164b2a10c00f0cbac265722346f5bb295382e027473"
+    },
+    "example/analysis_options.yaml": {
+      "original": "36569711bdcfb021275553b02f673f0bf421760e92bd84b0b73d516af03d2ab2",
+      "installed": "36569711bdcfb021275553b02f673f0bf421760e92bd84b0b73d516af03d2ab2"
+    },
+    "example/android/app/build.gradle.kts": {
+      "original": "9dbb56becf5bd3dc5c120a5f393885101a6f168a9baff5c36630d99b77a78084",
+      "installed": "9dbb56becf5bd3dc5c120a5f393885101a6f168a9baff5c36630d99b77a78084"
+    },
+    "example/android/app/src/debug/AndroidManifest.xml": {
+      "original": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+      "installed": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    "example/android/app/src/main/AndroidManifest.xml": {
+      "original": "0f6265e416f590abca41d23bb49a4c35372e6523749258731b81a59078c1e5a9",
+      "installed": "0f6265e416f590abca41d23bb49a4c35372e6523749258731b81a59078c1e5a9"
+    },
+    "example/android/app/src/main/kotlin/io/sofluffy/flutter_pty2_example/MainActivity.kt": {
+      "original": "7224c48103303b3aab3ddb7f77dd8345e5bf276af2a57276985d7674f1626e22",
+      "installed": "7224c48103303b3aab3ddb7f77dd8345e5bf276af2a57276985d7674f1626e22"
+    },
+    "example/android/app/src/main/res/drawable-v21/launch_background.xml": {
+      "original": "7ca6d5cec2169c5a98661a119db23a6f3399c8fef2256ff04f3a642831282478",
+      "installed": "7ca6d5cec2169c5a98661a119db23a6f3399c8fef2256ff04f3a642831282478"
+    },
+    "example/android/app/src/main/res/drawable/launch_background.xml": {
+      "original": "94433756fe10005ddd6fc55cc5c0b1e9f3c10b66a08ceac795ece6713d34e28a",
+      "installed": "94433756fe10005ddd6fc55cc5c0b1e9f3c10b66a08ceac795ece6713d34e28a"
+    },
+    "example/android/app/src/main/res/mipmap-hdpi/ic_launcher.png": {
+      "original": "6a7c8f0d703e3682108f9662f813302236240d3f8f638bb391e32bfb96055fef",
+      "installed": "6a7c8f0d703e3682108f9662f813302236240d3f8f638bb391e32bfb96055fef"
+    },
+    "example/android/app/src/main/res/mipmap-mdpi/ic_launcher.png": {
+      "original": "c7c0c0189145e4e32a401c61c9bdc615754b0264e7afae24e834bb81049eaf81",
+      "installed": "c7c0c0189145e4e32a401c61c9bdc615754b0264e7afae24e834bb81049eaf81"
+    },
+    "example/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
+      "original": "e14aa40904929bf313fded22cf7e7ffcbf1d1aac4263b5ef1be8bfce650397aa",
+      "installed": "e14aa40904929bf313fded22cf7e7ffcbf1d1aac4263b5ef1be8bfce650397aa"
+    },
+    "example/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png": {
+      "original": "4d470bf22d5c17d84edc5f82516d1ba8a1c09559cd761cefb792f86d9f52b540",
+      "installed": "4d470bf22d5c17d84edc5f82516d1ba8a1c09559cd761cefb792f86d9f52b540"
+    },
+    "example/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+      "original": "3c34e1f298d0c9ea3455d46db6b7759c8211a49e9ec6e44b635fc5c87dfb4180",
+      "installed": "3c34e1f298d0c9ea3455d46db6b7759c8211a49e9ec6e44b635fc5c87dfb4180"
+    },
+    "example/android/app/src/main/res/values-night/styles.xml": {
+      "original": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f",
+      "installed": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f"
+    },
+    "example/android/app/src/main/res/values/styles.xml": {
+      "original": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9",
+      "installed": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9"
+    },
+    "example/android/app/src/profile/AndroidManifest.xml": {
+      "original": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b",
+      "installed": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    "example/android/build.gradle.kts": {
+      "original": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba",
+      "installed": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba"
+    },
+    "example/android/gradle.properties": {
+      "original": "0f82b18017fba6bb5ce3aa4b2d1a00c9382fc8aae7b1d9326e44b18abd66d80b",
+      "installed": "0f82b18017fba6bb5ce3aa4b2d1a00c9382fc8aae7b1d9326e44b18abd66d80b"
+    },
+    "example/android/gradle/wrapper/gradle-wrapper.properties": {
+      "original": "3221993eac1057198d652b7437105e2953ca4850d415eb0eb2b9625874fd059e",
+      "installed": "3221993eac1057198d652b7437105e2953ca4850d415eb0eb2b9625874fd059e"
+    },
+    "example/android/settings.gradle.kts": {
+      "original": "b76d554153a63772dddbe2ee91abdf582f5f871af40698b80a2ef7b70903d96f",
+      "installed": "b76d554153a63772dddbe2ee91abdf582f5f871af40698b80a2ef7b70903d96f"
+    },
+    "example/integration_test/clean_slate_android_integration_test.dart": {
+      "original": "c0b3323ed3e17d3f84c44466eb7bb89580fdb338182d10930c356c37e850d453",
+      "installed": "c0b3323ed3e17d3f84c44466eb7bb89580fdb338182d10930c356c37e850d453"
+    },
+    "example/integration_test/clean_slate_ios_integration_test.dart": {
+      "original": "736717ca8529b854ae1ad882b0b545b19c5e8bbf4c04960a7afad8cfaf707825",
+      "installed": "736717ca8529b854ae1ad882b0b545b19c5e8bbf4c04960a7afad8cfaf707825"
+    },
+    "example/ios/Flutter/AppFrameworkInfo.plist": {
+      "original": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d",
+      "installed": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d"
+    },
+    "example/ios/Flutter/Debug.xcconfig": {
+      "original": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6",
+      "installed": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    "example/ios/Flutter/Release.xcconfig": {
+      "original": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6",
+      "installed": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    "example/ios/Runner.xcodeproj/project.pbxproj": {
+      "original": "a85b710a4d6c1472d1f302d7b6b45a101fe1ca6c954252e05dc67f5753747088",
+      "installed": "a85b710a4d6c1472d1f302d7b6b45a101fe1ca6c954252e05dc67f5753747088"
+    },
+    "example/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata": {
+      "original": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f",
+      "installed": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+    },
+    "example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist": {
+      "original": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542",
+      "installed": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    "example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings": {
+      "original": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f",
+      "installed": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    "example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme": {
+      "original": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484",
+      "installed": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484"
+    },
+    "example/ios/Runner.xcworkspace/contents.xcworkspacedata": {
+      "original": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1",
+      "installed": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1"
+    },
+    "example/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist": {
+      "original": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542",
+      "installed": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    "example/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings": {
+      "original": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f",
+      "installed": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    "example/ios/Runner/AppDelegate.swift": {
+      "original": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8",
+      "installed": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+      "original": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4",
+      "installed": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png": {
+      "original": "7770183009e914112de7d8ef1d235a6a30c5834424858e0d2f8253f6b8d31926",
+      "installed": "7770183009e914112de7d8ef1d235a6a30c5834424858e0d2f8253f6b8d31926"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png": {
+      "original": "cab10a0d391ec5bc09ef50ce49e8ad401cee7ef03707ec0923a222c5c2b3d212",
+      "installed": "cab10a0d391ec5bc09ef50ce49e8ad401cee7ef03707ec0923a222c5c2b3d212"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png": {
+      "original": "b9ad02cf6576a04d1b6806ac02a2431481b448dd0c2e505ce25842d1f7c4730b",
+      "installed": "b9ad02cf6576a04d1b6806ac02a2431481b448dd0c2e505ce25842d1f7c4730b"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png": {
+      "original": "c6e6d3b215ae744a9c391f4c4d44157eff5e739d6ad6c39f9bfa5df66dddd267",
+      "installed": "c6e6d3b215ae744a9c391f4c4d44157eff5e739d6ad6c39f9bfa5df66dddd267"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png": {
+      "original": "5dee24dc104ac76dc162e42ae0beb163d426bf365562ee28ba7b3ad368559a60",
+      "installed": "5dee24dc104ac76dc162e42ae0beb163d426bf365562ee28ba7b3ad368559a60"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png": {
+      "original": "a9b21eb6f4271385655a8771f76e29eef8c1107d7879cbcfc567e6619d1f716a",
+      "installed": "a9b21eb6f4271385655a8771f76e29eef8c1107d7879cbcfc567e6619d1f716a"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png": {
+      "original": "e677d701ffe4af7bc2935098d6b3984cc9ab7ace573e6900955a5535b12410cf",
+      "installed": "e677d701ffe4af7bc2935098d6b3984cc9ab7ace573e6900955a5535b12410cf"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png": {
+      "original": "b9ad02cf6576a04d1b6806ac02a2431481b448dd0c2e505ce25842d1f7c4730b",
+      "installed": "b9ad02cf6576a04d1b6806ac02a2431481b448dd0c2e505ce25842d1f7c4730b"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png": {
+      "original": "7c61c42fc7b657d9cf314d32a4ec458f0647c3aaf360be1b9377857266ec2499",
+      "installed": "7c61c42fc7b657d9cf314d32a4ec458f0647c3aaf360be1b9377857266ec2499"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png": {
+      "original": "19be171481dc71a0b2803ebcd01dd8b0c5fd5778dee34c0a3cabc948c225f24e",
+      "installed": "19be171481dc71a0b2803ebcd01dd8b0c5fd5778dee34c0a3cabc948c225f24e"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png": {
+      "original": "19be171481dc71a0b2803ebcd01dd8b0c5fd5778dee34c0a3cabc948c225f24e",
+      "installed": "19be171481dc71a0b2803ebcd01dd8b0c5fd5778dee34c0a3cabc948c225f24e"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png": {
+      "original": "4209a49e44a92ec40a327d3455eb1b1c153ee83d75de1c2be0a12ab18b2ff9de",
+      "installed": "4209a49e44a92ec40a327d3455eb1b1c153ee83d75de1c2be0a12ab18b2ff9de"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png": {
+      "original": "836c918cb613249eba0483a6b02fa3df3c1c0a89a315ee4d3b88509b83c7ab73",
+      "installed": "836c918cb613249eba0483a6b02fa3df3c1c0a89a315ee4d3b88509b83c7ab73"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png": {
+      "original": "41c7d42f6e61f8fe7f30b1ffa2256aecbc9682be06d18c4a3062043e1a2e547c",
+      "installed": "41c7d42f6e61f8fe7f30b1ffa2256aecbc9682be06d18c4a3062043e1a2e547c"
+    },
+    "example/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png": {
+      "original": "5d7e5bdf01b93802bc973345b3a78c038907147625035952a08a115a563b7f81",
+      "installed": "5d7e5bdf01b93802bc973345b3a78c038907147625035952a08a115a563b7f81"
+    },
+    "example/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json": {
+      "original": "ccc7950fd5f5b82067c85f667940a9d59189151460761ece8098ca78daa19469",
+      "installed": "ccc7950fd5f5b82067c85f667940a9d59189151460761ece8098ca78daa19469"
+    },
+    "example/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png": {
+      "original": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "installed": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    "example/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png": {
+      "original": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "installed": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    "example/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png": {
+      "original": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20",
+      "installed": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    "example/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md": {
+      "original": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f",
+      "installed": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f"
+    },
+    "example/ios/Runner/Base.lproj/LaunchScreen.storyboard": {
+      "original": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9",
+      "installed": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9"
+    },
+    "example/ios/Runner/Base.lproj/Main.storyboard": {
+      "original": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d",
+      "installed": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d"
+    },
+    "example/ios/Runner/Info.plist": {
+      "original": "4ed1084ab95df7b7c90a7ac975b43c713b66c20e0250854ce3f74ea5201f2860",
+      "installed": "4ed1084ab95df7b7c90a7ac975b43c713b66c20e0250854ce3f74ea5201f2860"
+    },
+    "example/ios/Runner/Runner-Bridging-Header.h": {
+      "original": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074",
+      "installed": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074"
+    },
+    "example/ios/Runner/SceneDelegate.swift": {
+      "original": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad",
+      "installed": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad"
+    },
+    "example/ios/RunnerTests/RunnerTests.swift": {
+      "original": "5e8f4908dacea6f29b2a790e4d38bf5fded69096063f9a27a2f21584d62b30c0",
+      "installed": "5e8f4908dacea6f29b2a790e4d38bf5fded69096063f9a27a2f21584d62b30c0"
+    },
+    "example/lib/main.dart": {
+      "original": "525df2a854f3c54c831302c89f3089afd991cd03900c207e261d821bdc9ec656",
+      "installed": "525df2a854f3c54c831302c89f3089afd991cd03900c207e261d821bdc9ec656"
+    },
+    "example/pubspec.yaml": {
+      "original": "670988025f38662fce68eb3da5f47d3dc7e8bff96e11e56554777c80e8a01105",
+      "installed": "670988025f38662fce68eb3da5f47d3dc7e8bff96e11e56554777c80e8a01105"
+    },
+    "example/test/widget_test.dart": {
+      "original": "216b1507229666e5d2910bdff1d4ce0cd6daec068b2c303e949562cf4edf73d1",
+      "installed": "216b1507229666e5d2910bdff1d4ce0cd6daec068b2c303e949562cf4edf73d1"
+    },
+    "ffigen_v2.yaml": {
+      "original": "cae6d37b31c79b70dd51c422cc45e5b6229fd52302f8f5bb532dd14bc7416a88",
+      "installed": "cae6d37b31c79b70dd51c422cc45e5b6229fd52302f8f5bb532dd14bc7416a88"
+    },
+    "hook/build.dart": {
+      "original": "6c8fb79f32bc1a2f3b4a8a6a3ad5636a1d6c7a5f1daea7b5620cd5b1b5164420",
+      "installed": "6c8fb79f32bc1a2f3b4a8a6a3ad5636a1d6c7a5f1daea7b5620cd5b1b5164420"
+    },
+    "lib/flutter_pty2.dart": {
+      "original": "3d42201edf0ec71095cad80ac36aa9b87839dfd014a8a5d4c07b5e34ac5faa20",
+      "installed": "3d42201edf0ec71095cad80ac36aa9b87839dfd014a8a5d4c07b5e34ac5faa20"
+    },
+    "lib/src/generated/flutter_pty_bindings_generated.dart": {
+      "original": "46790ef2f98316d0dadaf3c70933d9a4d5dc22e578fc9df7a167e4e59a019e61",
+      "installed": "46790ef2f98316d0dadaf3c70933d9a4d5dc22e578fc9df7a167e4e59a019e61"
+    },
+    "lib/src/internal/benchmark_support.dart": {
+      "original": "5b89faa11f2e5b47b1d6b71e68b44bc4b0bb119abc5c998fef943aea7ffd3a48",
+      "installed": "5b89faa11f2e5b47b1d6b71e68b44bc4b0bb119abc5c998fef943aea7ffd3a48"
+    },
+    "lib/src/internal/ffi_driver.dart": {
+      "original": "ad1183a5e2811c07c0a57f05be88a68b2ed67239ab4a0089de56326cbe6f2403",
+      "installed": "ad1183a5e2811c07c0a57f05be88a68b2ed67239ab4a0089de56326cbe6f2403"
+    },
+    "lib/src/internal/ffi_session.dart": {
+      "original": "fe34885f29be7f48778fb6dfea316c3b3793036079c04b9080dea205278529c0",
+      "installed": "fe34885f29be7f48778fb6dfea316c3b3793036079c04b9080dea205278529c0"
+    },
+    "lib/src/internal/input_flow_controller.dart": {
+      "original": "1967d4f409722b0a386d09740f00b61896b3a63efa91b2d672d17a9c6936e618",
+      "installed": "1967d4f409722b0a386d09740f00b61896b3a63efa91b2d672d17a9c6936e618"
+    },
+    "lib/src/internal/internal.dart": {
+      "original": "4d1571677e74d6ff7789d05bb73dd29ba5c598b8aeb34855853c5a250888d140",
+      "installed": "4d1571677e74d6ff7789d05bb73dd29ba5c598b8aeb34855853c5a250888d140"
+    },
+    "lib/src/internal/native_event.dart": {
+      "original": "59d9ded8387bc710f2e2f4ee20908e461cda263df08a0bea43c5454f85c14963",
+      "installed": "59d9ded8387bc710f2e2f4ee20908e461cda263df08a0bea43c5454f85c14963"
+    },
+    "lib/src/internal/native_event_pump.dart": {
+      "original": "72c33724464a92e64335283007767092f81598752c647fd5ae8af08d1320d181",
+      "installed": "72c33724464a92e64335283007767092f81598752c647fd5ae8af08d1320d181"
+    },
+    "lib/src/internal/native_library.dart": {
+      "original": "9d7650e773ceb1a44448e7507d4a254828a7224e2d62f2db4739569edae18d2a",
+      "installed": "9d7650e773ceb1a44448e7507d4a254828a7224e2d62f2db4739569edae18d2a"
+    },
+    "lib/src/internal/native_symbols.dart": {
+      "original": "f480adf2fe76ddb7045638223c75f296904d8ae91134302faf9437445cf97683",
+      "installed": "f480adf2fe76ddb7045638223c75f296904d8ae91134302faf9437445cf97683"
+    },
+    "lib/src/internal/output_flow_controller.dart": {
+      "original": "479767050a7e4c7a828f12953bf5de12bf43a78acfb56947c05083c87151d96a",
+      "installed": "479767050a7e4c7a828f12953bf5de12bf43a78acfb56947c05083c87151d96a"
+    },
+    "lib/src/internal/pty_capabilities_codec.dart": {
+      "original": "b6d2351c914087ea69bb9cdd45b51d71b6142cb84aff3041c6f4332895ead455",
+      "installed": "b6d2351c914087ea69bb9cdd45b51d71b6142cb84aff3041c6f4332895ead455"
+    },
+    "lib/src/pty.dart": {
+      "original": "be50ce62487b366535fc9a41637bc8b546c4bead845f4649258a859382424a53",
+      "installed": "be50ce62487b366535fc9a41637bc8b546c4bead845f4649258a859382424a53"
+    },
+    "lib/src/pty_capabilities.dart": {
+      "original": "4344cfdc038886d73c0645d0b70a0328e2af6eb398eceb8a13987aef52bb6f17",
+      "installed": "4344cfdc038886d73c0645d0b70a0328e2af6eb398eceb8a13987aef52bb6f17"
+    },
+    "lib/src/pty_environment.dart": {
+      "original": "5352dd9d0d38ce70b1881cd3364a4a84a3b7c02c2bc0a7654a81a18b5a6eb167",
+      "installed": "5352dd9d0d38ce70b1881cd3364a4a84a3b7c02c2bc0a7654a81a18b5a6eb167"
+    },
+    "lib/src/pty_exception.dart": {
+      "original": "b4f2fe98a72e5ee7d5fed78475b47e7d91c0dd980579856696235b145c288909",
+      "installed": "b4f2fe98a72e5ee7d5fed78475b47e7d91c0dd980579856696235b145c288909"
+    },
+    "lib/src/pty_exit.dart": {
+      "original": "30c404d4953bc68bf9bf5662a6fb6c66a658744cfbbce5d5b62a0123b4035bc5",
+      "installed": "30c404d4953bc68bf9bf5662a6fb6c66a658744cfbbce5d5b62a0123b4035bc5"
+    },
+    "lib/src/pty_input.dart": {
+      "original": "35ee29ac1df261856e219aeedddcd986363ae1c775952651cb89f271525f3be0",
+      "installed": "35ee29ac1df261856e219aeedddcd986363ae1c775952651cb89f271525f3be0"
+    },
+    "lib/src/pty_session.dart": {
+      "original": "8d7e52a64c550a8ffff88cda5af80da89aff4ae705d4318cafde234fd193e55f",
+      "installed": "8d7e52a64c550a8ffff88cda5af80da89aff4ae705d4318cafde234fd193e55f"
+    },
+    "lib/src/pty_size.dart": {
+      "original": "2083ec7efc9161329e27063c029c516c66b44d2a7cc8d245621986d96f2ff40a",
+      "installed": "2083ec7efc9161329e27063c029c516c66b44d2a7cc8d245621986d96f2ff40a"
+    },
+    "lib/src/pty_spawn_options.dart": {
+      "original": "b8acbfaffeed5cc4bbfef0fe82cd7ad8578dff2d7f8285bea2b3cecf9d48bf7b",
+      "installed": "b8acbfaffeed5cc4bbfef0fe82cd7ad8578dff2d7f8285bea2b3cecf9d48bf7b"
+    },
+    "pubspec.yaml": {
+      "original": "787b59a3518b8e491ddeaf6946be207bd207aff9d7b1a30db46ea6b602ead330",
+      "installed": "787b59a3518b8e491ddeaf6946be207bd207aff9d7b1a30db46ea6b602ead330"
+    },
+    "src/CMakeLists.txt": {
+      "original": "1902f9c3f0c892d301db2ad75bbaed843c740ea8de395101f18f4c4bac291aaf",
+      "installed": "1902f9c3f0c892d301db2ad75bbaed843c740ea8de395101f18f4c4bac291aaf"
+    },
+    "src/common/pty_debug_stats.c": {
+      "original": "774dee18ba7801039dcec0eb8e86425ff4dcf387238f98611273a32ab3f42dbb",
+      "installed": "774dee18ba7801039dcec0eb8e86425ff4dcf387238f98611273a32ab3f42dbb"
+    },
+    "src/common/pty_error.c": {
+      "original": "81ec2606fc167ff20c49715d6cecedd9fc9994e356c5b14ea284d8ba9ec5ef8c",
+      "installed": "81ec2606fc167ff20c49715d6cecedd9fc9994e356c5b14ea284d8ba9ec5ef8c"
+    },
+    "src/common/pty_error.h": {
+      "original": "82b2779afaf730ea61fa49005b36fcbe446388bb4ad7ba44f4cb07eae98d5f42",
+      "installed": "82b2779afaf730ea61fa49005b36fcbe446388bb4ad7ba44f4cb07eae98d5f42"
+    },
+    "src/common/pty_event.c": {
+      "original": "a95fd64d5dbacc07d21da9da4f5ea1d5d801b2d6b7ac6d8fbbe86bc917141855",
+      "installed": "a95fd64d5dbacc07d21da9da4f5ea1d5d801b2d6b7ac6d8fbbe86bc917141855"
+    },
+    "src/common/pty_event.h": {
+      "original": "afffc3428521d7adaee495caa37f519c1a7c3f9fba8412f4b78b5463ad987d30",
+      "installed": "afffc3428521d7adaee495caa37f519c1a7c3f9fba8412f4b78b5463ad987d30"
+    },
+    "src/common/pty_refcount.c": {
+      "original": "ad69f2cc9945162135e4d740ec1d710083de4f47d3c34fb4da75e8dd47bacde5",
+      "installed": "ad69f2cc9945162135e4d740ec1d710083de4f47d3c34fb4da75e8dd47bacde5"
+    },
+    "src/common/pty_write_queue.c": {
+      "original": "708934f2d3b4a941d1453c06c81053eecc6afe6c29e2d9ef045942b355d8ac9a",
+      "installed": "708934f2d3b4a941d1453c06c81053eecc6afe6c29e2d9ef045942b355d8ac9a"
+    },
+    "src/flutter_pty.h": {
+      "original": "3a079969fc67a2bfaac5b6e396f68f54da2290089434ebb8e0cce3214e6c6776",
+      "installed": "3a079969fc67a2bfaac5b6e396f68f54da2290089434ebb8e0cce3214e6c6776"
+    },
+    "src/include/dart_api.h": {
+      "original": "ec83b8ef601de141da7bae5cd73773321ed3e0a2527161b4c2f8c1ad42fe29a0",
+      "installed": "ec83b8ef601de141da7bae5cd73773321ed3e0a2527161b4c2f8c1ad42fe29a0"
+    },
+    "src/include/dart_api_dl.c": {
+      "original": "ac0fe030900426229c9bf36a3f35743d47401ffb4286973816e20f0c105a81ba",
+      "installed": "ac0fe030900426229c9bf36a3f35743d47401ffb4286973816e20f0c105a81ba"
+    },
+    "src/include/dart_api_dl.h": {
+      "original": "c395430cabc25bec42503b2136f8e45be5e3ad8abfa21daea5e05574ec3fc9e1",
+      "installed": "c395430cabc25bec42503b2136f8e45be5e3ad8abfa21daea5e05574ec3fc9e1"
+    },
+    "src/include/dart_native_api.h": {
+      "original": "44012bc6118d3172bdd71e95b8589df01c4ece00c42c7473f06a8cc1b51c10c1",
+      "installed": "44012bc6118d3172bdd71e95b8589df01c4ece00c42c7473f06a8cc1b51c10c1"
+    },
+    "src/include/dart_tools_api.h": {
+      "original": "ad88775d0c2c19e9aa3ef84be128c4d39688017ab3bd2c847af1e702d63cd89e",
+      "installed": "ad88775d0c2c19e9aa3ef84be128c4d39688017ab3bd2c847af1e702d63cd89e"
+    },
+    "src/include/dart_version.h": {
+      "original": "a3e40a618bb73573498b3f7669d6bd2bab0297daaa79430cfc65a7c1e28d2d44",
+      "installed": "a3e40a618bb73573498b3f7669d6bd2bab0297daaa79430cfc65a7c1e28d2d44"
+    },
+    "src/include/internal/dart_api_dl_impl.h": {
+      "original": "5b54388565d2e363fa760bdd847b33242cc4d9eb0167fa03fbaa8b2778581c57",
+      "installed": "5b54388565d2e363fa760bdd847b33242cc4d9eb0167fa03fbaa8b2778581c57"
+    },
+    "src/pty_dart_api.h": {
+      "original": "70ae790e1c0ce342aaed668c78348351ebe95b41dcb011f21c770a1f0ac8d813",
+      "installed": "70ae790e1c0ce342aaed668c78348351ebe95b41dcb011f21c770a1f0ac8d813"
+    },
+    "src/pty_internal.h": {
+      "original": "763bfd106466d61759c5e36ac159a2c9bb2be880e89883452dce5fd1fb176560",
+      "installed": "763bfd106466d61759c5e36ac159a2c9bb2be880e89883452dce5fd1fb176560"
+    },
+    "src/unix/pty_unix_session.c": {
+      "original": "a9c0d282c0437bd133f76e5ca959cb6fd21a88b6aaf88446707250a069cc65e6",
+      "installed": "a9c0d282c0437bd133f76e5ca959cb6fd21a88b6aaf88446707250a069cc65e6"
+    },
+    "src/unix/pty_unix_spawn.c": {
+      "original": "d430e21b3771605f9838e82a45a1f35bef4dc0938c21a4c5e67bc8e3f29da174",
+      "installed": "d430e21b3771605f9838e82a45a1f35bef4dc0938c21a4c5e67bc8e3f29da174"
+    },
+    "src/unix/pty_unix_spawn.h": {
+      "original": "c8ce96403ef0c09e203e5607e2ed361b95ad06bb8f4ac4fafa2b692651ed1ae8",
+      "installed": "c8ce96403ef0c09e203e5607e2ed361b95ad06bb8f4ac4fafa2b692651ed1ae8"
+    },
+    "src/windows/pty_windows_commandline.c": {
+      "original": "2babb3ea968c9fc62078f3af329ddbd793885aaf91597f3f2dcbae95115b0ac6",
+      "installed": "2babb3ea968c9fc62078f3af329ddbd793885aaf91597f3f2dcbae95115b0ac6"
+    },
+    "src/windows/pty_windows_commandline.h": {
+      "original": "e7622b6656c3f1c25307e2b11709a3adca93a2e4a664f17905c21345c95a76ec",
+      "installed": "e7622b6656c3f1c25307e2b11709a3adca93a2e4a664f17905c21345c95a76ec"
+    },
+    "src/windows/pty_windows_environment.c": {
+      "original": "215b9f361fe8111ad2e5368a40b453215441548a67af7fa06a1e141ab0c1892d",
+      "installed": "215b9f361fe8111ad2e5368a40b453215441548a67af7fa06a1e141ab0c1892d"
+    },
+    "src/windows/pty_windows_environment.h": {
+      "original": "c75ed9123b7515bd1af4164f0787f50e1cbe4603f777463aeaba316e45f7171a",
+      "installed": "c75ed9123b7515bd1af4164f0787f50e1cbe4603f777463aeaba316e45f7171a"
+    },
+    "src/windows/pty_windows_session.c": {
+      "original": "0aba8fb94170fd895163fd6b29d07617b134c03ed0de35ce93176311476a1c27",
+      "installed": "0aba8fb94170fd895163fd6b29d07617b134c03ed0de35ce93176311476a1c27"
+    },
+    "src/windows/pty_windows_spawn.c": {
+      "original": "98c50002545edb11b947e69f9bc57299ef3220cbff3038081ec33738ab606783",
+      "installed": "58d8b51007223c7a74437545b86e7543926cc1e3dc26d47c9443fd4f27fb1fcd"
+    },
+    "src/windows/pty_windows_spawn.h": {
+      "original": "13939cfd9af3b26d96c2ddfa4a8cbde317ef4434090b67d9d0b11f5238395941",
+      "installed": "13939cfd9af3b26d96c2ddfa4a8cbde317ef4434090b67d9d0b11f5238395941"
+    },
+    "test/CMakeLists.txt": {
+      "original": "40474c4fa07e35a5fba907749ccd55b3a6e85887eed8bf9ec79398c8c1a7f7de",
+      "installed": "40474c4fa07e35a5fba907749ccd55b3a6e85887eed8bf9ec79398c8c1a7f7de"
+    },
+    "test/benchmark_support_test.dart": {
+      "original": "70154887ceb65bfd05d9bdb69cde6afdc292f7d8d03e83265284062fde3a158b",
+      "installed": "70154887ceb65bfd05d9bdb69cde6afdc292f7d8d03e83265284062fde3a158b"
+    },
+    "test/bundled_library_test.dart": {
+      "original": "9f467bd7d99092d57ec6db3b8e4a089f2154498fde2da0d2d4a07bd7315634b0",
+      "installed": "9f467bd7d99092d57ec6db3b8e4a089f2154498fde2da0d2d4a07bd7315634b0"
+    },
+    "test/clean_slate_android_integration_test.dart": {
+      "original": "f6c4937971e2a5cad240c000635efe22101ecbe528d30925b78eb4fdd5143001",
+      "installed": "f6c4937971e2a5cad240c000635efe22101ecbe528d30925b78eb4fdd5143001"
+    },
+    "test/clean_slate_exit_drain_stress_test.dart": {
+      "original": "38926284cb3d1035a511947c05471cb81a6cf6cd785d1af9e48580fc263f7ec0",
+      "installed": "38926284cb3d1035a511947c05471cb81a6cf6cd785d1af9e48580fc263f7ec0"
+    },
+    "test/clean_slate_finalizer_test.dart": {
+      "original": "ad637743c8f10b731a1a4b39f2635062aad4c427140b19e64b058f7621256b65",
+      "installed": "ad637743c8f10b731a1a4b39f2635062aad4c427140b19e64b058f7621256b65"
+    },
+    "test/clean_slate_fork_safety_test.dart": {
+      "original": "3cab52c5b1e2dbe95180f793fb2ed7febe05542018c867539bcab0609654c80e",
+      "installed": "3cab52c5b1e2dbe95180f793fb2ed7febe05542018c867539bcab0609654c80e"
+    },
+    "test/clean_slate_integration_test.dart": {
+      "original": "8bc10b00899527a8e555d05ae1ce38a4c417cd452f45145a5a86ed5887ce8600",
+      "installed": "8bc10b00899527a8e555d05ae1ce38a4c417cd452f45145a5a86ed5887ce8600"
+    },
+    "test/clean_slate_large_transfer_test.dart": {
+      "original": "0556ad46f9e61728a712418956799167e87455af0831baf3dd6d18a734995828",
+      "installed": "0556ad46f9e61728a712418956799167e87455af0831baf3dd6d18a734995828"
+    },
+    "test/clean_slate_lifecycle_stress_test.dart": {
+      "original": "ea82d881ac8af903bf82804cc238f9135ce26f0036803f9ff0c7bb4ca726c756",
+      "installed": "ea82d881ac8af903bf82804cc238f9135ce26f0036803f9ff0c7bb4ca726c756"
+    },
+    "test/clean_slate_random_stress_test.dart": {
+      "original": "2e36c773511ce86d2ecff5334e7dc32bcaeed3f9b6501b9e4ed162c4880592c4",
+      "installed": "2e36c773511ce86d2ecff5334e7dc32bcaeed3f9b6501b9e4ed162c4880592c4"
+    },
+    "test/clean_slate_spawn_failure_stress_test.dart": {
+      "original": "beaf575fb475ff92dce25f0da500892baa97554425c6a357cca0ab1a58d3a43a",
+      "installed": "beaf575fb475ff92dce25f0da500892baa97554425c6a357cca0ab1a58d3a43a"
+    },
+    "test/clean_slate_windows_integration_test.dart": {
+      "original": "13d9a1db1e7bdcb81d03aac230a329e47f51ecb446fcb7cc30ee34130c2d4c6e",
+      "installed": "13d9a1db1e7bdcb81d03aac230a329e47f51ecb446fcb7cc30ee34130c2d4c6e"
+    },
+    "test/environment_test.dart": {
+      "original": "0732f666e977835b34bf9712a61c68c828e541a9a81e756e2316977703df27af",
+      "installed": "0732f666e977835b34bf9712a61c68c828e541a9a81e756e2316977703df27af"
+    },
+    "test/ffi_session_test.dart": {
+      "original": "a6a40c6d017e1637595e8c1e6dd6a64cc0106c4edc25439f7678a89fa4812182",
+      "installed": "a6a40c6d017e1637595e8c1e6dd6a64cc0106c4edc25439f7678a89fa4812182"
+    },
+    "test/fixture_baseline_test.dart": {
+      "original": "6fdb9b84f21295dedd69db598be9be36deb18e68e7b53a98211aec2cbaeb37e8",
+      "installed": "6fdb9b84f21295dedd69db598be9be36deb18e68e7b53a98211aec2cbaeb37e8"
+    },
+    "test/fixtures/pty_test_child/CMakeLists.txt": {
+      "original": "93980c6bf431e375ee161da6d3440c718222c2b63ace12288423188a85f7260d",
+      "installed": "93980c6bf431e375ee161da6d3440c718222c2b63ace12288423188a85f7260d"
+    },
+    "test/fixtures/pty_test_child/README.md": {
+      "original": "477adab94da2e9e800cf8f84fe4daee5014a2ea0ffbdaac17ea290708a9d7e9f",
+      "installed": "477adab94da2e9e800cf8f84fe4daee5014a2ea0ffbdaac17ea290708a9d7e9f"
+    },
+    "test/fixtures/pty_test_child/main.c": {
+      "original": "b64582d4dacf6e07ec5b7922172e03f639dc994525f8809a4ba656e20a50f37c",
+      "installed": "b64582d4dacf6e07ec5b7922172e03f639dc994525f8809a4ba656e20a50f37c"
+    },
+    "test/input_flow_controller_test.dart": {
+      "original": "330702ddee719731559135988ef2a77d7d4192de550b14774f227b50ce3e0136",
+      "installed": "330702ddee719731559135988ef2a77d7d4192de550b14774f227b50ce3e0136"
+    },
+    "test/native_event_pump_test.dart": {
+      "original": "749e78220321a6bd2195dfe15bd33117df97b64d2b0c2060fef7acbad8ece817",
+      "installed": "749e78220321a6bd2195dfe15bd33117df97b64d2b0c2060fef7acbad8ece817"
+    },
+    "test/native_event_test.dart": {
+      "original": "971cd2cbd233efcc0027bb0b47dfc0686acef875172550a8b1f6045ed2f88e18",
+      "installed": "971cd2cbd233efcc0027bb0b47dfc0686acef875172550a8b1f6045ed2f88e18"
+    },
+    "test/output_flow_controller_test.dart": {
+      "original": "38f08cb664be2b4c55e370ff400b04e92bb93ffc9ad15840d0acd8f24e7dc490",
+      "installed": "38f08cb664be2b4c55e370ff400b04e92bb93ffc9ad15840d0acd8f24e7dc490"
+    },
+    "test/pty_capabilities_codec_test.dart": {
+      "original": "f8bbf7728faebb8081914ab3a02f6157acc63979fe3653606c7149d3a8e90511",
+      "installed": "f8bbf7728faebb8081914ab3a02f6157acc63979fe3653606c7149d3a8e90511"
+    },
+    "test/pty_event_failure_test.c": {
+      "original": "949d2cdfedddf2158b69eaaf11759331fa006bbe3fd7e91365646ef5ec66b5c9",
+      "installed": "949d2cdfedddf2158b69eaaf11759331fa006bbe3fd7e91365646ef5ec66b5c9"
+    },
+    "test/pty_unix_close_race_test.c": {
+      "original": "22cffcee00936edeaf9016b8dd565c81ff07b950bf5d76756e08fc5276785a6a",
+      "installed": "22cffcee00936edeaf9016b8dd565c81ff07b950bf5d76756e08fc5276785a6a"
+    },
+    "test/pty_unix_concurrent_spawn_test.c": {
+      "original": "a3f2aa34ed48d77501b3ae035ce4b521d657f4a64a49f4333c855fb43181c81b",
+      "installed": "a3f2aa34ed48d77501b3ae035ce4b521d657f4a64a49f4333c855fb43181c81b"
+    },
+    "test/pty_unix_options_clone_test.c": {
+      "original": "4e733c1e0669899e7a049320e97e3711273e6a156fcd8987ad5883be3f6a3e88",
+      "installed": "4e733c1e0669899e7a049320e97e3711273e6a156fcd8987ad5883be3f6a3e88"
+    },
+    "test/pty_unix_output_credit_test.c": {
+      "original": "4b7494974b4ebb8a379d63bb254e6bf376ebac64a6ae610fb00dd7f9c6afb67f",
+      "installed": "4b7494974b4ebb8a379d63bb254e6bf376ebac64a6ae610fb00dd7f9c6afb67f"
+    },
+    "test/pty_unix_session_stress_test.c": {
+      "original": "c6745599a8588522fd40958ed6759b04128f88da913eb70ded49a36eca9ddd36",
+      "installed": "c6745599a8588522fd40958ed6759b04128f88da913eb70ded49a36eca9ddd36"
+    },
+    "test/pty_unix_session_test.c": {
+      "original": "b2e5871f949f909514a33100dfee19305e6b4351ad30501852adb62d90328710",
+      "installed": "b2e5871f949f909514a33100dfee19305e6b4351ad30501852adb62d90328710"
+    },
+    "test/pty_unix_signal_state_test.c": {
+      "original": "422f0707f922df0155ec4a339eb8bb3a21f4071a17a9021216aa91bda30fde3f",
+      "installed": "422f0707f922df0155ec4a339eb8bb3a21f4071a17a9021216aa91bda30fde3f"
+    },
+    "test/pty_unix_spawn_test.c": {
+      "original": "94825d4d13ae694cdf9cd7963f06af278f1518693489dc2f1956c384797b73e0",
+      "installed": "94825d4d13ae694cdf9cd7963f06af278f1518693489dc2f1956c384797b73e0"
+    },
+    "test/pty_unix_startup_close_test.c": {
+      "original": "3c56343e2ebac4e2f2e307a7f44021000257c8afe51972767841f3b872a6a480",
+      "installed": "3c56343e2ebac4e2f2e307a7f44021000257c8afe51972767841f3b872a6a480"
+    },
+    "test/pty_windows_commandline_test.c": {
+      "original": "9e4be3a63642708dc62e371bab0b50f92667ac9b4fcce9bf8955d45463d6f14f",
+      "installed": "9e4be3a63642708dc62e371bab0b50f92667ac9b4fcce9bf8955d45463d6f14f"
+    },
+    "test/pty_windows_environment_test.c": {
+      "original": "22278051ae6ef6fcf8f272b4bebc9936687a1c3047f8baeffff7001ed970d319",
+      "installed": "22278051ae6ef6fcf8f272b4bebc9936687a1c3047f8baeffff7001ed970d319"
+    },
+    "test/pty_windows_finalizer_test.c": {
+      "original": "65199c6633d13859d17b649c706ac81249b1e6df223b73adb0ee09dd3595575b",
+      "installed": "65199c6633d13859d17b649c706ac81249b1e6df223b73adb0ee09dd3595575b"
+    },
+    "test/pty_windows_session_stress_test.c": {
+      "original": "545dd7aef198f00703b2b90be4e199f69b40f1243dcf2e5e68d24faa573fbeb7",
+      "installed": "545dd7aef198f00703b2b90be4e199f69b40f1243dcf2e5e68d24faa573fbeb7"
+    },
+    "test/pty_windows_session_test.c": {
+      "original": "c2baf03889ee3706ce5c68770cacab946412069466a5e89a4f2d207eb71ec024",
+      "installed": "c2baf03889ee3706ce5c68770cacab946412069466a5e89a4f2d207eb71ec024"
+    },
+    "test/pty_write_queue_test.c": {
+      "original": "a3ce25cedc1d9bf9cb86ed53a1bd15a2c5dc28631dbbbe4bf681db9b18322e50",
+      "installed": "a3ce25cedc1d9bf9cb86ed53a1bd15a2c5dc28631dbbbe4bf681db9b18322e50"
+    },
+    "test/public_api_models_test.dart": {
+      "original": "3e766943974026bee369856c57c22dbdbf6be00233642aefed241b52e736130c",
+      "installed": "3e766943974026bee369856c57c22dbdbf6be00233642aefed241b52e736130c"
+    },
+    "tool/check_unix_child_path.py": {
+      "original": "954b22e47b5a63d0047ccfe7babe5e0bd8fdfeb3c81ac5440949fb61d7bcdb28",
+      "installed": "954b22e47b5a63d0047ccfe7babe5e0bd8fdfeb3c81ac5440949fb61d7bcdb28"
+    }
+  },
+  "extra": {
+    "QA-PATCH.md": "6a2d98f0c5e97b28cb948e3550d27c379f6e23cde0db1f1d150ba66f368a569e"
+  }
+}

@@ -1,0 +1,9 @@
+{{! OpenAPI Generator 7.26.0 dart-dio constructor template: collection defaults require Dart const. }}
+  /// Returns a new [{{{classname}}}] instance.
+  {{{classname}}}({
+  {{#vars}}
+    {{^required}}{{#useOptional}}this.{{{name}}}{{#defaultValue}} = const Optional.present({{{defaultValue}}}){{/defaultValue}}{{^defaultValue}} = const Optional.absent(){{/defaultValue}},{{/useOptional}}{{/required}}
+    {{^required}}{{^useOptional}}this.{{{name}}}{{#defaultValue}} = {{#isContainer}}const {{/isContainer}}{{#isEnum}}{{^isContainer}}const {{{enumName}}}._({{/isContainer}}{{/isEnum}}{{{defaultValue}}}{{#isEnum}}{{^isContainer}}){{/isContainer}}{{/isEnum}}{{/defaultValue}},{{/useOptional}}{{/required}}
+    {{#required}}{{^defaultValue}}required {{/defaultValue}}this.{{{name}}}{{#defaultValue}} = {{#isContainer}}const {{/isContainer}}{{#isEnum}}{{^isContainer}}const {{{enumName}}}._({{/isContainer}}{{/isEnum}}{{{defaultValue}}}{{#isEnum}}{{^isContainer}}){{/isContainer}}{{/isEnum}}{{/defaultValue}},{{/required}}
+  {{/vars}}
+  });

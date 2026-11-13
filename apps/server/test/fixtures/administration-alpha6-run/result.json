@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "qa.result/v1",
+  "runId": "run_baa763f4-38d6-4810-a032-c42b53578482",
+  "attempt": 1,
+  "status": "finished",
+  "outcome": "passed",
+  "startedAt": "2026-10-31T08:00:07.642Z",
+  "finishedAt": "2026-10-31T08:00:09.606Z",
+  "artifacts": [],
+  "executed": {
+    "engineVersion": "0.1.0-alpha.6",
+    "platform": "web",
+    "flowSnapshotHash": "sha256:ff9904c4e5cda3f7af647461d4e5316bf481b57d0f7b6c0cc3dc3e6fc5ad49fc",
+    "blueprintSnapshotHash": "sha256:8eaebaac20c85466a1e7e94720346bbd14868cb6359f9d457ddf15892c66922a"
+  },
+  "visitedNodes": [
+    "start",
+    "open",
+    "repeat_7d1f3fbe7dc0c47ba19add52e06772cd5d735394dac41a351655ee360103cd73",
+    "repeat_f0fc452c7c8b6b39d75cc0055856669f77c7258a45c403ff2c57191c8123196d",
+    "repeat_9fe6b46a27c87ed96565e00c29d5eb094b4515e8a42111f6e70b07db79902b90",
+    "capture",
+    "input",
+    "checkValue",
+    "end"
+  ],
+  "unvisitedNodes": [],
+  "cleanupErrors": []
+}
