@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": [
+    "home is the initial surface",
+    "three local projects",
+    "project QA selection details",
+    "disconnected state",
+    "published is not personal assignment",
+    "no page overflow",
+    "receipt opens editable direct XML without Engine run",
+    "dirty navigation asks save discard cancel",
+    "received copy preserves origin and edit status",
+    "reload returns home",
+    "saved receipt and edits reopen",
+    "repeat receipt offers existing copy",
+    "original XML block editor preserved",
+    "no JavaScript errors"
+  ],
+  "viewports": [
+    "1440x900",
+    "1024x768"
+  ],
+  "scope": "Local design prototype only; no server or Engine execution"
+}

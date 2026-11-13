@@ -1,0 +1,22 @@
+[
+  {
+    "kind": "terminal",
+    "exitCode": 0,
+    "output": "PASS 43 terminal checks"
+  },
+  {
+    "kind": "home",
+    "exitCode": 0,
+    "output": "PASS 14 checks"
+  },
+  {
+    "kind": "editor",
+    "exitCode": 0,
+    "output": "PASS 16 checks"
+  },
+  {
+    "kind": "portal",
+    "exitCode": 0,
+    "output": "{\"status\":\"passed\",\"checks\":94,\"errors\":[]}"
+  }
+]

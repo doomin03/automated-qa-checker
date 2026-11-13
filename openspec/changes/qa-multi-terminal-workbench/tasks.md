@@ -31,6 +31,11 @@
 - [x] 5.1 최종 source에서 app:analyze/app:test 및 저장소 verify/strict/경계 검증을 실행하고 실제 exit와 기존 재사용 증거/환경 제한을 구분한다.
 - [x] 5.2 별도 Windows Release/build·소스/의존/전체파일 manifest·native startup, 기존 목업/294파일·runtime/Release 보존과 사용 안내를 완성하고 관리 인수를 기록한다.
 
+## 6. Dock design follow-up (2026-11-13)
+
+- [x] 승인된 VS Code 스타일 목업을 Flutter 터미널 도크에 적용하고 PTY와 작성자 수명을 보존한다.
+- [x] 아이콘/메뉴 액션, controller 보존, 작은 화면/큰 글자와 준비 진단 회귀 13개 PASS, analyzer 및 Windows Release build PASS. 초기 overflow 실패·로컬 SDK/asset·전체 verify 제한은 docs/validation-terminal-dock-design.md에 기록한다.
+
 ## 현재 완료 근거
 
 - 1.1/1.3: `app-tests-final`의 pool 최대8/제거 후 슬롯복구·구독 분리 및 기존 native20세션/부모 선종료 자식 정리 PASS, `spawn-close-final` 실제 지연 spawn 중 close/dispose 소유 PID 종료 PASS. full 전체 exit는 아래 통합 인수와 별도로 구분한다.

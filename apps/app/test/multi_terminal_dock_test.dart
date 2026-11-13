@@ -94,6 +94,18 @@ void main() {
     final again=tester.widget<TerminalView>(find.byKey(ValueKey('interactive-terminal-${a.id}')));
     expect(again.controller,same(av.controller));expect(again.scrollController,same(av.scrollController));
     expect(again.scrollController!.offset,offset);
+    // The compact icon toolbar must still operate the selected real session.
+    expect(find.byTooltip('새 세션'), findsOneWidget);
+    expect(find.byTooltip('선택 종료'), findsOneWidget);
+    await tester.tap(find.byTooltip('세션 메뉴'));await tester.pumpAndSettle();
+    await tester.tap(find.text('Ctrl+C'));await tester.pumpAndSettle();
+    expect(services[1].inputs, contains('\x03'));
+    expect(services[0].inputs, isNot(contains('\x03')));
+    await tester.tap(find.byKey(const Key('terminal-toggle')));await tester.pumpAndSettle();
+    expect(find.byType(TerminalView), findsNothing);
+    expect(services.every((s)=>s.alive), true);
+    await tester.tap(find.byKey(const Key('terminal-toggle')));await tester.pumpAndSettle();
+    expect(tester.widget<TerminalView>(find.byKey(ValueKey('interactive-terminal-${b.id}'))).controller, same(bv.controller));
     await tester.runAsync(pool.closeAll);
     await tester.pumpWidget(const SizedBox());await tester.pump();
     engine.dispose();documents.dispose();await tester.runAsync(()=>folder.delete(recursive:true));

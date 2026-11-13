@@ -155,7 +155,7 @@ class _TerminalDockState extends State<TerminalDock> {
                 child: LayoutBuilder(
                   builder: (context, c) => TerminalDock._dialog(
                     _handles,
-                    maxHeight: c.maxHeight - workbenchLineHeight(context) - 6,
+                    maxHeight: c.maxHeight - workbenchLineHeight(context, 44) - 6,
                     onOpenQa: widget.onOpenQa,
                     onDirectDocument: widget.onDirectDocument,
                   ),
@@ -291,176 +291,292 @@ class _TerminalDockState extends State<TerminalDock> {
     final compact = !widget.inDialog && MediaQuery.sizeOf(context).height < 700;
     final open = _open && !widget.collapsed && !compact && !_dialogOpen;
     final selected = vm.selected;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Focus(
-          onKeyEvent: (_, event) {
-            if (event is! KeyDownEvent) return KeyEventResult.ignored;
-            if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-              _resize(24);
-              return KeyEventResult.handled;
-            }
-            if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
-              _resize(-24);
-              return KeyEventResult.handled;
-            }
-            if (event.logicalKey == LogicalKeyboardKey.home) {
-              setState(() {
-                _height = 160;
-                _maximized = false;
-              });
-              return KeyEventResult.handled;
-            }
-            if (event.logicalKey == LogicalKeyboardKey.end) {
-              setState(() => _maximized = true);
-              return KeyEventResult.handled;
-            }
-            return KeyEventResult.ignored;
-          },
-          child: Semantics(
-            label: '터미널 높이 조절',
-            value: '${_height.round()}',
-            focusable: true,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.resizeUpDown,
-              child: GestureDetector(
-                onVerticalDragUpdate: (event) => _resize(-event.delta.dy),
-                child: Container(
-                  key: const Key('terminal-resize'),
-                  height: 6,
-                  color: const Color(0xff414141),
+    return ColoredBox(
+      color: const Color(0xff1e1e1e),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Focus(
+            onKeyEvent: (_, event) {
+              if (event is! KeyDownEvent) return KeyEventResult.ignored;
+              if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+                _resize(24);
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+                _resize(-24);
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == LogicalKeyboardKey.home) {
+                setState(() {
+                  _height = 160;
+                  _maximized = false;
+                });
+                return KeyEventResult.handled;
+              }
+              if (event.logicalKey == LogicalKeyboardKey.end) {
+                setState(() => _maximized = true);
+                return KeyEventResult.handled;
+              }
+              return KeyEventResult.ignored;
+            },
+            child: Semantics(
+              label: '터미널 높이 조절',
+              value: '${_height.round()}',
+              focusable: true,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.resizeUpDown,
+                child: GestureDetector(
+                  onVerticalDragUpdate: (event) => _resize(-event.delta.dy),
+                  child: Container(
+                    key: const Key('terminal-resize'),
+                    height: 6,
+                    color: const Color(0xff414141),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: workbenchLineHeight(context),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: widget.inDialog
-                      ? null
-                      : () {
-                          if (open) {
-                            setState(() => _open = false);
-                          } else {
-                            _openDock(compact);
-                          }
-                        },
-                  child: Text(open ? '터미널 접기' : '터미널 열기'),
-                ),
-                TextButton(
-                  key: const Key('terminal-add'),
-                  onPressed: vm.canStart ? () => _add(vm, compact) : null,
-                  child: const Text('새 세션'),
-                ),
-                TextButton(
-                  onPressed: vm.sessions.length > 1 ? vm.toggleSplit : null,
-                  child: Text(vm.split ? '분할 해제' : '분할'),
-                ),
-                TextButton(
-                  onPressed: widget.inDialog ? null : _showPanel,
-                  child: const Text('확대'),
-                ),
-                TextButton(
-                  onPressed: selected.session == null
-                      ? null
-                      : () => _rename(vm),
-                  child: const Text('이름'),
-                ),
-                TextButton(
-                  onPressed: selected.active
-                      ? () => selected.input('\x03')
-                      : null,
-                  child: const Text('Ctrl+C'),
-                ),
-                TextButton(
-                  key: const Key('terminal-close'),
-                  onPressed: selected.active ? selected.close : null,
-                  child: const Text('선택 종료'),
-                ),
-                TextButton(
-                  onPressed:
-                      selected.session != null &&
-                          !selected.active &&
-                          !selected.service.cleanupUnknown
-                      ? () => vm.remove(selected.id)
-                      : null,
-                  child: const Text('목록에서 제거'),
-                ),
-                Text(
-                  '${vm.sessions.length}/8 · ${_stateLabel(selected.service.state)}',
-                  key: const Key('terminal-status'),
-                ),
-              ],
-            ),
-          ),
-        ),
-        if (open)
           SizedBox(
-            height: widget.inDialog
-                ? widget.maxHeight.clamp(100, 900)
-                : (_maximized ? widget.maxHeight : _height).clamp(
-                    100,
-                    widget.maxHeight.clamp(100, 900),
-                  ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: workbenchLineHeight(context),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        for (final item in vm.sessions)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: ChoiceChip(
-                              selected: selected.id == item.id,
-                              label: Text(
-                                '${item.displayName}${vm.isWriter(item) ? ' · 작성' : ' · 검토'}${item.qaIdentity == vm.identity ? '' : ' · 다른 QA'}',
+            height: workbenchLineHeight(context, 44),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: open
+                                      ? const Color(0xff007acc)
+                                      : Colors.transparent,
+                                  width: 2,
+                                ),
                               ),
-                              onSelected: (_) => vm.select(item.id),
+                            ),
+                            child: TextButton(
+                              key: const Key('terminal-toggle'),
+                              style: TextButton.styleFrom(
+                                foregroundColor: const Color(0xffcccccc),
+                                shape: const RoundedRectangleBorder(),
+                                minimumSize: const Size(0, 40),
+                                textStyle: const TextStyle(fontSize: 12),
+                              ),
+                              onPressed: widget.inDialog
+                                  ? null
+                                  : () {
+                                      if (open) {
+                                        setState(() => _open = false);
+                                      } else {
+                                        _openDock(compact);
+                                      }
+                                    },
+                              child: Text(open ? '터미널 접기' : '터미널 열기'),
                             ),
                           ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              '${vm.sessions.length}/8 · ${_stateLabel(selected.service.state)}',
+                              key: const Key('terminal-status'),
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Color(0xffaaaaaa),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, bounds) {
-                      final second = vm.split && bounds.maxWidth >= 720
-                          ? vm.secondary
-                          : null;
-                      return Row(
-                        children: [
-                          Expanded(
-                            key: ValueKey('split-${selected.id}'),
-                            child: _pane(vm, selected),
-                          ),
-                          if (second != null) ...[
-                            const VerticalDivider(width: 1),
-                            Expanded(
-                              key: ValueKey('split-${second.id}'),
-                              child: _pane(vm, second),
-                            ),
-                          ],
-                        ],
-                      );
-                    },
+                  _tool(
+                    key: const Key('terminal-add'),
+                    tooltip: '새 세션',
+                    icon: Icons.add,
+                    onPressed: vm.canStart ? () => _add(vm, compact) : null,
                   ),
-                ),
-              ],
+                  _tool(
+                    tooltip: vm.split ? '분할 해제' : '분할',
+                    icon: Icons.vertical_split_outlined,
+                    onPressed: vm.sessions.length > 1 ? vm.toggleSplit : null,
+                    selected: vm.split,
+                  ),
+                  _tool(
+                    tooltip: '확대',
+                    icon: Icons.open_in_full,
+                    onPressed: widget.inDialog ? null : _showPanel,
+                  ),
+                  _tool(
+                    key: const Key('terminal-close'),
+                    tooltip: '선택 종료',
+                    icon: Icons.delete_outline,
+                    onPressed: selected.active ? selected.close : null,
+                  ),
+                  PopupMenuButton<String>(
+                    key: const Key('terminal-menu'),
+                    tooltip: '세션 메뉴',
+                    icon: const Icon(
+                      Icons.more_horiz,
+                      size: 18,
+                      color: Color(0xffcccccc),
+                    ),
+                    constraints: const BoxConstraints(minWidth: 180),
+                    color: const Color(0xff252526),
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Color(0xff454545)),
+                    ),
+                    onSelected: (action) {
+                      switch (action) {
+                        case 'rename':
+                          _rename(vm);
+                        case 'interrupt':
+                          selected.input('\x03');
+                        case 'remove':
+                          vm.remove(selected.id);
+                      }
+                    },
+                    itemBuilder: (_) => [
+                      PopupMenuItem(
+                        value: 'rename',
+                        enabled: selected.session != null,
+                        child: const Text('이름 변경'),
+                      ),
+                      PopupMenuItem(
+                        value: 'interrupt',
+                        enabled: selected.active,
+                        child: const Text('Ctrl+C'),
+                      ),
+                      PopupMenuItem(
+                        value: 'remove',
+                        enabled:
+                            selected.session != null &&
+                            !selected.active &&
+                            !selected.service.cleanupUnknown,
+                        child: const Text('목록에서 제거'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-      ],
+          if (open)
+            SizedBox(
+              height: widget.inDialog
+                  ? widget.maxHeight.clamp(100, 900)
+                  : (_maximized ? widget.maxHeight : _height).clamp(
+                      100,
+                      widget.maxHeight.clamp(100, 900),
+                    ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: workbenchLineHeight(context),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for (final item in vm.sessions)
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: selected.id == item.id
+                                    ? const Color(0xff252526)
+                                    : Colors.transparent,
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: selected.id == item.id
+                                        ? const Color(0xff007acc)
+                                        : Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                              child: Semantics(
+                                selected: selected.id == item.id,
+                                child: TextButton(
+                                  key: ValueKey('terminal-tab-${item.id}'),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: const Color(0xffcccccc),
+                                    shape: const RoundedRectangleBorder(),
+                                    textStyle: const TextStyle(fontSize: 12),
+                                  ),
+                                  onPressed: () => vm.select(item.id),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.circle,
+                                        size: 6,
+                                        color: item.active
+                                            ? const Color(0xff89b395)
+                                            : const Color(0xff858585),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '${item.displayName}${vm.isWriter(item) ? ' · 작성' : ' · 검토'}${item.qaIdentity == vm.identity ? '' : ' · 다른 QA'}',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, bounds) {
+                        final second = vm.split && bounds.maxWidth >= 720
+                            ? vm.secondary
+                            : null;
+                        return Row(
+                          children: [
+                            Expanded(
+                              key: ValueKey('split-${selected.id}'),
+                              child: _pane(vm, selected),
+                            ),
+                            if (second != null) ...[
+                              const VerticalDivider(width: 1),
+                              Expanded(
+                                key: ValueKey('split-${second.id}'),
+                                child: _pane(vm, second),
+                              ),
+                            ],
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
+
+  Widget _tool({
+    Key? key,
+    required String tooltip,
+    required IconData icon,
+    required VoidCallback? onPressed,
+    bool selected = false,
+  }) => IconButton(
+    key: key,
+    tooltip: tooltip,
+    onPressed: onPressed,
+    icon: Icon(icon, size: 18),
+    color: selected ? const Color(0xff75beff) : const Color(0xffcccccc),
+    disabledColor: const Color(0xff656565),
+    padding: const EdgeInsets.all(6),
+    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+    visualDensity: VisualDensity.compact,
+  );
 
   Widget _pane(TerminalWorkbenchViewModel vm, TerminalSessionViewModel item) {
     final h = _handle(item.id), current = item.qaIdentity == vm.identity;

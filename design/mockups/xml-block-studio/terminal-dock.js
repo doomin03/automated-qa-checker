@@ -13,10 +13,10 @@
   const pin='alpha.8 / 0.3.0-draft.2 / 고정 schema 예시';
   const dock=document.createElement('section');dock.id='terminal-dock';dock.className='collapsed';
   dock.innerHTML=`<div class="td-resize" role="separator" tabindex="0" aria-label="터미널 높이" aria-orientation="horizontal" aria-valuemin="160" aria-valuemax="500" aria-valuenow="280"></div>
-    <div class="td-toolbar" role="tablist" aria-label="하단 패널"><button data-td="tab" data-tab="terminal" role="tab" aria-selected="true">터미널</button><button data-td="tab" data-tab="output" role="tab" aria-selected="false">출력</button><button data-td="tab" data-tab="problems" role="tab" aria-selected="false">문제</button><button data-td="tab" data-tab="results" role="tab" aria-selected="false">결과</button><div class="td-tools"><button data-td="new" aria-label="새 터미널 세션" aria-expanded="false">＋ 새 세션</button><button data-td="split" aria-pressed="false">좌우 분할</button><button data-td="expand" aria-label="터미널 확대">확대</button><button data-td="collapse" aria-label="터미널 접기">접기</button></div></div>
-    <div class="td-content"><div class="td-message" role="status"></div><div class="td-sessionbar"><div class="td-sessions" role="tablist" aria-label="터미널 세션"></div><span class="td-other"></span><button data-td="session-menu" aria-label="선택 세션 메뉴" aria-expanded="false">세션 ⋯</button></div><div class="td-panes"></div><div class="td-context"></div></div>`;
+    <div class="td-toolbar"><div class="td-tabs" role="tablist" aria-label="하단 패널"><button id="td-tab-terminal" data-td="tab" data-tab="terminal" role="tab" aria-controls="td-panel" aria-selected="true"><span class="td-terminal-icon" aria-hidden="true">›_</span>터미널<span class="td-count" hidden>0</span></button><button id="td-tab-output" data-td="tab" data-tab="output" role="tab" aria-controls="td-panel" aria-selected="false" tabindex="-1">출력</button><button id="td-tab-problems" data-td="tab" data-tab="problems" role="tab" aria-controls="td-panel" aria-selected="false" tabindex="-1">문제</button><button id="td-tab-results" data-td="tab" data-tab="results" role="tab" aria-controls="td-panel" aria-selected="false" tabindex="-1">결과</button></div><div class="td-tools"><button class="td-new" data-td="new" aria-label="새 터미널 세션" aria-haspopup="dialog" aria-expanded="false">＋ 새 세션</button><span class="td-divider" aria-hidden="true"></span><button data-td="split" aria-pressed="false" title="터미널을 좌우로 나누기">좌우 분할</button><button data-td="expand" aria-label="터미널 확대">확대</button><button data-td="collapse" aria-label="터미널 접기" aria-controls="td-panel" aria-expanded="false">접기</button></div></div>
+    <div id="td-panel" class="td-content" role="tabpanel" aria-labelledby="td-tab-terminal"><div class="td-message" role="status"></div><div class="td-sessionbar"><span class="td-session-label">세션</span><div class="td-sessions" role="tablist" aria-label="터미널 세션"></div><span class="td-other"></span><button data-td="session-menu" aria-label="선택 세션 메뉴" aria-haspopup="dialog" aria-expanded="false">세션 ⋯</button></div><div class="td-panes"></div><div class="td-context"></div></div>`;
   const oldOutput=document.querySelector('.output');oldOutput.before(dock);oldOutput.remove();
-  const pop=document.createElement('section');pop.className='td-popover';pop.hidden=true;pop.setAttribute('aria-label','터미널 메뉴');document.body.append(pop);
+  const pop=document.createElement('section');pop.className='td-popover';pop.hidden=true;pop.setAttribute('role','dialog');pop.setAttribute('aria-label','터미널 메뉴');document.body.append(pop);
   const homeStrip=document.createElement('div');homeStrip.className='td-home-sessions';homeStrip.hidden=true;document.querySelector('#project-home').after(homeStrip);
   const content=dock.querySelector('.td-content'),paneArea=dock.querySelector('.td-panes'),sessionBar=dock.querySelector('.td-sessionbar'),context=dock.querySelector('.td-context');
   const notice=dock.querySelector('.td-message');oldOutput.hidden=true;content.append(oldOutput);
@@ -41,7 +41,11 @@
     const resize=dock.querySelector('.td-resize');resize.setAttribute('aria-valuenow',String(Math.round(actual)));resize.setAttribute('aria-valuemin',String(range.min));resize.setAttribute('aria-valuemax',String(expanded?range.large:range.max));
     dock.querySelector('[data-td=expand]').textContent=expanded?'복원':'확대';dock.querySelector('[data-td=expand]').setAttribute('aria-label',expanded?'터미널 복원':'터미널 확대');
     dock.querySelector('[data-td=collapse]').textContent=collapsed?'열기':'접기';dock.querySelector('[data-td=collapse]').setAttribute('aria-label',collapsed?'터미널 열기':'터미널 접기');
+    dock.querySelector('[data-td=collapse]').setAttribute('aria-expanded',String(!collapsed));
+    content.inert=collapsed;
+    content.setAttribute('aria-labelledby',`td-tab-${tab}`);
     dock.querySelector('[data-td=split]').setAttribute('aria-pressed',String(!!split));
+    dock.querySelectorAll('.td-tools button').forEach(b=>b.title=b.getAttribute('aria-label')||b.textContent);
     updatePanes();
   }
   function capturePane(s){const el=panes.get(s.id);if(!el?.isConnected||el.parentElement!==paneArea||tab!=='terminal'||collapsed)return;s.scroll=el.querySelector('.td-output').scrollTop;s.input=el.querySelector('input').value;}
@@ -62,28 +66,29 @@
     for(const [id,el]of panes){if(el.parentElement===paneArea&&!wanted.some(s=>s.id===id)){capturePane(sessions.find(s=>s.id===id));el.remove();}}
     paneArea.querySelector('.td-empty')?.remove();
     for(const s of wanted){const el=pane(s);if(el.parentElement!==paneArea){paneArea.append(el);el.querySelector('input').value=s.input;el.querySelector('.td-output').scrollTop=s.scroll||0;}updatePane(s);}
-    if(!wanted.length)paneArea.innerHTML='<div class="td-empty">이 QA의 터미널이 없습니다. 작성 도구 또는 일반 셸을 선택하세요.<br><button data-td="new">새 세션</button></div>';
+    if(!wanted.length)paneArea.innerHTML='<div class="td-empty"><span class="td-empty-icon" aria-hidden="true">›_</span><div><h3>이 QA에서 터미널 시작하기</h3><p>이 QA의 터미널이 없습니다. 작성 도구 또는 일반 셸을 선택하세요.</p><button class="td-new" data-td="new">＋ 새 세션</button><small>문서 반영 후 QA는 실행 버튼으로 시작합니다.</small></div></div>';
     const owner=writerFor(identity());context.innerHTML=selected?`<span title="${esc(selected.project+' / '+selected.qa)}">${esc(selected.project)} / ${esc(selected.qa)}</span><span class="td-path" title="${esc(selected.cwd)}">시작 경로: ${esc(selected.cwd)}</span><span>${selected.writer?'자동 반영 작성자':'사본 / 검토'}</span>${splitSession&&!wide?'<span class="td-fallback">좁은 창 · 세션 탭으로 전환</span>':''}`:`<span>자동 반영 작성자: ${owner?esc(owner.name):'없음'}</span>`;
   }
   function renderSessions(){
     const own=ownSessions();if(!own.some(s=>s.id===active))active=own[0]?.id||null;
-    dock.querySelector('.td-sessions').innerHTML=own.map(s=>`<button class="td-session" role="tab" aria-selected="${s.id===active}" data-td="select" data-id="${s.id}" title="${esc(s.name+' / '+s.qa)}">${esc(s.name)}<small>${s.writer?'작성자':processName(s)}</small></button>`).join('');
+    dock.querySelector('.td-sessions').innerHTML=own.map(s=>`<button class="td-session" role="tab" tabindex="${s.id===active?0:-1}" aria-selected="${s.id===active}" data-td="select" data-id="${s.id}" title="${esc(s.name+' / '+s.qa)}"><span class="td-dot" data-process="${s.process}" aria-hidden="true"></span><span class="td-session-name">${esc(s.name)}</span><small>${s.writer?'작성자':processName(s)}</small></button>`).join('');
+    const count=dock.querySelector('.td-count');count.textContent=String(own.length);count.hidden=!own.length;
     const other=sessions.filter(s=>s.document!==identity()&&alive(s));dock.querySelector('.td-other').textContent=other.length?`다른 문서 ${other.length}개 세션`:'';
     dock.querySelector('[data-td=session-menu]').disabled=!current();dock.querySelector('[data-td=split]').disabled=own.length<2;
     updatePanes();
   }
   function showTab(next){
     for(const s of sessions)capturePane(s);tab=next;collapsed=false;dock.classList.remove('collapsed');
-    dock.querySelectorAll('[data-td=tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));
+    dock.querySelectorAll('[data-td=tab]').forEach(b=>{b.setAttribute('aria-selected',String(b.dataset.tab===tab));b.tabIndex=b.dataset.tab===tab?0:-1;});
     paneArea.replaceChildren();paneArea.hidden=tab==='output';oldOutput.hidden=tab!=='output';sessionBar.hidden=tab!=='terminal';context.hidden=tab!=='terminal';
     if(tab==='terminal')renderSessions();
     if(tab==='problems'){paneArea.innerHTML='<div class="td-simple"><h3>문서 검증</h3><p>실제 Engine 검증을 실행하지 않았습니다. 세션 메뉴의 작성 흐름 예시에서 오류와 충돌 상태를 검토하세요.</p></div>';}
     if(tab==='results')paneArea.innerHTML='<div class="td-simple"><h3>아직 실행 결과가 없습니다</h3><p>터미널 준비와 문서 반영은 QA 실행이 아닙니다. 실제 검증·명시 실행·결과는 Windows 앱에서 제공합니다.</p></div>';
     layout();
   }
-  function closeMenu(restore=true){pop.hidden=true;dock.querySelectorAll('[aria-expanded]').forEach(b=>b.setAttribute('aria-expanded','false'));if(restore&&trigger?.isConnected)trigger.focus();}
+  function closeMenu(restore=true){pop.hidden=true;dock.querySelectorAll('[aria-haspopup]').forEach(b=>b.setAttribute('aria-expanded','false'));if(restore&&trigger?.isConnected)trigger.focus();}
   function menu(html,source){closeMenu(false);trigger=source||document.activeElement;trigger?.setAttribute?.('aria-expanded','true');pop.innerHTML=html+'<button data-td="close-menu">닫기</button>';pop.hidden=false;const r=dock.getBoundingClientRect();pop.style.bottom=`${Math.max(12,innerHeight-r.top+8)}px`;if(pop.getBoundingClientRect().top<8)pop.style.bottom='40px';pop.querySelector('input,button')?.focus();}
-  function newMenu(source){menu('<h3>새 터미널 세션</h3>'+Object.entries(profiles).map(([id,p])=>`<button data-td="create" data-provider="${id}">${p.name}<small>${p.ready?'준비 완료 예시': '설정 필요 예시 · CLI와 로그인 확인'}</small></button>`).join(''),source);}
+  function newMenu(source){menu('<span class="td-eyebrow">새 작업 환경</span><h3>새 터미널 세션</h3><p>현재 QA에 사용할 도구를 선택하세요.</p>'+Object.entries(profiles).map(([id,p])=>`<button class="td-provider" data-td="create" data-provider="${id}"><span class="td-provider-icon" aria-hidden="true">${p.ai?'✳':'›_'}</span><span><strong>${p.name}</strong><small>${p.ready?'준비 완료 예시': '설정 필요 예시 · CLI와 로그인 확인'}</small></span><span class="td-provider-arrow" aria-hidden="true">›</span></button>`).join(''),source);}
   function create(provider){
     if(!opened)return;const p=profiles[provider];if(!p.ready){menu(`<h3>${p.name} 설정 필요</h3><p>실제 설치와 로그인은 확인하지 않았습니다. 아래 버튼은 준비된 화면 예시만 엽니다.</p><button data-td="ready" data-provider="${provider}">준비 완료 예시로 보기</button>`,trigger);return;}
     const d=docState(),project=projectBy(opened.p),qa=qaBy(opened.p,opened.q),id=`terminal-${++sequence}`;
@@ -131,6 +136,13 @@
     if(a==='return'&&homeReturn)openQa(homeReturn.projectId,homeReturn.qaId);
   });
   document.addEventListener('keydown',e=>{if(e.isComposing)return;if(e.key==='Escape'&&!pop.hidden){e.preventDefault();closeMenu();}if(e.key==='Enter'&&e.target.id==='td-rename'){e.preventDefault();pop.querySelector('[data-td=rename-save]').click();}});
+  dock.addEventListener('keydown',e=>{
+    if(e.isComposing||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+    const list=e.target.closest('[role=tablist]');if(!list||e.target.getAttribute('role')!=='tab')return;
+    e.preventDefault();const buttons=[...list.querySelectorAll('[role=tab]')],index=buttons.indexOf(e.target);
+    const next=buttons[e.key==='Home'?0:e.key==='End'?buttons.length-1:(index+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length];
+    next.click();const target=next.dataset.id?dock.querySelector(`[data-td=select][data-id="${next.dataset.id}"]`):next;target?.focus();target?.scrollIntoView({block:'nearest',inline:'nearest'});
+  });
   const resize=dock.querySelector('.td-resize');let resizing=null;
   resize.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();expanded=false;collapsed=false;resizing={y:e.clientY,height:dock.getBoundingClientRect().height};dock.classList.add('dragging');resize.setPointerCapture(e.pointerId);resize.focus();});
   resize.addEventListener('pointermove',e=>{if(!resizing)return;const range=limits();height=Math.max(range.min,Math.min(range.max,resizing.height+resizing.y-e.clientY));layout();});

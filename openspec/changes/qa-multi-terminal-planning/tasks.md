@@ -11,3 +11,7 @@
 ## 3. Verification and review
 - [x] 3.1 Run focused interactions and existing home/editor/portal regressions; capture 1440/1024 and complete counterpart review.
 - [x] 3.2 Run strict/diff/repository verify, record limitations and manager acceptance without product execution claims.
+
+## 4. Dock design refactor (2026-11-13)
+- [x] 4.1 Refine lower panel tabs, session controls, provider menu and empty state in the HTML prototype.
+- [x] 4.2 Verify keyboard navigation, existing terminal/home/editor/portal interactions and 1440/1024/800 layouts; preserve prior evidence. See design/mockups/xml-block-studio/verification-dock-design*.json; repository verify blocked by a missing historical artifact link, not reported as passed.

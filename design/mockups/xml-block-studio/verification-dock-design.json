@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "scope": "HTML prototype only",
+  "checks": [
+    "1440: toolbar fits without overlapping tabs",
+    "1440: collapsed strip is 44px and content inert",
+    "1440: arrow opens output and moves focus",
+    "1440: End selects results",
+    "1440: Home restores terminal",
+    "1440: session keys preserve unsent input",
+    "1440: provider menu fits viewport",
+    "1440: Escape restores add button",
+    "1024: toolbar fits without overlapping tabs",
+    "1024: collapsed strip is 44px and content inert",
+    "1024: arrow opens output and moves focus",
+    "1024: End selects results",
+    "1024: Home restores terminal",
+    "1024: session keys preserve unsent input",
+    "1024: provider menu fits viewport",
+    "1024: Escape restores add button",
+    "800: toolbar fits without overlapping tabs",
+    "800: collapsed strip is 44px and content inert",
+    "800: arrow opens output and moves focus",
+    "800: End selects results",
+    "800: Home restores terminal",
+    "800: session keys preserve unsent input",
+    "800: provider menu fits viewport",
+    "800: Escape restores add button",
+    "no browser errors"
+  ],
+  "errors": []
+}

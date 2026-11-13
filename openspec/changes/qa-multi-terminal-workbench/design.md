@@ -70,4 +70,10 @@ counterpart `qa-reusable-document-authoring`의 확정 alpha.9 / execution 0.3.0
 
 ## Migration Plan
 
+### 2026-11-13 VS Code 스타일 도크 반영
+
+사용자가 목업의 앱 적용과 원격 push를 요청했다. 실제 `TerminalDock`의 표시만 목업에 맞춘다. #1e1e1e 배경, 44px 이상 패널 헤더, 파란 선택 밑줄과 평평한 세션 탭을 적용한다. 패널 열기와 세션 조작을 분리하고 우측 아이콘으로 추가·분할·확대·선택 종료·기타 메뉴를 제공한다. 이름 변경·Ctrl+C·종료 후 목록 제거는 기타 메뉴로 제공하며 도구에 툴팁과 접근성 이름을 유지한다. 선택 종료는 기존 close 액션이고 패널 접기는 세션을 종료하지 않는다.
+
+실제 PTY spawn/input/output/cleanup, 세션별 controller·scroll·clipboard 소유, writer·QA·revision 보호와 준비 진단을 보존한다. 실제 실행을 모방하는 출력/문제/결과 탭을 추가하지 않는다. 기존 dock/adaptive/readiness 회귀와 analyzer/build를 가능한 환경에서 실행하고 결과와 환경 제한을 기록한다. 이번 PC의 SDK·런타임 설정과 이전 PC의 Release 인수를 구분한다.
+
 구현은 세션 pool/순수 writer 규칙 → D08 도크와 실제 Windows 두 PTY → 검증된 Engine 작성 계약 소비 순서로 진행했다. 의미·sourceMap·직접 XML 실행 회귀를 유지한다. 별도 Release `artifacts/releases/desktop-multi-terminal-alpha9`에 full folder/소스·SDK·vendor·설정 SHA/launch와 캡처를 남긴다. rollback은 보존된 기존 Release 사용이며 사용자 workspace/자격증명을 되돌리거나 삭제하지 않는다. 완료한 목업 change와 관리 preservation 294파일은 수정하지 않는다.
